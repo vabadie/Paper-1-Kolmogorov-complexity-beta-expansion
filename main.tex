@@ -31,6 +31,8 @@ We establish a relationship between the algorithmic (Kolmogorov) complexity of t
 
 \tableofcontents
 
+
+
 \section{Introduction}
 
 \noindent Measuring the complexity of real numbers is of major importance in computer science. Consider a non-computable real number $s$, i.e., a real number which cannot be stored on a computer \cite[Section 10]{copeland2004computable}. One can store only an approximation of $s$, for instance by considering a finite length bitstring $y$ representing a prefix $x$ of the binary expansion $\xf$ of $s$. For a fixed approximation error $\varepsilon>0$, the required length of $y$, as a function of $\varepsilon$, depends on the \textit{algorithmic complexity} of the prefix $x$ of the binary expansion achieving error $\varepsilon$. The \textit{algorithmic complexity} of a binary sequence $x$, often referred to as \textit{Kolmogorov complexity}, is the length of the smallest binary sequence $y$, for which there exists an algorithm, such that when presented with $y$ as input, delivers $x$ as output \cite[Definition 10.1]{balcazar2012structural}\cite[Section 14.2]{cover1999elements}\cite[Definition 2.1.2]{li2008introduction}. The algorithmic complexity of the binary expansions of real numbers has been widely studied, but the algorithmic complexity of expansions in bases other than $2$ remains poorly understood. Several papers have established an equivalence between the algorithmic complexity of the expansions in different bases $q \in \N$ \cite[Theorem 6.1]{calude2005randomness}\cite[Theorem 5.1]{hertling1998randomness}\cite[Theorem 3]{staiger2002kolmogorov}. Here, we study the algorithmic complexity of expansions in noninteger bases, which display a much more sophisticated behavior. This type of expansions, often referred to as $\beta$-expansions \cite[(1)]{parry1960beta}\cite[Section 4]{renyi1957representations}, have been studied widely in the literature in the context of dynamical systems \cite[Example 1.2.3]{dajani2002ergodic}\cite{dajani2002greedy}\cite{dajani2003random}. We find a relation between the algorithmic complexity of expansions in noninteger bases and the algorithmic complexity of expansions in base $2$.
@@ -117,12 +119,8 @@ This establishes that $\xf' = x 0  1^\infty$ is also a binary expansion of $s$. 
       \item $r = 0 < 0.5$, so $b \gets 0$, $x \gets 110 b = 1100$, $r \gets 2 r - b = 2\times 0 - 0 = 0$, the algorithm exits the \textbf{for} loop, as $i = 4 = n$.
       \item The algorithm returns $x = 1100$.
   \end{enumerate}
-Algorithm \ref{alg:greedy algorithm binary expansion} is therefore seen to, indeed, generate the first $n=4$ bits of the greedy binary expansion of $s=0.75$. The variable $r$ in Algorithm \ref{alg:greedy algorithm binary expansion} is seen to be the approximation error of the real number $s$ by the successive finite prefixes of its greedy expansion. To generate the lazy binary expansion, instead one only needs to change the condition $r < 0.5$ at line \ref{alg1:line 4} of Algorithm \ref{alg:greedy algorithm binary expansion} to $r \leq 0.5$ \cite[Section 2]{dajani2002greedy}.
-
-% CHANGE THE STORY TO TALK ABOUT BASE 10
-
-% We here make two important remarks. First, note that the above algorithm translates a number written in base $10$. Note that the operations involved in Algorithm \ref{alg:greedy algorithm binary expansion} are of very simple nature, and hence easily implemented on a digital computer, except the condition $r < 0.5$ at line \ref{alg1:line 4}. $r$ might be extremely close to $0.5$, so that the precision required to assert if it is lower or greater that $0.5$ is too thin. Actually, if $r = 0.5$, then a digital computer might never be able to tell if indeed the number is lower or greater that $0.5$, as this would require infinite precision.
-
+Algorithm \ref{alg:greedy algorithm binary expansion} is therefore seen to, indeed, generate the first $n=4$ bits of the greedy binary expansion of $s=0.75$. The variable $r$ in Algorithm \ref{alg:greedy algorithm binary expansion} is seen to be the approximation error of the real number $s$ by the successive finite prefixes of its greedy expansion. To generate the lazy binary expansion, instead one only needs to change the condition $r < 0.5$ in line \ref{alg1:line 4} of Algorithm \ref{alg:greedy algorithm binary expansion} to $r \leq 0.5$ \cite[Section 2]{dajani2002greedy}.
+  
 \subsection{\texorpdfstring{$\beta$-expansions}{}}
   
 Binary expansions are not the only way to represent real numbers as infinite sequences of bits. One can replace the base 2 in $s = \sum_{i=1}^\infty \xf_i 2^{-i}$ by $\beta \in (1,2]$ to get so-called $\beta$-expansions, i.e., representations of real numbers as sums of negative powers of $\beta$, originally introduced in \cite[Section 4, Example 4]{renyi1957representations}. The set of real numbers that can be represented by $\beta$-expansions is larger: while every real number in $[0,1]$ can be represented by a binary expansion, it turns out that for $\beta \in (1,2]$, every number in $I_\beta := [0, (\beta-1)^{-1}]$ can be represented by a $\beta$-expansion \cite[Section 1]{dajani2002greedy}. Note that $I_2 = [0,1]$, so this is consistent with the binary case. 
@@ -346,7 +344,7 @@ In this paper, we manipulate infinite binary sequences. Hopefully, algorithmic c
   \begin{equation}\label{eq:Kolmogorov complexity sqrt m 2 binary expansion}
       \left|K [\xf'_{1: k}] - K[\xf_{1: \lceil k/m \rceil}]\right| < c,
   \end{equation}
-  with $c$ independent of $k$. The main contribution of this paper is to prove that (\ref{eq:Kolmogorov complexity sqrt m 2 binary expansion}) can be generalized to all computable number $\beta \in (1,2]$.  The statement we will prove is the following.
+  with $c$ independent of $k$. The first contribution of this paper is to prove that (\ref{eq:Kolmogorov complexity sqrt m 2 binary expansion}) can be generalized to all computable number $\beta \in (1,2]$.
   \begin{theorem}\label{thm:informal equivalence kolmogorov complexity computable}
   Let $s \in [0,1]$ and let $\beta \in (1,2]$ be a computable number. Let $\xf$ be a binary expansion of $s$. Then, there exists a $\beta$-expansion of $s$, denoted by $\xf'$, such that
   \begin{equation}\label{eq:equivalence kolmogorov complexity binary beta expansions}
@@ -354,6 +352,10 @@ In this paper, we manipulate infinite binary sequences. Hopefully, algorithmic c
   \end{equation}
   where $c$ is a constant independant of $n$.
   \end{theorem}
+  Moreover, we will prove that if $\beta \in (G,2]$, there are infinitely many such $\beta$-expansions. We denote by $K_\beta(s)$ the set of $\beta$-expansions satisfying (\ref{eq:equivalence kolmogorov complexity binary beta expansions})
+  \begin{theorem}
+	Let $s \in [0,1]$ and let $\beta \in (G,2]$ be a computable number. Then, $ \# K_\beta(s) = \infty$.
+	\end{theorem}
   The above result is established contructively by introducing a dynamical system to generate a $\beta$-expansion of a given number $s \in [0,1]$ from one of its binary expansions. We emphasize the fact that this results holds for only one $\beta$-expansion, which represents a first milestone towards understanding the links between algorithmic complexity and the redundancy displayed by $\beta$-expansions. The dynamical system used in the proof of Theorem \ref{thm:informal equivalence kolmogorov complexity computable} will turn very handy extend the above result to infinitely many different $\beta$-expansions in a future paper.
 
   Note that setting $\beta= \sqrt[m]{2}$ in (\ref{eq:equivalence kolmogorov complexity binary beta expansions}) recovers (\ref{eq:Kolmogorov complexity sqrt m 2 binary expansion}) as a special case. The multiplicative constant $\log_2(\beta)$ can be interpreted as follows. As the first $n$ bits of a $\beta$-expansion of $s \in [0,1]$ approximate $s$ to within an error of $\beta^{-n}$, one needs the first $n \log_2(\beta)$ bits of a binary expansion $\xf$ of $s$ suffice to describe $s$ to within the same approximation error $2^{-n\log_2(\beta)} = \beta^{-n}$.
@@ -1345,7 +1347,7 @@ Note that in the above equation, $\varepsilon_i$ depends on $\xf_{1:Ni}$. The dy
 	\tag{\text{$\mathcal E_N$}}
 \end{equation}
 where $\varepsilon_N(x, t_1, t_2 , i) := t_2^{Ni}\left(\delta_{t_1}(x) - \delta_{t_2}(x)\right)$, for all $x \in \{0,1\}^\ast$, $t_1,t_2 \in (1,2)$ and $i \in \N_0$.
-Similarly as for $E_\beta^N$, when presented with inputs $\ssf = s_0s_1 \in  I_\beta^\omega$ and $\betaf = \beta_0\beta_1 \in  (1,2)^\omega$, we can see $\EE_N$ as a mapping $ \bigcup_{n \in \N_0} \left(I_\beta^n \times (1,2)^n\right) \to \{0,1\}^n$ by $\EE_N(\epsilon, \epsilon) := \epsilon$ and
+Similarly as for $E_\beta^N$, when presented with inputs $\ssf = s_0s_1\ldots \in  I_\beta^\omega$ and $\betaf = \beta_0\beta_1\ldots \in  (1,2)^\omega$, we can see $\EE_N$ as a mapping $ \bigcup_{n \in \N_0} \left(I_\beta^n \times (1,2)^n\right) \to \{0,1\}^n$ by $\EE_N(\epsilon, \epsilon) := \epsilon$ and
 \begin{equation}\label{eq:inferring prefix of chunks of greedy expansion from R i E beta i}
 	\EE_N(s_0s_1\ldots s_{n-1}, \beta_0\beta_1\ldots \beta_n) := X_{n-1} = \coprod_{i=0}^{n-1} d_{\beta_{i+1}}^N\left(R_i +  s_i + \varepsilon_N(X_i, \beta_i, \beta_{i+1} , i)\right), 
 \end{equation}
@@ -1756,20 +1758,28 @@ We have established that for $\beta \in (1,2)$, and $s \in [0,1]$, $\EE_N(\ssf,\
 	where $F : t \mapsto t + 2\log_2(t)$, and $c_\beta > 0$ depends only on $\beta$.
 \end{lemma}
 \begin{proof}
-	Let $\beta \in (1,2)\cap \Q$, $s \in [0,1]$, $(N,(\Sigma_{i \in \N}))$ satisfying (\ref{eq:final value parameters}), and $\ssf = s_0s_1\ldots$ defined according to (\ref{eq:s i to generate beta expansion}). By Theorem \ref{thm:convergence rational dynamical system to beta expansion}, $E_\beta^N(s_0s_1\ldots s_{n-1})$ is an $Nn$-prefix of $E_\beta^N(\ssf) \in \Sigma_\beta(s)$, for $n \in \N$. Since $\beta \in \Q$, (\ref{eq:greedy map chunks as dynamical system}) can be run on a digital computer because it requires only finite precision, and hence $E_\beta^N$ can be cast into the effective algorithm $\varphi : \{0,1\}^\ast \to \{0,1\}^\ast$ summarized in Algorithm \ref{alg:conversion binary expansion to beta expansion}. Note that $\varphi(\gf_2(s)_{1:\Sigma_n}) = E_\beta^N(s_0s_1\ldots s_{n-1}) = E_\beta^N(\ssf)_{1:Nn}$, for $n \in \N$. Therefore, by Lemma \ref{lem:if two sequences are connected through an algorithm, they have same kolmogorov complexity} there exists $c_\varphi > 0$ such that
-	\begin{equation}
-		K[\xf|N n] \leq K[\gf_2(s)|\Sigma_n] + c_\varphi, \ \ \text{for all} \ n \in \N.
-	\end{equation}
-	$\varphi$ depends only on $E_\beta^N$, which itself depends only on $\beta$ as $N = \lceil \log_\beta(2) \rceil$. Hence, $c_\varphi$ depends only on $\beta$.
+	Let $\beta \in (1,2)$, $s \in [0,1]$. Define $N$, $L$ and $(\Lambda_i)_{i \in \N_0}$ according to (\ref{eq:final value parameters beta r 1}), $\betaf = \beta_0\beta_1\ldots$ according to (\ref{eq:beta i to generate beta expansion beta r}), $(\Sigma_i)_{i \in \N_0}$  and (\ref{eq:final value parameters beta r 2}),  and $\ssf = s_0s_1\ldots $ according to (\ref{eq:s i to generate beta expansion beta r}). By Theorem \ref{thm:convergence rational dynamical system to beta expansion beta r}, $\EE_N(s_0s_1\ldots s_{n-1})$ is an $Nn$-prefix of $\EE_N(\ssf) \in \Sigma_\beta(s)$, for $n \in \N$. The equations of (\ref{eq:R i X i + 1 definition of E N}) can be run on a digital computer because they require only finite precision, and hence $\EE_N$ can be cast into the effective algorithm $\varphi : \{0,1\}^\ast \to \{0,1\}^\ast$ summarized in Algorithm \ref{alg:conversion binary expansion to beta expansion beta r}. Note that $\varphi(\langle\gf_2(s)_{1:\Sigma_n}, \gf_2(\beta-1)_{1:Nn+L}\rangle) = \EE_N(s_0s_1\ldots s_{n-1},\beta_0\beta_1\ldots \beta_{n-1}) = \EE_N(\ssf,\betaf)_{1:Nn}$, for $n \in \N$. Therefore, by Lemma \ref{lem:if two sequences are connected through an algorithm, they have same kolmogorov complexity} there exists $c_\varphi > 0$ such that
+	\begin{align}
+		K[\xf|N n] &\leq K[\langle\gf_2(s)_{1:\Sigma_n}, \gf_2(\beta-1)_{1:Nn+L}\rangle] + c_\varphi,\\
+		&\overset{(\ref{eq:simple inequality on pairing of sequences})}{\leq}  K[\gf_2(s)|\Sigma_n] +F(K[\gf_2(\beta-1)|Nn+L]) + C_+ + c_\varphi,
+	\end{align}
+	for all $n \in \N$. $\varphi$ depends only on $\EE_N$, which itself depends only on $\beta$ as $N = \lceil \log_{\betaprox}(2) \rceil$. Hence, $c_\varphi$ depends only on $\beta$.
 	\begin{algorithm}[H]
-		\caption{$\beta$-expansion from a binary expansion}\label{alg:conversion binary expansion to beta expansion}
+		\caption{$\beta$-expansion from a binary expansion}\label{alg:conversion binary expansion to beta expansion beta r}
 		\begin{algorithmic}[1]
-			\Require $n \in \N$, $x \in \{0,1\}^\ast$
+			\Require $n \in \N$, $x \in \{0,1\}^\ast$, $y \in \{0,1\}^\ast$
+			\State Check that $|y| \geq Nn+L$, if not raise an error.
+			\For{$i = 0, \ldots, n$}
+			\State $\beta_i \gets 1 + \sum_{j=1}^{Ni+L} y_{j} 2^{-j}$
+			\EndFor
+			\For{$i = 0, \ldots, n$}
+			\State $\Sigma_i \gets \lceil Ni\log_2(\beta_{i+1}) \rceil - \lfloor \log_2(C_\beta) \rfloor$
+			\EndFor
 			\State Check that $|x| \geq \Sigma_n$, if not raise an error.
 			\For{$i = 0, \ldots, n-1$}
-			\State $s_i \gets \frac{\beta^{Ni}}{2^{\Sigma_i}}\delta_2(x_{\Sigma_i+1:\Sigma_{i+1}})$
+			\State $s_i \gets \frac{\beta_{i+1}^{Ni}}{2^{\Sigma_i}}\delta_2(x_{\Sigma_i+1:\Sigma_{i+1}})$
 			\EndFor
-			\State \Return $E_\beta^N(s_0s_1\ldots s_{n-1})$
+			\State \Return $\EE_N(s_0s_1\ldots s_{n-1}, \beta_0\beta_1)$
 		\end{algorithmic}
 	\end{algorithm}
 \end{proof}
@@ -1782,25 +1792,25 @@ We have established that for $\beta \in (1,2)$, and $s \in [0,1]$, $\EE_N(\ssf,\
 % 	\end{equation}
 % 	where $F : t \mapsto t + 2\log_2(t)$.
 % \end{theorem}
-\begin{proof}
-	Let $\beta \in (1,2)$, $s \in [0,1]$, $\DD_\beta = (L,N,(\Sigma_n))$ be effective and suppose that there exists $\delta \in \left(0, \frac{2 -\beta}{\beta}\right) \cap \Q$ such that $\DD_\beta$ satisfies (\ref{eq:H delta prime}).
+% \begin{proof}
+% 	Let $\beta \in (1,2)$, $s \in [0,1]$, $\DD_\beta = (L,N,(\Sigma_n))$ be effective and suppose that there exists $\delta \in \left(0, \frac{2 -\beta}{\beta}\right) \cap \Q$ such that $\DD_\beta$ satisfies (\ref{eq:H delta prime}).
 	
-	We design an effective algorithm $\varphi : \{0,1\}^\ast \to \{0,1\}^\ast$ such that
-\begin{equation}
-	\xf_\beta(s)_{1: N n} = \varphi(\langle \gf_2(s)_{1: \Sigma_n}, \gf_2(\beta-1)_{1: Nn+L}  \rangle), \ \ \text{for all} \ n \in \N.
-\end{equation}
-Let $n \in \N$. Concretely, on input $\langle \gf_2(\beta-1)_{1: Nn+L},  \gf_2(s)_{1: \Sigma_n} \rangle$, $\varphi$ first separates $\gf_2(\beta-1)_{1:  Nn+L}$ from $\gf_2(x)_{1: \Sigma_n}$. $\varphi$ then computes $n$ through $n = \frac{Nn+L - L}{N}$. Further, $\varphi$ uses $\gf_2(\beta-1)_{1:  Nn+L}$ to compute $q_0,\ldots, q_n$, as per $q_i = \delta_2(\gf_2(\beta-1)_{1:  Ni+L})$.
-$\varphi$ then computes $n$ iterations of the dynamical system $\DD_\beta$ on input $s$, and records the successive values $R'_0, \ldots, R'_n$. Finally, it generates $\xf_\beta(s)_{1: N n}$ through the equation
-\begin{equation}
-	\xf_\beta(s)_{1: N n} :=  \coprod_{i=0}^{n-1} \gf_{q_i}(R'_i)_{1: N}.
-\end{equation}
-Note that as $q_k \in \Q$ for all $0\leq k \leq n$, all the variables involved in the evolution of $\DD_\beta$ are rational numbers, and all the operations underlying this evolution can be run on a digital computer, as they can be reduced to additions and multiplications only. So $\varphi$ is indeed an effective algorithm. By Lemma \ref{lem:if two sequences are connected through an algorithm, they have same kolmogorov complexity}, there exists $C > 0$, depending only on $\varphi$, and a fortirori only on $\DD_\beta$, such that, for all $n \in \N$,
-\begin{align}
-	K[\xf_\beta(x)|N n] &\leq K[\langle \gf_2(s)_{1: \Sigma_n}, \gf_2(\beta-1)_{1: Nn+L}  \rangle] + C\\
-	&\overset{(\ref{eq:simple inequality on pairing of sequences})}{\leq} K[\gf_2(s)_{1: \Sigma_n}] + F(K[\gf_2(\beta-1)_{1:  Nn+L}]) + C_+ + C.
-\end{align}
-We set $c := C + C_+$, thereby finishing the proof.
-\end{proof}
+% 	We design an effective algorithm $\varphi : \{0,1\}^\ast \to \{0,1\}^\ast$ such that
+% \begin{equation}
+% 	\xf_\beta(s)_{1: N n} = \varphi(\langle \gf_2(s)_{1: \Sigma_n}, \gf_2(\beta-1)_{1: Nn+L}  \rangle), \ \ \text{for all} \ n \in \N.
+% \end{equation}
+% Let $n \in \N$. Concretely, on input $\langle \gf_2(\beta-1)_{1: Nn+L},  \gf_2(s)_{1: \Sigma_n} \rangle$, $\varphi$ first separates $\gf_2(\beta-1)_{1:  Nn+L}$ from $\gf_2(x)_{1: \Sigma_n}$. $\varphi$ then computes $n$ through $n = \frac{Nn+L - L}{N}$. Further, $\varphi$ uses $\gf_2(\beta-1)_{1:  Nn+L}$ to compute $q_0,\ldots, q_n$, as per $q_i = \delta_2(\gf_2(\beta-1)_{1:  Ni+L})$.
+% $\varphi$ then computes $n$ iterations of the dynamical system $\DD_\beta$ on input $s$, and records the successive values $R'_0, \ldots, R'_n$. Finally, it generates $\xf_\beta(s)_{1: N n}$ through the equation
+% \begin{equation}
+% 	\xf_\beta(s)_{1: N n} :=  \coprod_{i=0}^{n-1} \gf_{q_i}(R'_i)_{1: N}.
+% \end{equation}
+% Note that as $q_k \in \Q$ for all $0\leq k \leq n$, all the variables involved in the evolution of $\DD_\beta$ are rational numbers, and all the operations underlying this evolution can be run on a digital computer, as they can be reduced to additions and multiplications only. So $\varphi$ is indeed an effective algorithm. By Lemma \ref{lem:if two sequences are connected through an algorithm, they have same kolmogorov complexity}, there exists $C > 0$, depending only on $\varphi$, and a fortirori only on $\DD_\beta$, such that, for all $n \in \N$,
+% \begin{align}
+% 	K[\xf_\beta(x)|N n] &\leq K[\langle \gf_2(s)_{1: \Sigma_n}, \gf_2(\beta-1)_{1: Nn+L}  \rangle] + C\\
+% 	&\overset{(\ref{eq:simple inequality on pairing of sequences})}{\leq} K[\gf_2(s)_{1: \Sigma_n}] + F(K[\gf_2(\beta-1)_{1:  Nn+L}]) + C_+ + C.
+% \end{align}
+% We set $c := C + C_+$, thereby finishing the proof.
+% \end{proof}
 
 \begin{corollary}
 	Let $\beta \in (1,2)$, $s \in [0,1]$. Then, there exists $\xf\in \Sigma_\beta(s)$ such that
@@ -2092,16 +2102,6 @@ By (\ref{eq:almost the end of the proof}) and (\ref{eq:comparable kolmogorov com
 	K[\gf_2(s)|\lceil n \log_2(\beta) \rceil] \leq K[\xf|n] + F(K[u_n]) + c + D',
 \end{equation}
 thereby finishing the proof.
-\end{proof}
-Previous theorem is the general form of Theorem \ref{thm:binary expansion minimizes kolmogorov complexity}, and one can immediately infer it as a corollary.
-\begin{corollary}
-	For all $s \in [0,1]$ and all computable $\beta \in (1,2)$, there exists $c > 0$ such that
-\begin{equation}
-	K[\gf_2(s)|\lceil n \log_2(\beta)\rceil] \leq K[\xf|n] + c, \ \ \forall n \in \N, \ \ \forall \xf \in \Sigma_\beta(s).
-\end{equation}
-\end{corollary}
-\begin{proof}
-	Let $s \in [0,1]$ and a computable $\beta \in (1,2)$. As $\beta$ is computable, so does $\beta -1$, and hence there exists $C > 0$ such that $K[\gf_2(\beta -1)|n] \leq C$, for all $n \in \N$. The result follows immediatly by application of Theorem \ref{lemma:generalized app beta expansions are more complex than the binary expansion}.
 \end{proof}
 
 \subsection{Proof of Theorem \ref{thm:upper bound kolmogorov complexity beta expansions}}
