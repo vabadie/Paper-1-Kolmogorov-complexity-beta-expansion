@@ -1,0 +1,142 @@
+%%% this file contains commands to be used often for quicker use
+
+% \usepackage{tikz}
+% \usepackage{chemmacros}
+
+% \newcommand\encircle[1]{%
+%   \tikz[baseline=(X.base)] 
+%     \node (X) [draw, shape=circle, inner sep=0, scale= 0.75] {\strut #1};}
+
+
+% \newcommand\prefix{\ensuremath{\hspace{1pt}\raisebox{1.5pt}{\rotatebox[origin=c]{90}{\rightharpoondown}} \hspace{1pt}}}
+
+\newcommand\betaprox{\ensuremath{\underline{\smash{\beta}}}}
+
+% \newcommand\dom{\ensuremath{{\bf \Theta}_{\operatorname{valid}}}}
+
+\newcommand\dom{\operatorname{dom}}
+
+\newcommand\grpref{\ensuremath{d_\beta^N \hspace{-1mm} }}
+
+\newcommand\Uref{\ensuremath{\UU_{\operatorname{ref}}}}
+
+
+\newcommand\betaun{\ensuremath{\beta \hspace{-1mm} - \hspace{-1mm} 1}}
+
+%overset for lemmas and theorems
+\makeatletter
+\newcommand{\oset}[3][0ex]{%
+  \mathrel{\mathop{#3}\limits^{
+    \vbox to#1{\kern-2\ex@
+    \hbox{$\scriptstyle #2$}\vss}}}}
+\makeatother
+
+\newcommand{\osetlem}[3][1.8ex]{\oset[#1]{\substack{\hspace{.07cm} \text{\tiny Lem.}\\ #2}}{#3}}
+
+
+
+%display fat font
+\newcommand\xf{{\bf x}}
+\newcommand\yf{{\bf y}}
+\newcommand\zf{{\bf z}}
+\newcommand\gf{{\bf g}}
+\newcommand\betaf{\pmb{\beta}}
+\newcommand\lowbeta{\underline{\smash{\beta}}}
+
+\newcommand\ssf{{\bf s}}
+\newcommand\Thetaf{{\bf \Theta}}
+\newcommand\ellf{\ensuremath{\boldsymbol\ell}}
+\newcommand\ff{\ensuremath{\boldsymbol f}}
+
+%display mathbb fonts
+\newcommand\R{\ensuremath{\mathbf{R}}}
+\newcommand\C{\ensuremath{\mathbf{C}}}
+\newcommand\N{\ensuremath{\mathbf{N}}}
+\newcommand\Z{\ensuremath{\mathbf{Z}}}
+\newcommand\Q{\ensuremath{\mathbf{Q}}}
+\newcommand\M{\ensuremath{\mathbb{M}}}
+\newcommand\Obb{\ensuremath{\mathbb{O}}}
+\newcommand\U{\ensuremath{\mathbb{U}}}
+\newcommand\B{\ensuremath{\mathbb{B}}}
+\newcommand\Tbb{\ensuremath{\mathbb{T}}}
+\newcommand\I{\ensuremath{\mathbb{I}}}
+\newcommand\D{\ensuremath{\mathbf{D}}}
+\newcommand\K{\ensuremath{\mathbb{K}}}
+
+%display mathcal fonts
+\newcommand\CC{\ensuremath{\mathcal{C}}}
+\newcommand\RR{\ensuremath{\mathcal{R}}}
+\newcommand\DD{\ensuremath{\mathcal{D}}}
+\newcommand\LL{\ensuremath{\mathcal{L}}}
+\newcommand\PP{\ensuremath{\mathcal{P}}}
+\newcommand\SM{\ensuremath{\mathcal{S}}}
+\newcommand\MM{\ensuremath{\mathcal{M}}}
+\newcommand\TT{\ensuremath{\mathcal{T}}}
+\newcommand\UU{\ensuremath{\mathcal{U}}}
+\newcommand\II{\ensuremath{\mathcal{I}}}
+\newcommand\FF{\ensuremath{\mathcal{F}}}
+\newcommand\WW{\ensuremath{\mathcal{W}}}
+\newcommand\BB{\ensuremath{\mathcal{B}}}
+\newcommand\NN{\ensuremath{\mathcal{N}}}
+\newcommand\KK{\ensuremath{\mathcal{K}}}
+\newcommand\XX{\ensuremath{\mathcal{X}}}
+\newcommand\YY{\ensuremath{\mathcal{Y}}}
+\newcommand\EE{\ensuremath{\mathcal{E}}}
+
+\newcommand\CCC{\ensuremath{\mathscr{C}}}
+\newcommand\PPP{\ensuremath{\mathscr{P}}}
+\newcommand\FFF{\ensuremath{\mathscr{F}}}
+\newcommand\GGG{\ensuremath{\mathscr{G}}}
+\newcommand\MMM{\ensuremath{\mathscr{M}}}
+\newcommand\III{\ensuremath{\mathscr{I}}}
+
+% fast commands for math display
+\newcommand{\ints}[1]{\ensuremath{\left\llbracket #1 \right\rrbracket}}
+\newcommand{\limu}[2]{\ensuremath{\underset{#1 \to #2}{\lim}}}
+\newcommand{\limi}[1]{\ensuremath{\underset{#1 \to \infty}{\lim}}}
+\newcommand\spt{\ensuremath{\operatorname{spt}}}
+\newcommand\betu{\ensuremath{{\underline{\beta}}}}
+\newcommand\card{\ensuremath{\operatorname{Card}}}
+\newcommand\lex{\ensuremath{\operatorname{Lex}}}
+\newcommand\relu{\ensuremath{\rho}}
+
+\newcommand{\bslash}{\ensuremath{\text{\textnormal{\textbackslash}}}}
+
+
+% Kolmogorov complexity comparisons
+\newcommand\Keq{\ensuremath{\overset{\scalebox{0.5}{K}}{\simeq}}}
+\newcommand\Kleq{\ensuremath{\overset{\scalebox{0.5}{K}}{\leq}}}
+\newcommand\Kl{\ensuremath{\overset{\scalebox{0.5}{K}}{<}}}
+\newcommand\Kprec{\ensuremath{\overset{\scalebox{0.5}{K}}{\prec}}}
+\newcommand\Kpreceq{\ensuremath{\overset{\scalebox{0.5}{K}}{\preceq}}}
+
+% beta-expansions notations
+\newcommand\Ibet{\ensuremath{\left[0, \frac{\lceil \beta\rceil - 1}{\beta - 1}\right)}}
+\newcommand\ibet{\ensuremath{\left[0, \frac{1}{\beta - 1}\right]}}
+\newcommand\ib{\ensuremath{I_\beta}}
+\newcommand\Card[1]{\ensuremath{\# \hspace{-0.2mm} #1 }}
+\newcommand\len[1]{\ensuremath{\left| #1 \right|}}
+\newcommand\qbet{\ensuremath{\left\{ 0, \ldots, \lceil \beta\rceil - 1 \right\}}}
+\newcommand\Uninf{\ensuremath{(1,\infty)}}
+\newcommand\Mbet{\ensuremath{\frac{\lceil \beta \rceil -1}{\beta - 1}}}
+	
+%theorem/properties styles
+\newtheorem{conjecture}{Conjecture}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{thesis}{Thesis}
+\newtheorem{property}{Proposition}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newenvironment{ftheo}
+  {\begin{mdframed}\begin{theorem}}
+  {\end{theorem}\end{mdframed}}
+
+
+\newtheorem{definition}{Definition}[section]
+\newtheorem{notation}[definition]{Notation}
+\newtheorem{example}{Example}
+
+
+% \newcommand\bone{\ensuremath{1\hspace{-4pt}1}}
+
+

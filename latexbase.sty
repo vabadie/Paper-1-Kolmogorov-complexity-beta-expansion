@@ -1,0 +1,53 @@
+%%% This file imports all useful packages
+
+%packages for encoding languages
+\usepackage[english]{babel} %gestion of english characters
+\usepackage[utf8]{inputenc}  % The package translates various standard and other input encodings into a ‘LaTeX internal language’.
+\usepackage[T1]{fontenc}  % The package allows the user to select font encodings
+\usepackage{lmodern} %vectorial characters
+\usepackage{relsize} %have better character sizes
+
+%helps having good presentation
+\usepackage{fancyhdr} %to have a fancy presentation of the article (headers, titles...)
+\usepackage{geometry} %to have a good page layout
+\geometry{hmargin=2.5cm,vmargin=1.5cm} %sets margins
+\usepackage{setspace} %used to set spaces between lines
+\usepackage{xspace} % tool to help not having undesired spaces in the document
+\usepackage{enumitem} %to make enumerations, itemize, etc
+
+% emphasizing text (bold, underlining, letterspacing)
+\usepackage{soul} %basic stuff
+\usepackage[normalem]{ulem} %more precise entries
+\usepackage{hyperref} % gestion of hypertext links
+\usepackage{url} %goes with hyperref
+\hypersetup{unicode,colorlinks,linkcolor=blue,urlcolor=blue,runcolor=blue,breaklinks=true} %initialises hyperref package
+
+% to make cool figures
+\usepackage{float} % most flexible package to make figures out of nothing
+\usepackage{graphicx} % used to insert images (the easiest tool to use)
+\usepackage{wrapfig} % makes figures in any way wanted (very precise precision etc) 
+\usepackage{caption, subcaption, cleveref} % use to caption figures
+\usepackage{multirow} % used to modify tables with high flexibility
+\usepackage{media9} %used to have animated 3D objects, sounds, etc
+%\usepackage[usenames, dvipsnames, x11names]{xcolor} %use to change color of figures
+
+
+%easy use of labelling
+\usepackage{lastpage} %new command to address last page labels
+
+%testing commands
+\usepackage{blindtext} %creates random text
+\usepackage{comment} %to make commentaries
+
+% usage of functions within the latex code
+\usepackage{ifthen} %to be able to use boolean props in the latex code
+\usepackage{multido} %be able to make code loops
+
+
+% \usepackage{lipsum}
+\usepackage{amsfonts}
+% \usepackage{epstopdf}
+\usepackage[export]{adjustbox}
+
+
+% \usepackage{natbib}
