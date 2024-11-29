@@ -1,4 +1,6 @@
-%! TEX root = ./main.tex
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
 
 \section{Technical preliminaries}
 \label{sec:notations formal result}
@@ -447,3 +449,5 @@ To use the same proof technique as above, we would need that the spacings betwee
 \noindent The term $n\log_2\left(\frac{2}{\beta}\right)$ is an upper bound of the cardinality of $A_\beta^n(\gf_2(s)_{\lceil n \log_2(\beta)\rceil})$, where $A_\beta^n(x)$ is defined analogously to $A_q^n(x)$ in the proof of Theorem \ref{thm:staiger invariance}, for $x \in \{0,1\}^\ast$. The establishment of this upper bound involves using the Bernoulli convolution, which is the asymptotic distribution of the elements of the set $S_n(\beta)$ when $n$ goes to $\infty$. For an in-depth study of Bernoulli convolutions, we refer to \cite{peres2000sixty}. More specifically, the proof technique used for establishing the upper bound is inspired from the proof of \cite[Lemma 3.4]{kempton2013counting}. The technical details involve that the Bernoulli convolution has to be abslutely continuous and bounded, which is the case for Lebesgue-almost $\beta \in (1,\sqrt{2})$ \cite[Corollary 1]{solomyak1995random}. For $s \in [0,1]$, $n \mapsto K\left[\gf_2(s)|\lceil n\log_2(\beta)\rceil\right] + n\log_2\left(\frac{2}{\beta}\right)$ is then seen to be an upper bound for the algorithmic complexity of the $\beta$-expansions of $s$, holding however only for some specific values of $\beta$: $\beta$ must lay in a certain full-measure subset of $(1,\sqrt{2})$, and be computable. To the best of our knowledge, there is no proof that these two conditions are not mutually exclusive. The full proof is presented in Appendix \ref{app:greedy binary expansion is a minimizer of Kolmogorov complexity}.
 
 To conclude on (\ref{eq:equivalence algorithmic complexity beta expansion binary expansion}), one needs to get rid of the term $n\log_2\left(\frac{2}{\beta}\right)$ in (\ref{eq:upper bound Kolmogorov complexity beta expansions}) for some $\xf \in \Sigma_\beta(s)$. To the best of our knowledge, this is not possible to adapt the arguments of the proof of Theorem \ref{thm:staiger invariance}. We opted instead for a drastic change of methodology.
+
+\end{document}

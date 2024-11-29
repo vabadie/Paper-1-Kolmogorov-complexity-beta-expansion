@@ -1,4 +1,6 @@
-%! TEX root = ./main.tex
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
 
 
 \section{Introduction}
@@ -327,3 +329,5 @@ In this paper, we manipulate infinite binary sequences. Hopefully, algorithmic c
   The above result is established contructively by introducing a dynamical system to generate a $\beta$-expansion of a given number $s \in [0,1]$ from one of its binary expansions. We emphasize the fact that this results holds for only one $\beta$-expansion, which represents a first milestone towards understanding the links between algorithmic complexity and the redundancy displayed by $\beta$-expansions. The dynamical system used in the proof of Theorem \ref{thm:informal equivalence kolmogorov complexity computable} will turn very handy extend the above result to infinitely many different $\beta$-expansions in a future paper.
 
   Note that setting $\beta= \sqrt[m]{2}$ in (\ref{eq:equivalence kolmogorov complexity binary beta expansions}) recovers (\ref{eq:Kolmogorov complexity sqrt m 2 binary expansion}) as a special case. The multiplicative constant $\log_2(\beta)$ can be interpreted as follows. As the first $n$ bits of a $\beta$-expansion of $s \in [0,1]$ approximate $s$ to within an error of $\beta^{-n}$, one needs the first $n \log_2(\beta)$ bits of a binary expansion $\xf$ of $s$ suffice to describe $s$ to within the same approximation error $2^{-n\log_2(\beta)} = \beta^{-n}$.
+
+\end{document}
