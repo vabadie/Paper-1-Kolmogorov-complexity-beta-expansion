@@ -1,0 +1,329 @@
+%! TEX root = ./main.tex
+
+
+\section{Introduction}
+
+\noindent Measuring the complexity of real numbers is of major importance in computer science. Consider a non-computable real number $s$, i.e., a real number which cannot be stored on a computer \cite[Section 10]{copeland2004computable}. One can store only an approximation of $s$, for instance by considering a finite length bitstring $y$ representing a prefix $x$ of the binary expansion $\xf$ of $s$. For a fixed approximation error $\varepsilon>0$, the required length of $y$, as a function of $\varepsilon$, depends on the \textit{algorithmic complexity} of the prefix $x$ of the binary expansion achieving error $\varepsilon$. The \textit{algorithmic complexity} of a binary sequence $x$, often referred to as \textit{Kolmogorov complexity}, is the length of the smallest binary sequence $y$, for which there exists an algorithm, such that when presented with $y$ as input, delivers $x$ as output \cite[Definition 10.1]{balcazar2012structural}\cite[Section 14.2]{cover1999elements}\cite[Definition 2.1.2]{li2008introduction}. The algorithmic complexity of the binary expansions of real numbers has been widely studied, but the algorithmic complexity of expansions in bases other than $2$ remains poorly understood. Several papers have established an equivalence between the algorithmic complexity of the expansions in different bases $q \in \N$ \cite[Theorem 6.1]{calude2005randomness}\cite[Theorem 5.1]{hertling1998randomness}\cite[Theorem 3]{staiger2002kolmogorov}. Here, we study the algorithmic complexity of expansions in noninteger bases, which display a much more sophisticated behavior. This type of expansions, often referred to as $\beta$-expansions \cite[(1)]{parry1960beta}\cite[Section 4]{renyi1957representations}, have been studied widely in the literature in the context of dynamical systems \cite[Example 1.2.3]{dajani2002ergodic}\cite{dajani2002greedy}\cite{dajani2003random}. We find a relation between the algorithmic complexity of expansions in noninteger bases and the algorithmic complexity of expansions in base $2$.
+
+% \noindent Measuring the complexity of real numbers is of major importance in computer science, for the purpose of knowing which computations are allowed. Consider a non-computable  real number $s$, i.e. a real number which cannot be stored on a computer. We can store only an approximation of $x$, for instance by considering a finite bitstring representing a finite prefix of its binary expansion. For a fixed approximation error $\epsilon>0$, the size of this finite bitstring is dependent on the algorithmic complexity of the finite prefixes of the binary expansion of $s$. The algorithmic complexity of a binary sequence $x$, often referred to as Kolmogorov complexity, is the length of the smallest binary sequence $x'$, for which there exists an algorithm, such that when presented with $x'$ as input, it outputs $x$. The algorithmic complexity of the binary expansion of real numbers is widely studied, but the algorithmic complexity of other ways of representing real numbers remains poorly reported. However, knowing the algorithmic complexity of different representations may allow to define new and more efficient strategies to represent real numbers. To our knowledge, \cite{staiger2002kolmogorov} is the only paper to make a step in this direction: it establishes an equivalence between the algorithmic complexity of the $q$-ary expansions, with $q \in \N$, $q \geq 2$, i.e. representations of real numbers in any integer base. In this paper, we study the algorithmic complexity of the so-called $\beta$-expansions, which are representations of real numbers in a base $\beta \in (1,2)$. $\beta$-expansions display very interesting properties, one of which being redundancy: a given real number $s$ and a fixed $\beta \in (1,2)$, there can be infinitely many different $\beta$-expansions of $s$. In \cite{daubechies2002beta}, this redundancy is used to design robust A/D converters. However, nothing is known about the algorithmic complexity of the generated sequences, and they may potentially be way more complex than the binary expansion, displaying a robutness-complexity trade-off. In this paper, we show that for a given real number $s$, the binary expansion is a minimizer of algorithmic complexity, and that for every given $\beta \in (1,2)$, there exists a $\beta$-expansion of $s$ which achieves the lower bound of algorithmic complexity displayed by the binary expansion of $s$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SECTION NOTATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection{Notation}
+
+$\N$ denotes the set of natural numbers, $\N_0 := \N \cup \{0\}$, and $\N_2 := \N \backslash \{1\}$. $\Q$ stands for the set of rational numbers, $\R$ for the set of real numbers and $\R_+$ for the set of nonnegative real numbers. For $n \in \N$, we let $\ints{n}:= \{1,\ldots,n\}$. For a set $A$, $\Card A$ denotes its cardinality. If $\Card X = \infty$, we may write $\Card X = \aleph_0$ if $X$ is countable, and $\Card X = 2^{\aleph_0}$ if $X$ is uncountable. For every subset $A$ of $\R$, $\mathring A$ denotes the interior of $A$. Specifically, if $A = [a,b]$, then $\mathring A = (a,b)$, for all $a,b \in \R$, $a<b$. Let $f : X \to X$ be a map from a set $X$ into itself. Then, $f^0$ denotes the identity map on $X$, $f^1 := f$, and $f^{n+1} := f \circ f^n$, for $n \in \N$. Let $f : X \to Y$ be a map from a set $X$ into a set $Y$. For a given subset $A \subset Y$, we let $f^{-1}(A) := \{ x \in X : f(x) \in A\}$. 
+
+Let $A$ be a set. $A^\omega$ denotes the set of infinite sequences with elements in $A$, $A^\ast$ denotes the set of sequences of finite, but otherwise arbitrary length, of elements in $A$, and $A^n$ denotes the set of sequences of elements in $A$ of length $n \in \N$. We adopt the notations $\xf = \xf_1 \xf_2 \ldots \in A^\omega$, and $x = x_1 \ldots \vspace{0.2mm} x_n \in A^\ast$, for $n \in \N$. $\epsilon$ denotes the empty sequence. For a sequence $x \in A^\ast$, $x_n$ denotes the $n$-th element of $x$, and $x_{n:m}$ stands for the sequence $x_{n} x_{n+1} \ldots x_m$. Similarly, for $\xf \in A^\omega$, $\xf_n$ denotes the $n$-th element of the sequence $\xf$, and $\xf_{n:m}$ stands for the finite sequence $\xf_{n} \xf_{n+1} \ldots \xf_m$. $\len x$ refers to the length of $x$, i.e. for $x \in A^n$, we have $\len x = n$, and by convention, we set $|\xf| = \infty$ for $\xf \in A^\omega$. For $x,y \in A^\ast$, $x y$ denotes the concatenation of $x$ and $y$, and likewise for $x \yf$, with $x \in A^\ast$ and $\yf \in A^\omega$. For $x^{(1)},\ldots, x^{(n)} \in A^\ast$, $\coprod_{i=1}^n x^{(i)}$ stands for the concatenation $x^{(1)} x^{(2)} \ldots \hspace{0.2mm} x^{(n)}$. For an infinite family $(x^{(i)})_{i\in \N} \in A^\ast$, $\coprod_{i=1}^\infty x^{(i)} \in A^\omega$ denotes the concatenation of the elements in $(x^{(i)})_{i \in \N}$. Finally, for $x \in A^\ast$, we set $x^0 = \epsilon$, $x^n := \coprod_{i=1}^n x$, for $n \in \N$, and $x^\infty := \coprod_{i=1}^\infty x$, to denote the $n$-fold and infinite repetitions, respectively. For instance, $0^\infty$ denotes the infinite sequence containing only zeroes, and $1^5 = 11111$. We may combine repetitions and concatenations in a single expression, as for example $xy^5 = xyyyyy$, for $x,y \in \{0,1\}^\ast$. So that there is no confusion, we may use parentheses. For instance, $(10)^5 = 1010101010$, while $10^5 = 100000$. $\{0,1\}^\ast$ is the set of finite binary sequences, and $\{0,1\}^\omega$ the set of infinite binary sequences. Following \cite[Ch. 1.4]{li2008introduction}, we map $\{0,1\}^\ast$ one-to-one onto $\N_0$ by indexing each string through the quasi-lexicographical ordering \cite[Section 1.1]{calude2002information}, i.e.,
+\begin{equation}\label{eq:quasilexicographic enumeration}
+	(\epsilon,0), (0,1), (1,2), (00,3), (01,4), (10,5), (11,6), \ldots,
+\end{equation}
+where each of the above pairs contains first an element $x \in \{0,1\}^\ast$ and second the index of $x$ in the quasi-lexicographical ordering of $\{0,1\}^\ast$. We make the confusion between $x \in \{0,1\}^\ast$ and its index, so that we can use them interchangeably in equations and formulae. For $x \in \{0,1\}^\ast$, we define $\bar x := 1^{|x|}0x$, which is often referred to as prefixing $x$, i.e. $\{\bar x : x \in \{0,1\}^\ast\}$ forms a prefix-free set. For $x,y \in \{0,1\}^\ast$, we set $\langle x,y \rangle := \bar x y$. Note that $|\langle x,y \rangle| = 2 |x| + |y| + 1$. For $q \in \N_2$, $A_q := \{0, \ldots, q-1\}$, $A_q^\ast$ refers to the set of finite $q$-ary sequences, $A_q^\omega$ is the set of infinite $q$-ary sequences. For $\xf,\yf \in \{0, \ldots, q-1\}^\omega$, we define the lexicographical ordering as $\xf <_L \yf$ to express that there exists $j \in \N$ such that $\xf_i = \yf_i$ for all $i < j$, and $\xf_j < \yf_j$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SECTION 1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection{Binary expansions}
+\label{sec:introduction}
+  
+Representing real numbers in terms of sequences of bits is of major interest in computer science and electrical engineering. The most common way to effect such a conversion is the binary expansion. Indeed, every real number $s \in [0,1]$ can be written as a sum of negative powers of $2$. For example, $s = 0.75$ can be represented as
+  \begin{equation}\label{eq:greedy binary expansion example}
+      s = 0.75 =  \frac{1}{2} + \frac{1}{4} = 2^{-1} + 2^{-2} = 1 \times 2^{-1} + 1 \times 2^{-2} + 0 \times 2^{-3} + 0 \times 2^{-4} + \ldots
+  \end{equation}
+Here, the sequence $110^\infty$ is called a binary expansion of $s=0.75$. We conspicuously say ``a binary expansion'' rather than ``the binary expansion'' as the expansion is not unique. Indeed, with 
+  \begin{equation}
+      \frac{1}{4} = \frac{\frac{1}{8}}{\frac{1}{2}} = \frac{\frac{1}{8}}{1 - \frac{1}{2}} = \sum_{i=3}^\infty 2^{-i},
+  \end{equation}
+  one has equivalently
+  \begin{equation}\label{eq:lazy binary expansion example}
+      s = 0.75 = \frac{1}{2} + \frac{1}{4} = 2^{-1} + \sum_{i=3}^\infty 2^{-i} = 1\times 2^{-1} +  0\times 2^{-2} + \sum_{i=3}^\infty 1\times 2^{-i},
+  \end{equation}
+  so that $\xf = 101^\infty$ constitutes an alternative binary representation of $s$. Generally speaking, for every given $s \in [0,1]$, there exist either one or two binary expansions. Following
+  \cite[Section 1]{staiger2002kolmogorov}, we refer to it as 2-ambiguity of the binary expansion. The real numbers with precisely two binary expansions form a subset of the rational numbers called the dyadic numbers \cite[Section 1.5, Problem 44]{royden1968real}. Dyadic numbers are defined to be the real numbers that have a binary expansion ending with $0^\infty$. Dyadic numbers do not include, for instance, $s = 1/3$, which indeed displays only one binary expansion. The definition of dyadic numbers immediately implies that they have two expansions: one that ends with $0^\infty$, and another one that ends with $1^\infty$. This can be seen as follows. Consider a dyadic number $s \neq 0$. By definition, $s$ has a binary expansion that ends with $0^\infty$. Then, there exists a binary sequence $x \in \{0,1\}^\ast$, of length $n = |x|$, such that $\xf = x 1 0^\infty$ is a binary expansion of $s$, i.e.,
+  \begin{equation}\label{eq:greedy expansion ending with infinitetail of zeros}
+	s = x_1 \times 2^{-1} + \ldots + x_n \times 2^{-n} + 1 \times 2^{-(n+1)} + 0 \times 2^{-(n+2)} + 0 \times 2^{-(n+3)} + \ldots
+  \end{equation}
+As $1$ satisfies the following algebraic equation
+\begin{equation}\label{eq:algebraic relation between 1 and powers of one half}
+	1 = \sum_{i=1}^\infty 2^{-i},
+\end{equation}
+one can replace the last digit $1$ of the binary expansion of $s$ according to
+\begin{align}
+	s &= x_1 \times 2^{-1} + \ldots + x_n \times 2^{-n} + \left(\sum_{i=1}^\infty 2^{-i}\right) \times 2^{-(n+1)}\\
+	&= x_1 \times 2^{-1} + \ldots + x_n \times 2^{-n} + \sum_{i=n+2}^\infty 2^{-i}\\
+	&= x_1 \times 2^{-1} + \ldots + x_n \times 2^{-n} + 0 \times 2^{-(n+1)} + 1 \times 2^{-(n+2)} +  1 \times 2^{-(n+3)} + \ldots \label{eq:lazy expansion ending with infinitetail of ones}
+  \end{align}
+This establishes that $\xf' = x 0  1^\infty$ is also a binary expansion of $s$. The lexicographically larger of these two expansions  $\xf = x  1  0^\infty$ is referred to as the greedy binary expansion of $s$, and the lexicographically smaller $\xf' = x  0  1^\infty$ is called the lazy binary expansion. When the binary expansion of $s$ is unique,  the greedy and lazy binary expansion coincide. Both the greedy and the lazy binary expansion have an associated algorithm generating them. We detail the algorithm generating the first $n$ bits of the greedy binary expansion of $s$ as follows \cite[Section 2]{dajani2002greedy}.
+\begin{algorithm}[h]
+	\caption{Greedy algorithm for binary expansion}\label{alg:greedy algorithm binary expansion}
+	\begin{algorithmic}[1]
+		\Require $s \in [0,1]$, $n \in \N$
+		\State $r \gets s$
+		\State Initialize $x$ as the empty string $\epsilon$
+		\For {$i=1, \ldots,n$}\label{alg1:line 3}
+			\If{ $r < 0.5$,} $b \gets 0$ \label{alg1:line 4}
+			\Else{ $b \gets 1$}
+			\EndIf
+			\State $x \gets xb$
+			\State $r \gets 2 \, r - b$
+		\EndFor
+		\State \Return $x$
+	\end{algorithmic}
+\end{algorithm}
+
+\noindent By way of example, we consider the case $s = 0.75$, $n = 4$ to illustrate the algorithm.
+  \begin{enumerate}[label=(\arabic*)]
+      \item $r \gets 0.75$, $x$ is initialized as the empty string $\epsilon$, the \textbf{for} loop (line \ref{alg1:line 3}) is entered, with $i=1$.
+      \item $r =0.75 \geq 0.5$, so $b \gets 1$, $x \gets \epsilon b = 1$, $r \gets 2 r -  b = 2 \times 0.75 - 1 = 0.5$, the algorithm continues the \textbf{for} loop with $i = 2$.
+      \item $r = 0.5 \geq 0.5$, so $b \gets 1$, $x \gets 1 b = 11$, $r \gets 2 r - b = 2\times 0.5 - 1 = 0$, the algorithm continues the \textbf{for} loop with $i = 3$.
+      \item $r = 0 < 0.5$, so $b \gets 0$, $x \gets 11 b = 110$, $r \gets 2 r - b = 2\times 0 - 0 = 0$,  the algorithm continues the \textbf{for} loop with $i = 4$.
+      \item $r = 0 < 0.5$, so $b \gets 0$, $x \gets 110 b = 1100$, $r \gets 2 r - b = 2\times 0 - 0 = 0$, the algorithm exits the \textbf{for} loop, as $i = 4 = n$.
+      \item The algorithm returns $x = 1100$.
+  \end{enumerate}
+Algorithm \ref{alg:greedy algorithm binary expansion} is therefore seen to, indeed, generate the first $n=4$ bits of the greedy binary expansion of $s=0.75$. The variable $r$ in Algorithm \ref{alg:greedy algorithm binary expansion} is seen to be the approximation error of the real number $s$ by the successive finite prefixes of its greedy expansion. To generate the lazy binary expansion, instead one only needs to change the condition $r < 0.5$ in line \ref{alg1:line 4} of Algorithm \ref{alg:greedy algorithm binary expansion} to $r \leq 0.5$ \cite[Section 2]{dajani2002greedy}.
+  
+\subsection{\texorpdfstring{$\beta$-expansions}{}}
+  
+Binary expansions are not the only way to represent real numbers as infinite sequences of bits. One can replace the base 2 in $s = \sum_{i=1}^\infty \xf_i 2^{-i}$ by $\beta \in (1,2]$ to get so-called $\beta$-expansions, i.e., representations of real numbers as sums of negative powers of $\beta$, originally introduced in \cite[Section 4, Example 4]{renyi1957representations}. The set of real numbers that can be represented by $\beta$-expansions is larger: while every real number in $[0,1]$ can be represented by a binary expansion, it turns out that for $\beta \in (1,2]$, every number in $I_\beta := [0, (\beta-1)^{-1}]$ can be represented by a $\beta$-expansion \cite[Section 1]{dajani2002greedy}. Note that $I_2 = [0,1]$, so this is consistent with the binary case. 
+
+$\beta$-expansions exhibit a much richer structure than binary expansions, specifically,  the 2-ambiguity can turn into an $\infty$-ambiguity. An example illustrating this aspect is the $G$-expansion of $s=1$, where $G$ is the golden ratio, satisfying $G^2 = G + 1$. Indeed, it follows that
+  \begin{equation}
+      1 = \frac{1}{G} + \frac{1}{G^2} = 1 \times \frac{1}{G} + 1 \times \frac{1}{G^2} + 0 \times \frac{1}{G^3} + 0 \times \frac{1}{G^4} + \cdots
+  \end{equation}
+ and hence $\xf = 1100\ldots$ is a $G$-expansion of $s=1$. An alternative representation of $s=1$ in base $\beta=G$ is obtained by noting that $\frac{1}{G^2} = \frac{1}{G^3} + \frac{1}{G^4}$, and hence
+  \begin{equation}
+      1 = \frac{1}{G} + \frac{1}{G^3} + \frac{1}{G^4} = 1 \times \frac{1}{G} + 0 \times \frac{1}{G^2} + 1 \times \frac{1}{G^3} + 1 \times \frac{1}{G^4} + 0 \times \frac{1}{G^5} + \cdots
+  \end{equation}
+  so that $\xf'=101100\ldots$ is also a $G$-expansion of $s=1$. By iterating this heuristic, one can show that for every $n \geq 0$, the sequence $\xf^{(n)} := (10)^{n}110^\infty$ is a $G$-expansion of $s=1$. There are hence infinitely many different $G$-expansions of $s=1$, all obtained by exploiting the algebraic equation
+  \begin{equation}
+	1 = \frac{1}{G} + \frac{1}{G^2},
+  \end{equation}
+  which is of the same flavor as the algebraic equation (\ref{eq:algebraic relation between 1 and powers of one half}).
+
+  We can generalize the idea underlying the example $G = \frac{1+\sqrt{5}}{2}$ to all pairs $(s,\beta)$ satisfying
+  \begin{enumerate}[label = (\alph*)]
+	\item $\beta$ satisfies an equation of the form 
+	\begin{equation}
+		1 = \sum_{i=1}^N \beta^{-n_i},
+	\end{equation}
+	where $N, n_1, \ldots, n_N \in \N$ and the $n_i$ are pairwise distinct.
+	\item there is a $\beta$-expansion of $s$ ending with $0^\infty$.
+  \end{enumerate}
+  Let $s, \beta$ satisfying (a) and (b), and let $\xf$ be a $\beta$-expansion of $s$ ending with $0^\infty$. Then, there exists $j \in \N$ and $x \in \{0,1\}^{j-1}$ such that $\xf = x10^\infty$. Also, note that as there exists $N,n_1, \ldots,n_N \in \N$ such that $1 = \sum_{i=1}^N \beta^{-n_i}$, there exists $y \in \{0,1\}^{n_N}$, satisfying $y_{n_i} = 1$ for all $i \in \{1, \ldots, N\}$, and $y_k = 0$ if $k \notin \{n_1, \ldots, n_N\}$, such that $1 = \sum_{i=1}^{n_N} y_i \beta^{-i}$. Therefore,
+  \begin{align}
+	s &= \sum_{i=1}^\infty \xf_i \beta^{-i} = \sum_{i=1}^{j-1} x_i \beta^{-i} + \beta^{-j} + \sum_{i=1}^j 0 \beta^{-i} = \sum_{i=1}^{j-1} x_i \beta^{-i} + \beta^{-j}\\
+		&=\sum_{i=1}^{j-1} x_i \beta^{-i} + \beta^{-j} = \sum_{i=1}^{j-1} x_i \beta^{-i} + \beta^{-j} \sum_{i=1}^{n_N} y_i \beta^{-i}\\
+		&=\sum_{i=1}^{j-1} x_i \beta^{-i} + \sum_{i=1}^{n_N} y_i \beta^{-i-j}.
+  \end{align}
+  We get that $\xf' = x_{1:j-1}y0^\infty$ is also a $\beta$-expansion of $s$. By iterating the heuristic, we get that $x_{1:j-1}y_{1:n_M-1}^{n-1}y0^\infty$ is a $\beta$-expansion of $s$ for every $n \in \NN$. Hence, $s$ has infinitely many $\beta$-expansions.
+
+  With different proof techniques, the $\infty$-ambiguity property has been established far beyond the scope of the proof above. It was notably proven that for all $\beta \in (1,2)$ and Lesbesgue-almost all $s \in I_\beta$, $s$ has $2^{\aleph_0}$ different $\beta$-expansions \cite[Theorem 1]{sidorov2003almost}, and that for all $\beta \in (1,(1+\sqrt{5})/2)$, every $s \in \mathring I_\beta$ has $2^{\aleph_0}$ different $\beta$-expansions \cite[Theorem 3]{erdos1990characterization}.
+  
+  One can now define the notions of greedy and lazy expansions for arbitrary $\beta \in (1,2]$, in the same manner as in the binary case. Specifically, motivated by the insight in \cite[IV-A]{daubechies2006imperfect}, we implicitely define the greedy $\beta$-expansion of $s \in I_\beta$ as the lexicographically largest $\beta$-expansion, and the lazy $\beta$-expansion as the lexicographically smallest $\beta$-expansion. In contrast to the binary expansion case, there are, in general, infinitely many $\beta$-expansion between these two extreme cases. Both the greedy and the lazy $\beta$-expansion have an associated algorithm generating them. Algorithm 
+  \ref{alg:greedy algorithm beta expansion} below generalizes Algorithm \ref{alg:greedy algorithm binary expansion} to deliver the first $n \in \N$ bits of the greedy $\beta$-expansion of $s$ for $\beta \in (1,2]$ \cite[Section 1]{dajani2002greedy}.
+
+  \begin{algorithm}[H]
+	\caption{Greedy algorithm for $\beta$-expansion}\label{alg:greedy algorithm beta expansion}
+	\begin{algorithmic}[1]
+		\Require $\beta \in (1,2]$, $s \in I_\beta$, $n\in\N$
+		\State $r \gets s$, 
+		\State Initialize $x$ as the empty string $\epsilon$
+		\For {$i = 1,\ldots,n$}
+			\If{ $r < \beta^{-1}$ } $b \gets 0$  \label{alg2:line 4}
+			\Else{ $b \gets 1$}
+			\EndIf
+			\State $x \gets xb$
+			\State $r \gets \beta \, r -  b$
+		\EndFor
+		\State \Return $x$
+	\end{algorithmic}
+	\end{algorithm}
+
+	To generate the lazy $\beta$-expansion, instead one only needs to change the condition $r < \beta^{-1}$ in line \ref{alg2:line 4} of Algorithm \ref{alg:greedy algorithm beta expansion} to $r \leq \beta^{-1}(\beta - 1)^{-1}$ \cite[Section 2]{dajani2002greedy}. As any other $\beta$-expansion is lexicographically between these two extreme cases, we can come up with an algorithm that covers them all. This algorithm is referred to as the random $\beta$-expansion algorithm \cite[Section 1]{dajani2003random}, and is summarized in Algorithm \ref{alg:random algorithm beta expansion}.
+
+	% Going further, for any $\alpha \in [1, (\beta-1)^{-1}]$, one can replace the condition $r < \beta^{-1}$ in line \ref{alg2:line 4} of Algorithm \ref{alg:greedy algorithm beta expansion} to $r < \beta^{-1}\alpha$, and the algorithm will still generate a valid $\beta$-expansion, which is called the $(\beta,\alpha)$-expansion \cite[Section 3]{dajani2002greedy}. This technique allows to generate a vast number of $\beta$-expansions by varying the parameter $\alpha$, but not necessarily all of them. A more subtle algorithm, called the random $\beta$-expansion algorithm \cite[Section 1]{dajani2003random}, allows to generate all the $\beta$-expansion \cite[Theorem 2]{dajani2007invariant}.
+
+	\begin{algorithm}[H]
+		\caption{Random $\beta$-expansion algorithm}\label{alg:random algorithm beta expansion}
+		\begin{algorithmic}[1]
+			\Require $\beta \in (1,2]$, $s \in I_\beta$, $n\in\N$
+			\State $r \gets s$, 
+			\State Initialize $x$ as the empty string $\epsilon$
+			\For {$i = 1,\ldots,n$}
+				\If{ $r < \beta^{-1}$ } $b \gets 0$  \label{alg3:line 4}
+				\ElsIf{$r > \beta^{-1}(\beta-1)^{-1}$}  $b \gets 1$
+				\Else{ $b \gets 0$ or $1$},  \label{alg3:line 6}
+				\EndIf
+				\State $x \gets xb$
+				\State $r \gets \beta \, r -  b$
+			\EndFor
+			\State \Return $x$
+		\end{algorithmic}
+	\end{algorithm}
+	Note that in the case $\beta=2$, line \ref{alg3:line 6} can occur only if $r = 0.5$, which is the source of the 2-ambiguity if binary expansions. This algorithm gives a remarkable illustration on how multiplicity of $\beta$-expansions can be turned into a tractable nondeterministic algorithm.
+
+  This redundancy of $\beta$-expansions of a given real number can be exploited in practical applications, e.g. in A/D-conversion. Specifically, it was shown in \cite{daubechies2006imperfect} that A/D-conversion based on $\beta$-expansions can yield arbitrary precision even in the presence of imperfect quantizers. To illustrate this, consider the problem of representing $s \in [0,1]$ as a binary sequence, i.e., we turn the analog quantity $s$ into a binary sequence $x$, for $\beta = 2$, say in a greedy manner. If one builds a physical device to accomplish this through Algorithm \ref{alg:greedy algorithm binary expansion}, the operation $r < 0.5$ is by virtue of requiring infinite precision impossible to realize in practice. Any physical device that has to realize the thresholding operation $r<0.5$ will fail from time to time. These failure can happen when $r \in [0.5 - \varepsilon, 0.5 + \varepsilon]$, for some small $\varepsilon > 0$, which correspond to the precision limit of the physical device. However, the random $\beta$-expansion delivered by Algorithm \ref{alg:random algorithm beta expansion} can be used to overcome this issue. Suppose in more general terms that we dispose of a device $T$ that can be tuned to compare an input $r \geq 0$ to a threshold $t>0$ fixed by the user, within precision $\varepsilon$, i.e., the device returns $0$ if $r < t - \varepsilon$, $1$ if $r > t + \varepsilon$, and either $0$ or $1$ if $r \in [t - \varepsilon, t + \varepsilon]$. We denote by $T(r) \in \{0,1\}$ the output of the device. Then, one can conceive an algorithm that uses this physical device that attempts to generate a $\beta$-expansion, as follows.
+
+  \begin{algorithm}[H]
+	\caption{Physical algorithm for $\beta$-expansion}\label{alg:physical algorithm beta expansion}
+	\begin{algorithmic}[1]
+		\Require $\beta \in (1,2]$, $s \in I_\beta$, $n\in\N$
+		\State $r \gets s$, 
+		\State Initialize $x$ as the empty string $\epsilon$
+		\For {$i = 1,\ldots,n$}
+			\State $b \gets T(r)$  \label{alg4:line 4}
+			\State $x \gets xb$
+			\State $r \gets \beta \, r -  b$
+		\EndFor
+		\State \Return $x$
+	\end{algorithmic}
+	\end{algorithm}
+  
+  One can choose $\beta \in (1,2)$ and $t > 0$ so that $[t - \varepsilon, t + \varepsilon] = [\beta^{-1}, \beta^{-1}(\beta-1)^{-1}]$. Then, line \ref{alg4:line 4} in Algorithm \ref{alg:physical algorithm beta expansion} is precisely equivalent to the lines \ref{alg3:line 4}-\ref{alg3:line 6} of Algorithm \ref{alg:random algorithm beta expansion}. It follows that Algorithm \ref{alg:physical algorithm beta expansion} indeed delivers a valid $\beta$-expansion, provided that $\beta$ and $t$ dsatisfy the above mentionned constraints. Note that $\beta$ cannot be chosen equal to $2$, as in this case $[\beta^{-1}, \beta^{-1}(\beta-1)^{-1}] = \{0.5\}\neq [t - \varepsilon, t + \varepsilon]$ for any $t,\varepsilon > 0$, thus this technique cannot be achieved in the binary expansion framework.
+  
+  We have seen that $\beta$-expansions lead to robust binary representations. However, these binary representations can be very complex and very long compared to the binary representation. Indeed, line \ref{alg4:line 4} in Algorithm \ref{alg:physical algorithm beta expansion} appears to generate randomness, which points to that fact that the generated $\beta$-expansion is structureless. In this case $\beta$-expansions to represent real numbers would be of poor interest, as the binary expansions would much more efficient in terms of storage. Even the apparently simple greedy $\beta$-expansion empirically generates sequences that do not present obvious regularities, as depicted on Table \ref{tab:different beta expansions of}.
+
+  \begin{table}[H]
+	\centering
+		\begin{tabular}{c|l}
+			$\beta$ & Greedy $\beta$-expansions of $s = 0.75$\\
+			\hline
+			2 & 11000000000000000000000000000000000000000000000000\\
+			1.01 & 00000000000000000000000000001000000000000000000000\\
+			1.2 & 01000000000000010000000000000000000100000000000000\\
+			1.5 & 10000010010010100000000010000001000010000001001001\\
+			1.8 & 10100010101000000110101000011000011010011000010000\\
+			1.99 & 10111110001001001001010001100011010000100000111010
+		\end{tabular}
+		\caption{First 50 bits of the greedy $\beta$-expansion of $s=0.75$ generated by Algorithm \ref{alg:greedy algorithm beta expansion}, for different values of $\beta$.}\label{tab:different beta expansions of}
+	\end{table}
+  
+  On the above table, while the greedy $\beta$-expansion of $0.75$ appears to be very structured for $\beta=2$, it is not so obvious for any other value of $\beta$. To ask whether one can quantify the differences of algorithmic complexity, also known as Kolmogorov complexity, between $\beta$-expansions, for different values of $\beta \in (1,2]$.
+
+\subsection{Algorithmic complexity}
+
+\label{subsec:algorithmic complexity}
+
+We proceed to building up the definitions related to algorithmic complexity. We will remain on the surface of the topic, but we refer the interested reader to \cite{li2008introduction} for an in-depth study. Throughout the paper, we consider formal algorithms to be functions between finite binary strings, i.e., functions of the form $\varphi : \{0,1\}^\ast \to \{0,1\}^\ast$. In the above examples, we have defined algorithms that do not respect this input-output convention. For instance, Algorithm \ref{alg:greedy algorithm binary expansion} is of the form $\varphi : [0,1] \times \N \to \{0,1\}^\ast$. However, one can cast such an algorithm into a formal algorithm by considering encodings of its input and output with binary strings. We define a special class of formal algorithms, called effective algorithms, which are precisely defined as computable functions in the literature \cite[Definition 1.7.1]{li2008introduction}. Effective algorithms are essentially algorithms that can be run on digital computers. As a counter-example, Algorithm \ref{alg:greedy algorithm binary expansion} is not an effective algorithm, as line \ref{alg1:line 4} uses the comparison of the variable ``$r$'' to the threshold $0.5$, which in full generality requires infinite precision, the latter being impossible to realize in practice, and a fortiori not possible on digital computers. Effective algorithms can manipulate finite sequences of nonnegative integers and perform operations such as shifts, copying and pasting which can then be used to define more complex operations on integers and rationals, such as addition and multiplication. In contrast to Algorithm 
+\ref{alg:greedy algorithm binary expansion} not being effective for general $s \in [0,1]$, we say that $s$ is a computable number if there exists an effective algorithm $\varphi$ such that $\varphi(n) = \xf_n$, where $\xf \in \{0,1\}^\omega$ is a binary expansion of $s$. We denote by $\C$ the set of computable numbers \cite[Section 10]{copeland2004computable}. $\C$ is very large as it contains all algebraic numbers (number that are a root of a polynomial with integer coefficients), and even certain transcendental numbers such as $\pi$ and $e$.
+
+A universal effective algorithm is an effective algorithm $U : \{0,1\}^\ast \to \{0,1\}^\ast$ such that for every given effective algorithm $\varphi: \{0,1\}^\ast \to \{0,1\}^\ast$, there exists a $p \in \{0,1\}^\ast$, called program for $\varphi$ so that $\varphi(\cdot) = U(\langle p, \cdot \rangle)$. The existence of universal effective algorithms was established in \cite{turing1936computable}. The concept of universal effective algorithm is the base to the definition of algorithmic complexity, that we now introduce. 
+\begin{definition}
+	Let $U$ be a universal effective algorithm, and $x \in \{0,1\}^\ast$. The algorithmic complexity of $x$ with respect to $U$ is defined as the length of the shortest (finite) binary sequence $x^\ast$, called canonial sequence for $x$, which satisfies $U(x^\ast) = x$. It is denoted $K_U[x] = |x^\ast|$.
+\end{definition}
+% Algorithmic complexity is crucially based on the 
+% An effective algorithm $\varphi : \{0,1\}^\ast \to \{0,1\}^\ast$ is is called an effective algorithm if it can be run on a modern digital computer with an infinite memory
+% We proceed by defining the algorithmic complexity, which quantifies the complexity of finite sequences. 
+
+% Let $x$ be a finite binary sequence, and $U : \{0,1\}^\ast \to \{0,1\}^\ast$ be a universal effective algorithm, whose precise meaning will be detailed below. We define the algorithmic complexity $K[x]$ of $x$ to be the length of the shortest finite binary sequence $x^\ast$ satisfying $U(x^\ast) = x$. 
+% An effective algorithm $\varphi : \{0,1\}^\ast \to \{0,1\}^\ast$ is precisely a partial computable function \cite[Definition 1.7.1]{li2008introduction}, which roughly refers to algorithms which can be run by digital computers. 
+
+% As a counter-example, Algorithm \ref{alg:greedy algorithm binary expansion} is not an effective algorithm, as it manipulates a variable ``$r$'', which is a real number, and real numbers can not be processed on digital computers, simply as they require, in general, infinitely many bits to represent them. 
+% Effective algorithms can manipulate finite binary sequences and perform operations such as bit shift, copy bits, paste bits which can then be use to define more complex operations on integers and rationals, such as addition and multiplication. A universal effective algorithm is an effective algorithm $U : \{0,1\}^\ast \to \{0,1\}^\ast$ such that for any given effective algorithm $\varphi: \{0,1\}^\ast \to \{0,1\}^\ast$, there exists a $p \in \{0,1\}^\ast$, called program for $\varphi$, such that $\varphi(\cdot) = U(\langle p, \cdot \rangle)$. The existence of universal effective algorithms was proven in \cite{turing1936computable}. 
+Note that the above definition of algorithmic complexity is relative to a given universal effective algorithm. Following \cite[Definition 2.1.2]{li2008introduction}, we fix a universal effective algorithm $\Uref$ throughout the paper, and we define 
+\begin{equation}
+	K[x] := K_{\Uref}[x], \ \text{for all} \ x \in \{0,1\}^\ast.
+\end{equation}
+$K[\cdot]$ is seen to be an absolute measure of algorithmic complexity. 
+
+Algorithmic complexity reflects the structure (or the absence of structure) of a binary sequence $x \in \{0,1\}^\ast$. High algorithmic complexity denotes the absence of struture, while low algorithmic complexity is an indicator of strong interdependencies between the bits of $x$. Moreover, two sequences that are structurally related display similar algorithmic complexities. As a special case of \cite[Theorem 2]{staiger2002kolmogorov}, we show the following very simple lemma, which both illustrates the preceding sentence, and will turn out useful for the rest of the paper.
+\begin{lemma}\label{lem:if two sequences are connected through an algorithm, they have same kolmogorov complexity}
+	Let $\varphi : \{0,1\}^\ast \to \{0,1\}^\ast$ be an effective algorithm. Then, there exists a constant $c > 0$, such that for all $x,x' \in \{0,1\}^\ast$ satisfying $x' = \varphi(x)$, one has $K[x'] \leq K[x] + c$.
+\end{lemma}
+\begin{proof}
+	Recall that $\Uref$ is the universal effective algorithm fixed throughout the paper. Let $\varphi : \{0,1\}^\ast \to \{0,1\}^\ast$ be an effective algorithm. $\varphi \circ \Uref$ is also an effective algorithm (the composition of two effective algorihms is again an effective algorithm \cite[Exercise 2.1.2]{lovasz2018notes}). Further, as $\Uref$ is a universal effective algorithm, there exists a program $p\in \{0,1\}^\ast$ such that $\Uref(\langle p, x \rangle) = \varphi \circ \Uref(x)$, for all $x \in \{0,1\}^\ast$. Let now $x,x' \in \{0,1\}^\ast$ be such that $\varphi(x) = x'$. Next, let $x^\ast \in \{0,1\}^\ast$ be such that $\Uref(x^\ast) = x$ and $|x^\ast| = K[x]$. Then, $\Uref(\langle p, x^\ast \rangle) = \varphi \circ \Uref(x^\ast) = \varphi(x) = x'$. By definition, it immediately follows that $K[x'] \leq |\langle p, x^\ast\rangle| = 2|p| + |x^\ast| + 1$. Setting $c = 2|p| + 1$, the result follows.
+\end{proof}
+
+In this paper, we manipulate infinite binary sequences. Hopefully, algorithmic complexity naturally extends from finite to infinite sequences. For an infinite sequence $\xf \in \{0,1\}^\omega$, we study the behavior of $K[\xf_{1:n}]$ in function of $n \in \N$.
+
+  The difference of the algorithmic complexity between prefixes of the greedy and lazy binary expansions is well understood. For $s \in [0,1]$, the greedy binary expansion $\xf$ of $s$ and the lazy binary expansion $\xf'$ of $s$ satisfy
+	\begin{equation}
+		|K[\xf_{1:n}] - K[\xf'_{1:n}]| \leq c, \ \text{for all} \ n \in \N,
+	\end{equation}
+	where $c > 0$ is independant of $n$. This follows directly from the fact that one can generate the lazy binary expansion from the greedy binary expansion by following the procedure specified through (\ref{eq:greedy expansion ending with infinitetail of zeros})-(\ref{eq:lazy expansion ending with infinitetail of ones}). In particular, the operations (\ref{eq:greedy expansion ending with infinitetail of zeros})-(\ref{eq:lazy expansion ending with infinitetail of ones}) can be carried out by an effective algorithm. To the best of our knowledge, there is no literature at all relating the algorithmic complexity of the $\beta$-expansions to the algorithmic complexity of the binary expansions, even though their rich structure suggests interesting relashionships. In particular, as discussed in the previous section, for a given $s\in [0,1]$, its $\beta$-expansions could have a different algorithmic complexity than its binary expansions. 
+
+
+% 	The redundancy afforded by $\beta$-expansions could come at the cost of higher algorithmic complexity compared to binary expansions. 
+  
+%   Indeed, at first glance, $\beta$-expansions could be more complex than their 
+%   binary counterparts. To see t
+  
+%   To illustrate this, we have compiled the first 50 bits of the greedy $\beta$-expansion, for various values of $\beta$, in Table \ref{tab:different beta expansions of}. The greedy $\beta$-epansions were generated by the greedy algorithm summarized in Algorithm \ref{alg:greedy algorithm beta expansion}.
+  
+  
+  
+%   We can make the following observations. Although the binary expansion of $s=0.75$ exhibits a very simple structure, its greedy $\beta$-expansions in Table \ref{tab:different beta expansions of} do not seem to exhibit recognizable structural regularities. Such regularities would be indicators of low algorithmic complexity. The absence of obvious structural regularities does not, however, necessarily imply large algorithmic complexity either. 
+  
+  We now approach this question in a more systematic manner by identifying values of $\beta$ for which a $\beta$-expansion of a given $s \in [0,1]$ is closely related to its binary expansion. Concretely, let $s = 0.75$ and take $\beta = \sqrt{2}$. Instead of generating the greedy $\sqrt{2}$-expansion of $s$, which is given by $10000000010010\ldots$ and exhibits no evident structure, we observe that
+  \begin{align}
+      s = 0.75 &= \frac{1}{2} + \frac{1}{4} = \frac{1}{(\sqrt{2})^2} + \frac{1}{(\sqrt{2})^4} = \sqrt{2}^{-2} + \sqrt{2}^{-4}\label{eq:representation of x =0.75 as a sqrt 2 expansion 1st eq}\\
+	   &= 0 \times \sqrt{2}^{-1} + 1 \times \sqrt{2}^{-2} +0 \times \sqrt{2}^{-3} + 1 \times \sqrt{2}^{-4} + 0 \times \sqrt{2}^{-5} + \ldots \label{eq:representation of x =0.75 as a sqrt 2 expansion}
+  \end{align}
+  Hence, $\xf = 01010^\infty$ is a $\sqrt{2}$-expansion of $s = 0.75$, which displays a very simple structure, and resembles a lot the greedy binary expansion of $s = 0.75$, which is given by $110^\infty$. What is more, (\ref{eq:representation of x =0.75 as a sqrt 2 expansion 1st eq}) and (\ref{eq:representation of x =0.75 as a sqrt 2 expansion}) suggest an algorithm for going from any binary expansion to a corresponding $\sqrt{2}$-expansion. This algorithm can be cast in general form as follows. Let $\xf \in \{0,1\}^\omega$ be a binary expansion of $s \in [0,1]$. The sequence $\xf' \in \{0,1\}^\omega$ defined as
+  \begin{equation}\label{eq:definition of b_i prime as alternating b_i and 0}
+		\def\arraystretch{1.2}
+      \begin{array}{l}
+          \xf'_{2i-1} := 0,\\
+          \xf'_{2i} := \xf_i,
+      \end{array} \ \ \text{for all} \ i \in \N,
+  \end{equation}
+  is a $\sqrt{2}$-expansion of $s$. Indeed, as $\xf$ is a binary expansion of $s$, 
+ \begin{align}
+	s &= \sum_{i=1}^\infty \xf_i 2^{-i} = \sum_{i=1}^\infty \xf_i \sqrt{2}^{-2i} = \sum_{i=1}^\infty \xf_i \sqrt{2}^{-2i} + \sum_{i=1}^\infty 0 \times \sqrt{2}^{-(2i-1)}\\ 
+	&\overset{(\ref{eq:definition of b_i prime as alternating b_i and 0})}{=} \sum_{i=1}^\infty \xf'_{2i} \sqrt{2}^{-2i} + \sum_{i=1}^\infty \xf'_{2i-1} \sqrt{2}^{-(2i-1)} = \sum_{i=1}^\infty \xf'_i \sqrt{2}^{-i}.
+ \end{align} 
+  This idea can be further generalized as follows. For $m \in \N$, $m \geq 2$, let $\xf \in \{0,1\}^\omega$ be the greedy binary expansion of $s \in [0,1]$. Then, the sequence $\xf' \in \{0,1\}^\omega$ defined as
+  \begin{equation} \label{eq:generation of beta expansions sqrt m 2}
+	\def\arraystretch{1.2}
+      \begin{array}{l}
+          \xf'_{mi-k} := 0, \ k \in \{1,\ldots, m-1\}\\
+          \xf'_{mi} := \xf_i,
+      \end{array} \ \ \text{for all} \ i \in \N,
+  \end{equation}
+  is a $\sqrt[m]{2}$-expansion of $s$. Indeed, as $\xf$ is a binary expansion of $s$, we have
+  \begin{align}
+	 s &= \sum_{i=1}^\infty \xf_i 2^{-i} = \sum_{i=1}^\infty \xf_i \sqrt[m]{2}^{-mi} = \sum_{i=1}^\infty \xf_i \sqrt[m]{2}^{-mi} + \sum_{k=1}^{m-1}\sum_{i=1}^\infty 0 \times \sqrt[m]{2}^{-(mi-k)}\\ 
+	 &\overset{(\ref{eq:generation of beta expansions sqrt m 2})}{=} \sum_{i=1}^\infty \xf'_{mi} \sqrt[m]{2}^{-mi} +  \sum_{k=1}^{m-1}\sum_{i=1}^\infty \xf'_{mi-k}  \sqrt[m]{2}^{-(mi-k)} = \sum_{i=1}^\infty \xf'_i \sqrt[m]{2}^{-i}.
+  \end{align}
+  We shall now cast (\ref{eq:generation of beta expansions sqrt m 2}) into an effective algorithm which takes the first $\lceil k/m \rceil$ bits $\xf_{1: \lceil k/m \rceil}$ of the greedy binary expansion of $s$ as input and produces the first $k$ bits $\xf'_{1: k}$ of a $\sqrt[m]{2}$-expansion $\xf'$. The procedure is made explicit in Algorithm \ref{alg:generator of sqrt m expansion from binary expansion}.
+  \begin{algorithm}
+  \caption{$\sqrt[m]{2}$-expansion from a binary expansion}\label{alg:generator of sqrt m expansion from binary expansion}
+  \begin{algorithmic}[1]
+      \Require $m \in \N$, $x \in \{0,1\}^\ell$, $k \in \ints{m \ell}$
+      \State Initialize $y$ as the empty string $\epsilon$
+      \For {$i=1, \ldots, k$}
+          \If{$i$ is divisible by $m$} 
+		  \State $y \gets y x_{i/m}$
+          \Else \State $y \gets y 0$
+          \EndIf
+      \EndFor
+      \State \Return $y$
+  \end{algorithmic}
+  \end{algorithm}
+
+   The individual steps in Algorithm \ref{alg:generator of sqrt m expansion from binary expansion} can clearly be carried out by a digital computer, which renders this algorithm effective. Note that one can readily devise a reciprocal of this algorithm, namely a procedure that generates the first $\lceil k/m \rceil$ bits of the greedy binary expansion from the first $k$ bits of a $\sqrt[m]{2}$-expansion. For that, remark that going from a binary expansion to a $\sqrt[m]{2}$-expansion involves inserting zeros and going back is simply removing them. This algorithm would be also effective as it involves operations very similar to those in Algorithm \ref{alg:generator of sqrt m expansion from binary expansion}. In summary, we have shown that the first $k$ bits $\xf'_{1: k}$ of a $\sqrt[m]{2}$-expansion $\xf'$ can be generated from the first $\lceil k/m \rceil$ bits $\xf_{1: \lceil k/m \rceil}$ of a corresponding binary expansion $\xf$ through an effective algorithm, and vice-versa. It follows from Lemma \ref{lem:if two sequences are connected through an algorithm, they have same kolmogorov complexity} that there exists $c > 0$ such that
+  \begin{equation}\label{eq:Kolmogorov complexity sqrt m 2 binary expansion}
+      \left|K [\xf'_{1: k}] - K[\xf_{1: \lceil k/m \rceil}]\right| < c,
+  \end{equation}
+  with $c$ independent of $k$. The first contribution of this paper is to prove that (\ref{eq:Kolmogorov complexity sqrt m 2 binary expansion}) can be generalized to all computable number $\beta \in (1,2]$.
+  \begin{theorem}\label{thm:informal equivalence kolmogorov complexity computable}
+  Let $s \in [0,1]$ and let $\beta \in (1,2]$ be a computable number. Let $\xf$ be a binary expansion of $s$. Then, there exists a $\beta$-expansion of $s$, denoted by $\xf'$, such that
+  \begin{equation}\label{eq:equivalence kolmogorov complexity binary beta expansions}
+      \left| K\left[\xf'_{1: k}\right] - K\left[\xf_{1: \lceil k\log_2(\beta)\rceil}\right]\right| < c, \ \ \forall k \in \N,
+  \end{equation}
+  where $c$ is a constant independant of $n$.
+  \end{theorem}
+  Moreover, we will prove that if $\beta \in (G,2]$, there are infinitely many such $\beta$-expansions. We denote by $K_\beta(s)$ the set of $\beta$-expansions satisfying (\ref{eq:equivalence kolmogorov complexity binary beta expansions})
+  \begin{theorem}
+	Let $s \in [0,1]$ and let $\beta \in (G,2]$ be a computable number. Then, $ \# K_\beta(s) = \infty$.
+	\end{theorem}
+  The above result is established contructively by introducing a dynamical system to generate a $\beta$-expansion of a given number $s \in [0,1]$ from one of its binary expansions. We emphasize the fact that this results holds for only one $\beta$-expansion, which represents a first milestone towards understanding the links between algorithmic complexity and the redundancy displayed by $\beta$-expansions. The dynamical system used in the proof of Theorem \ref{thm:informal equivalence kolmogorov complexity computable} will turn very handy extend the above result to infinitely many different $\beta$-expansions in a future paper.
+
+  Note that setting $\beta= \sqrt[m]{2}$ in (\ref{eq:equivalence kolmogorov complexity binary beta expansions}) recovers (\ref{eq:Kolmogorov complexity sqrt m 2 binary expansion}) as a special case. The multiplicative constant $\log_2(\beta)$ can be interpreted as follows. As the first $n$ bits of a $\beta$-expansion of $s \in [0,1]$ approximate $s$ to within an error of $\beta^{-n}$, one needs the first $n \log_2(\beta)$ bits of a binary expansion $\xf$ of $s$ suffice to describe $s$ to within the same approximation error $2^{-n\log_2(\beta)} = \beta^{-n}$.

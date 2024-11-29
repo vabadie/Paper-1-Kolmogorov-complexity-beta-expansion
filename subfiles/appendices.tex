@@ -1,0 +1,336 @@
+%! TEX root = ./main.tex
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% APPENDIX A %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{\texorpdfstring{Definition of $\beta$-expansions by blocks}{}}
+
+% Throughout the paper, we make use of the fact that $\delta_\beta$ is continuous on $\{0,1\}^\omega$, with respect to a specific distance $d$, that we introduce next.
+% \begin{definition}\label{def:metric on discrete sequences}
+% 	We define
+% 	\begin{equation}
+% 		\begin{array}{lccl}
+% 			d : & \left(\{0,1\}^\omega\right)^2 & \to & \R\\
+% 				& \xf,\yf & \mapsto &
+% 			\displaystyle\frac{1}{\min \{i \in \N \, : \, \xf_i \neq \yf_i\}}.
+% 		\end{array}
+% 	\end{equation}
+% \end{definition}
+% \begin{lemma}
+% 	$d$ is a metric.
+% \end{lemma}
+% \begin{proof}
+% 	Let $\xf,\yf \in \{0,1\}^\omega$, and note that $d(\xf,\yf) \geq 0$, $d(\xf,\yf) = d(\yf,\xf)$, and $d(\xf,\yf) = 0 \Leftrightarrow \xf = \yf$. 
+% 	Let $\xf,\yf,\zf \in \{0,1\}^\omega$. Then,
+% 	\begin{enumerate}[label=(\alph*)]
+% 		\item if $d(\xf,\yf) \leq d(\xf,\zf)$, then trivially $d(\xf,\yf) \leq d(\xf,\zf) + d(\zf,\yf)$,
+% 		\item if $d(\xf,\yf) > d(\xf,\zf)$, then $d(\yf,\zf) = d(\xf,\yf)$, so $d(\xf,\yf) \leq d(\xf,\zf) + d(\yf,\zf)$.
+% 	\end{enumerate}
+% 	In all cases, we have $d(\xf,\yf) \leq d(\xf,\zf) + d(\zf,\yf)$. Therefore, $d$ is symmetric, positive separable, and satisfies the triangular inequality on $\N$, so $d$ is a metric.
+% \end{proof}
+% \begin{lemma}\label{lem:delta beta is continuous}
+% 	Let $\beta \in (1,2]$. $\delta_\beta$ as a mapping from $\{0,1\}^\omega$ to $I_\beta$ is continuous.
+% \end{lemma}
+% \begin{proof}
+% 	Fix $\beta \in (1,2]$, $\varepsilon > 0$, and $\xf,\yf \in \{0,1\}^\omega$ such that $d(\xf,\yf) \leq 1/j$, 
+%     for some $j \in \N$. Then,
+% \begin{align}
+% 	\left|\delta_\beta\left(\xf\right) - \delta_\beta\left(\yf\right)\right| &= \left| \sum_{i=1}^\infty (\xf - \yf_i) \beta^{-i}\right|  \leq \sum_{i=j+1}^\infty\left| \xf - \yf_i\right|\beta^{-i} \leq
+% 	2 \left| \sum_{i=j+1}^\infty \beta^{-i}\right| \leq \frac{2}{\beta-1}\beta^{-j}.
+% \end{align}
+% Therefore, a sufficient condition for $\left|\delta_\beta\left(\xf\right) - \delta_\beta\left(\yf\right)\right| \leq \varepsilon$ to hold is
+% \begin{equation}
+% 	d(\xf,\yf) = \frac{1}{j} \leq \frac{1}{\log_\beta\left( \frac{2}{\varepsilon (\beta-1)}\right)}.
+% \end{equation}
+% In summary, for all $\xf,\yf \in \{0,1\}^\omega$ satisfying $d(\xf,\yf) \leq \delta := \frac{1}{\log_\beta\left( \frac{2(\lceil \beta \rceil -1)}{\varepsilon (\beta-1)}\right)}$, one has $\left|\delta_\beta(\xf)-\delta_\beta(\yf)\right| \leq \varepsilon$, which establishes the continuity of $\delta_\beta$.
+% \end{proof}
+The two following results are about computing $\delta_\beta$ when the input is made up of blocks, which turns out to be useful. 
+\begin{lemma}\label{lem:factorisation of beta expansion through concatenation}
+	Let $n \in \N$, $(\ell_i)_{i \in \ints{0,n}}$, and $(x_i)_{i \in \ints{0,n}} \in \{0,1\}^m$ be a family of $n+1$ binary sequences of respective length $\ell_i$. We define $L_i := \sum_{j=0}^i \ell_j$, for $i \in \ints{0,n}$. Then, for all $\beta \in (1,2]$, it holds that
+	\begin{equation}
+		\delta_\beta\left(\coprod_{i=0}^n x_i \right) = \delta_\beta(x_0) + \sum_{i=1}^n \beta^{-L_{i-1}} \delta_\beta(x_i).
+	\end{equation}
+\end{lemma}
+\begin{proof} The proof follows by the chain of arguments
+	\begin{align}
+		\delta_\beta\left(\coprod_{i=0}^n x_i \right) &= \sum_{j=1}^{L_n} \beta^{-j}\left[\coprod_{i=0}^n x_i\right]_j = \sum_{j=1}^{L_0} \beta^{-j}\left[\coprod_{i=0}^n x_i\right]_j + \sum_{j=L_0+1}^{L_n} \beta^{-j}\left[\coprod_{i=0}^n x_i\right]_j\\
+		& = \sum_{j=1}^{\ell_0} \beta^{-j}\left[\coprod_{i=0}^n x_0\right]_j + \sum_{j=1}^n \sum_{k=L_{j-1}+1}^{L_j} \beta^{-k}\left[\coprod_{i=0}^n x_i\right]_k\\
+		&= \sum_{j=1}^{\ell_0} \beta^{-j}x_0 + \sum_{j=1}^n \sum_{k=1}^{L_j - L_{j-1}} \beta^{-k - L_{j-1}}\left[\coprod_{i=0}^n x_i\right]_{k + L_{j-1}}\\
+		&= \delta_\beta(x_0) + \sum_{j=1}^n \beta^{-L_{j-1}}\sum_{k=1}^{\ell_j} \beta^{-k} \left[x_j\right]_k\\
+		&= \delta_\beta(x_0) + \sum_{i=1}^n \beta^{-L_{i-1}} \delta_\beta(x_i).
+	\end{align}
+\end{proof}
+\begin{lemma}\label{lem:factorisation of beta expansion through concatenation two}
+	Let $x \in \{0,1\}^\ast$ and $\xf \in \{0,1\}^\omega$. Then, for all $\beta \in (1,2]$, it holds that
+	\begin{equation}
+		\delta_\beta\left( x  \xf \right) = \delta_\beta(x) + \beta^{-|x|} \delta_\beta(\xf).
+	\end{equation}
+\end{lemma}
+\begin{proof}
+	The proof follows by the chain of arguments
+	\begin{align}
+		\delta_\beta\left( x  \xf \right) &=  \sum_{i=1}^\infty [x  \xf]_i\beta^{-i} = \sum_{i=1}^{|x|} [x  \xf]_i\beta^{-i} + \sum_{i=|x| + 1}^{\infty} [x  \xf]_i\beta^{-i}\\
+		&= \sum_{i=1}^{|x|} x_i\beta^{-i} + \sum_{i=1}^{\infty} [x  \xf]_{i+|x|}\beta^{-(i+|x|)} =\delta_\beta(x) + \beta^{-|x|} \sum_{i=1}^{\infty} \xf_{i}\beta^{-i}\\
+		& =\delta_\beta(x) + \beta^{-|x|} \delta_\beta(\xf).
+	\end{align}
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% APPENDIX E %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{\texorpdfstring{Simple relations for algorithmic complexity of binary and $\beta$-expansions}{Simple relations for algorithmic complexity of binary and -expansions}}
+\label{app:greedy binary expansion is a minimizer of Kolmogorov complexity}
+
+\subsection{Proof of Theorem \ref{thm:binary expansion minimizes kolmogorov complexity}}
+
+
+\begin{lemma}\label{lem:condition prefix beta expansion of x}
+	Let $\beta \in (1,2]$, and $s \in \ibet$. Then, for all $x \in \{0,1\}^\ast$, $x$ is a prefix of a $\beta$-expansion if and only if $s \in \delta_\beta(x) +\beta^{-|x|}\left[0,\frac{1}{\beta - 1}\right]$.
+\end{lemma}
+\begin{proof}
+	Let $\beta \in (1,2]$, and $s \in \ibet$. Suppose $s \in \delta_\beta(x) +\beta^{-|x|}\left[0,\frac{1}{\beta - 1}\right]$. Then, there exists $\xf \in \{0,1\}^\omega$ such that
+	\begin{equation}
+		s = \delta_\beta(x) +\beta^{-|x|}\delta_\beta(\xf) \overset{\ref{lem:factorisation of beta expansion through concatenation two}}{=} \delta_\beta(x  \xf),
+	\end{equation}
+	so $x$ is a prefix of the $\beta$-expansion $x  \xf$. Conversely, suppose that $x$ is a prefix of a $\beta$-expansion of $s$. Then, there exists $\xf \in \{0,1\}^\omega$ such that $x  \xf$ is a $\beta$-expansion of $s$, i.e.
+	\begin{equation}
+		s = \delta_\beta(x  \xf)  \overset{\ref{lem:factorisation of beta expansion through concatenation two}}{=} \delta_\beta(x) +\beta^{-|x|}\delta_\beta(\xf) \in \delta_\beta(x) + \beta^{-|x|}\left[0,\frac{1}{\beta - 1}\right].
+	\end{equation}
+\end{proof}
+
+
+\begin{lemma}\label{lem:generalization bounding candidates greedy expansion}
+	Let $\beta_1,\beta_2 \in (1,2), \ \beta_1 < \beta_2$, $n \in \N$ and $x \in \{0,1\}^n$. We denote by $A(x)$ the set of $\lceil n \log_2(\beta_1)\rceil$-prefixes of the greedy expansions of all real numbers for which there exists $\beta \in (\beta_1,\beta_2)$ such that one of the $\beta$-expansions has $n$-prefix $x$. Then,
+	\begin{equation}
+		\#\left(A(x)\right) \leq \frac{2}{\beta_1 - 1} + n(n+1)(\beta_2 - \beta_1)\beta_1^{n} + 2.
+	\end{equation}
+\end{lemma}
+\begin{proof}
+	Let $\beta_1,\beta_2 \in (1,2], \ \beta_1 < \beta_2$, $n \in \N$ and $x \in \{0,1\}^n$. Let $X(x) \subseteq \left[0, \frac{1}{\beta_1 - 1}\right)$ be the set of real numbers for which there exists $\beta \in (\beta_1,\beta_2)$ such that one of the $\beta$-expansions has prefix $x$. By Lemma \ref{lem:condition prefix beta expansion of x}, 
+	\begin{equation}
+		S(x) = \bigcup_{\beta \in [\beta_1,\beta_2]} \left(\delta_\beta(x) + \beta^{-n}\left[0,\frac{1}{\beta - 1}\right]\right).
+	\end{equation}
+	Note that $t \mapsto \delta_t(b)$, as a function from $(1,2]$ to $\R$, is continuous and decreasing, so $S(x)$ is a closed interval whose lower bound is $\delta_{\beta_2}(x)$ and $\delta_{\beta_1}(x) + \frac{\beta_1^{-n}}{\beta_1-1}$ is the upper bound, i.e.
+	\begin{equation}
+		S(x) = \left[\delta_{\beta_2}(x),\delta_{\beta_1}(x) + \frac{\beta_1^{-n}}{\beta_1 - 1}\right].
+	\end{equation}
+	Let $w \in \{0,1\}^{\lceil n \log_2(\beta_2)\rceil}$. One has that $y \in A(x)$ $\Leftrightarrow$ there exists a $s \in S(x)$ such that $y$ is a prefix of $\gf_2(s)$ $\overset{\ref{lem:condition prefix beta expansion of x}}{\Rightarrow}$ there exists $s \in X(x)$ such that $s \in \delta_2(y) + 2^{-|y|}\left[0,1\right]$ $\Leftrightarrow$ there exists $s \in S(x)$ such that $\delta_2(y) \in s + 2^{-|y|}\left[-1, 0\right]$ $\Leftrightarrow$ $\delta_2(y) \in S(x) + 2^{-|y|}\left[-1, 0\right] = \left[\delta_{\beta_2}(x)- 2^{-|y|},\delta_{\beta_1}(x) + \frac{\beta_1^{-n}}{\beta_1 - 1}\right]$. Therefore,
+	\begin{equation}
+		A(x) \subseteq \delta_2\left(\{0,1\}^{\lceil n \log_2(\beta_1)\rceil}\right) \cap \underset{=: R(x)}{\underbrace{\left[\delta_{\beta_2}(x)- 2^{-|y|},\delta_{\beta_1}(x) + \frac{\beta_1^{-n}}{\beta_1 - 1}\right]}}.
+	\end{equation}
+	As for any two different elements of $s,s' \in \delta_2\left(\{0,1\}^{\lceil n \log_2(\beta_1)\rceil}\right)$, $|s - s'| \geq d := 2^{-\lceil n \log_2(\beta_1)\rceil}$, one has
+	\begin{align}
+		\#(A(x)) &\leq \left\lceil \frac{|R(x)|}{d}\right\rceil \leq \frac{\left[\delta_{\beta_2}(x)- 2^{-\lceil n \log_2(\beta_1)\rceil},\delta_{\beta_1}(x) + \frac{\beta_1^{-n}}{\beta_1 - 1}\right]}{2^{-\lceil n \log_2(\beta_1)\rceil}} + 1\\
+		&= \frac{2^{-\lceil n \log_2(\beta_1)\rceil} + \frac{\beta_1^{-n}}{\beta_1 - 1} + \delta_{\beta_1}(x) - \delta_{\beta_2}(x)}{2^{-\lceil n \log_2(\beta_1)\rceil}} + 1\\
+		& = \frac{2^{-\lceil n \log_2(\beta_1)\rceil}\beta_1^{-n}}{\beta_1 - 1} + 2^{-\lceil n \log_2(\beta_1)\rceil} \left(\delta_{\beta_1}(x) - \delta_{\beta_2}(x)\right) + 2 \\
+		&\leq \frac{2^{-n \log_2(\beta_1) + 1}\beta_1^{-n}}{\beta_1 - 1} + 2^{-n \log_2(\beta_1) + 1} \left(\delta_{\beta_1}(x) - \delta_{\beta_2}(x)\right) + 2\\
+		 &\leq \frac{2}{\beta_1 -1} + 2\beta_1^n \left(\delta_{\beta_1}(x) - \delta_{\beta_2}(x)\right) + 2\\
+		 &\leq \frac{2}{\beta_1 -1} + 2\beta_1^n \frac{n(n+1)}{2} (\beta_2-\beta_1) + 2\\
+		 &= \frac{2}{\beta_1 -1} + \beta_1^n n(n+1) (\beta_2-\beta_1) + 2.
+	\end{align}
+\end{proof}
+
+\begin{theorem}\label{lemma:generalized app beta expansions are more complex than the binary expansion}
+	For all $s \in [0,1]$ and all $\beta \in (1,2)$, there exists $c > 0$ such that
+\begin{equation}
+	K[\gf_2(s)|\lceil n \log_2(\beta)\rceil] \leq K[\xf|n] + F(K[u_n]) + c, \ \ \forall n \in \N, \ \ \forall \xf \in \Sigma_\beta(s),
+\end{equation}
+where $u_n := \gf_2(\beta-1)_{1: n}$, and $F: t \mapsto t + 2\log_2(t)$.
+\end{theorem}
+\begin{proof}
+The main arguments of this proof follow closely that of \cite[Theorem 3]{staiger2002kolmogorov}. Let $s \in [0,1]$, $\beta \in (1,2)$, $\xf \in \Sigma_\beta(s)$ and $n \in \N$, large enough to ensure that $u_n := \gf_2(\beta - 1)_{1: n}$ is not made only of $0$'s. Let $\beta_1 - 1 \in (0,1)\cap \Q$ to be the real number having the same greedy binary expansion as $\beta - 1$, but truncated after $\lceil n \log_2(\beta)\rceil$ bits, i.e. $\beta_1 - 1 := \delta_2(u_n)$.
+We also define $\beta_2 := \beta_1 + 2^{-\lceil \log_2(\beta)\rceil}$. By Lemma \ref{lem:condition prefix beta expansion of x}, 
+\begin{equation}
+	1 \overset{(a)}{<} \beta_1 \leq \beta \leq \beta_2 \leq 2.
+\end{equation}
+where (a) follows from the fact that $u_n$ is not made only of $0$'s.
+
+By Lemma \ref{lem:generalization bounding candidates greedy expansion}, the sole knowledge of $\xf_{1: n}$ allows to immediatly conclude that $\gf_2(s)_{1: \lceil n \log_2(\beta) \rceil}$ belongs to a set $A(\xf_{1: n}) \subseteq \{0,1\}^{\lceil n \log_2(\beta_1) \rceil}$, which cardinality is bounded above by $\frac{2}{\beta_1 - 1} + n(n+1)(\beta_2 - \beta_1)\beta_1^{n} + 2$, and which can be computed by using $u_n$ only. As defined above, $\beta_2 - \beta_1 = 2^{-\lceil \log_2(\beta)\rceil} \leq \beta^{-n}$, hence $n(n+1)(\beta_2 - \beta_1)\beta_1^n \leq n(n+1) (\beta_1/\beta)^n$. As $\beta_1/\beta < 1$, $\left(n(n+1) (\beta_1/\beta)^n\right)_{n \in \N}$ is a bounded sequence. Overall, there exists a constant $N > 0$, independant of $n$, such that $\#(A(\xf_{1: n})) \leq N$.
+
+Let $z_n \in \N$ be the index of $\gf_2(s)_{1: \lceil n \log_2(\beta) \rceil}$ in the lexicographical enumeration of $A(\xf_{1: n})$. Then, one can build an effective algorithm $\varphi : \{0,1\}^\ast \to \{0,1\}^\ast$, such that on input $\langle \langle\xf_{1: n}, u_n \rangle,  z_n \rangle$, $\varphi$ computes $A(\xf_{1: n})$, finds the $z_n$-th element $y$ of $A(\xf_{1: n})$ and outputs $y$.
+ By the preceding discussion, it is clear that $\varphi(\langle \langle \xf_{1: n},  u_n\rangle,  z_n  \rangle) = \gf_2(s)_{1: \lceil n \log_2(\beta) \rceil}$. By Lemma \ref{lem:if two sequences are connected through an algorithm, they have same kolmogorov complexity}, there exists $C,C' > 0$ such that 
+ \begin{align}\label{eq:first bounding of kolmogorov complexity of greedy binary expansion}
+	K[y] &\overset{\ref{lem:if two sequences are connected through an algorithm, they have same kolmogorov complexity}}{\leq} K[\langle \langle\xf_{1: n}, z_n \rangle,  u_n \rangle ] + C\\
+	&\overset{(\ref{eq:simple inequality on concatenation of sequences})}{\leq} K[\langle \xf_{1: n}, z_n \rangle] + F\left(K[u_n]\right) + C_+ + C\\
+	&\overset{(\ref{eq:simple inequality on concatenation of sequences})}{\leq} K[\xf_{1: n}] + F\left(K[z_n]\right) + F\left(K[u_n]\right) + 2C_+ + C\\
+	&\overset{(\ref{eq:algorithmic complexity is bounded by the length})}{\leq} K[\xf_{1: n}] + F\left(|z_n|+ C_{||}\right) + F\left(K[u_n]\right) + 2C_+ + C\\
+	&\overset{\ref{lem:if two sequences are connected through an algorithm, they have same kolmogorov complexity}}{\leq} K[\xf_{1: n}] + F\left(|z_n|+ C_{||}\right) + F\left(K[u_n] + C'\right)  + 2C_+ + C\\
+	&\overset{(a)}{\leq} K[\xf_{1: n}] + F\left(|z_n|\right) + F\left(K[u_n]\right) + C_{||} + 2C_+ + C + C',\label{eq:ineq algorithmic complexity w appendix}
+ \end{align}
+ where $(a)$ is by $F$ being subadditive.
+ Recall from above that $\#(A(\xf_{1:n})) \leq N$. As $z_n$ is an index for $A(\xf_{1:n})$, then $z_n \leq N$, and we set $C_0 :=  F(N)$, so that 
+ \begin{equation}
+ K[y] \overset{(\ref{eq:ineq algorithmic complexity w appendix})}{\leq} K[\xf_{1: n}] + F\left(K[u_n]\right) + C_{||} + 2C_+ + C + C' + C_0.
+ \end{equation}
+We set $c := C_{||} + 2C_+ + C + C' + C_0$. By identification of $y$ with $\gf_2(s)_{1: \lceil n \log_2(\beta_1) \rceil}$, one has 
+ \begin{equation}\label{eq:almost the end of the proof}
+		K[\gf_2(s)|\lceil n \log_2(\beta_1) \rceil] \leq K[\xf|n] + F(K[u_n]) + c.
+ \end{equation}
+ Note that as $\beta_1 := \delta_2(u_n)$, $|\beta - \beta_1| \leq 2^{-\lceil n \log_2(\beta)\rceil} \leq \beta^{-n}$, so
+ \begin{align}
+	\left|\lceil n \log_2(\beta) \rceil - \lceil n \log_2(\beta_1) \rceil\right| & \leq n (\log_2(\beta) - \log_2(\beta_1)) + 2\\
+	& = n (\log_2(\beta_1 + \beta^{-n}) - \log_2(\beta_1)) + 2\\
+	& = n (\log_2(1 + \beta_1^{-1}\beta^{-n})) + 2 \\
+	&\leq n \beta_1^{-1}\beta^{-n} + 2\\
+	&\overset{(a)}{\leq} \frac{\beta_1^{-1}}{\log(\beta)}\beta^{-\frac{1}{\log(\beta)}} + 2 =: D,
+ \end{align}
+ where is a consequence of a study of the maximum of the functiono $t \mapsto t\beta^{-t}$. By application of Lemma \ref{lem:kolmogorov complexity of closed sequences}, there exists $D' > 0$ such that
+ \begin{equation}\label{eq:comparable kolmogorov complexities for approximations}
+	K[\gf_2(s)|\lceil n \log_2(\beta) \rceil] \leq K[\gf_2(s)|\lceil n \log_2(\beta_1) \rceil] + D'.
+ \end{equation}
+By (\ref{eq:almost the end of the proof}) and (\ref{eq:comparable kolmogorov complexities for approximations}), one gets
+\begin{equation}
+	K[\gf_2(s)|\lceil n \log_2(\beta) \rceil] \leq K[\xf|n] + F(K[u_n]) + c + D',
+\end{equation}
+thereby finishing the proof.
+\end{proof}
+
+\subsection{Proof of Theorem \ref{thm:upper bound kolmogorov complexity beta expansions}}
+
+\textit{To appear.}
+
+\section{Miscellaneous results}
+
+% \begin{lemma} \label{lem:log x delta is decreasing}
+% 	Let $\beta \in (1,2)$, and $\delta \in \left(0, \frac{2 - \beta}{\beta}\right)$. Then, 
+% 	\begin{equation}
+% 		\begin{array}{lrcl}
+% 			g : & (1,\beta] & \to & \R\\
+% 			& t & \mapsto & -\log_t\left( \frac{\delta}{2-t}\right)
+% 		\end{array}
+% 	\end{equation}
+% 	is decreasing.
+% \end{lemma}
+% \begin{proof}
+% 	Let $t \in (1,\beta]$. Then,
+% 	\begin{align}
+% 		g'(t) &= \frac{\log(\delta)}{t\log(t)^2} - \frac{\frac{1}{2-t} \log(t) - \frac{1}{t}\log(2-t)}{\log(t)^2}\\
+% 		&= \frac{1}{\log(t)^2} \left( \frac{-1}{2-t} + \frac{1}{t}(\log(\delta) - \log(2-t))\right). \label{eq:expression of g prime x}
+% 	\end{align}
+% 	As $\delta \leq \frac{2 -\beta}{\beta} < 2 -\beta \leq 2 - t$, one has $\log(\delta) - \log(2-t) < 0$. From (\ref{eq:expression of g prime x}), it follows that
+% 	\begin{equation}
+% 		g'(t) < 0,
+% 	\end{equation}
+% 	thereby finishing the proof.
+% \end{proof}
+
+% \begin{lemma}\label{lem:delta beta lipschitz}
+% 	For $\beta \in (1,2]$ $\delta_\beta$ be defined according to (\ref{eq:definition of delta beta}). Let $x \in \{0,1\}^\ast$. Then, 
+% 	\begin{equation}
+% 		\begin{array}{lrcl}
+% 			h : & (1,2] & \to & \R\\
+% 			& \beta & \mapsto & \delta_\beta(x)
+% 		\end{array}
+% 	\end{equation}
+% 	is $\frac{|x|(|x|+1)}{2}$-Lipschitz.
+% \end{lemma}
+% \begin{proof}
+% 	Let $\beta_1, \beta_2 \in (1,2)$, and $x \in \{0,1\}^\ast$. Without loss of generality, we assume that $\beta_1 < \beta_2$. 
+% 	\begin{align}
+% 		|\delta_{\beta_1}(x) - \delta_{\beta_2}(x)| = \left|\sum_{i=1}^{|x|} x_i \beta_1^{-i} - \sum_{i=1}^{|x|} x_i \beta_2^{-i}\right| = \left|\sum_{i=1}^{|x|} x_i \left(\beta_1^{-i} -  \beta_2^{-i}\right)\right|
+% 		\overset{(a)}{\leq} \sum_{i=1}^{|x|}  \left|\beta_1^{-i} - \beta_2^{-i}\right|, \label{eq:weak eq bounding delta beta variations}
+% 	\end{align}
+% 	where (a) is by $x_i \leq 1$.
+% 	Note that for all $\beta \in (1,2)$, $\left|\frac{\partial \beta^{-i}}{\partial \beta}\right| =\left| -i \beta^{-(i+1)}\right| \leq i$. Then, by using the mean value theorem, one gets $\left|\beta_1^{-i} - \beta_2^{-i}\right| \leq i |\beta_1 - \beta_2|$. By (\ref{eq:weak eq bounding delta beta variations}),
+% 	\begin{equation}
+% 		|\delta_{\beta_1}(x) - \delta_{\beta_2}(x)| \leq \sum_{i=1}^{|x|} i |\beta_1 - \beta_2| = \frac{|x|(|x|+1)}{2} |\beta_1 - \beta_2|,
+% 	\end{equation}
+% 	thereby finishing the proof.
+% \end{proof}
+% \begin{lemma}\label{eq:condition on n 0 for xi i to be lower bounded}
+%     Let $\beta \in (1,2)$, $C \in (0,1)$, $L,N \in \N$, $q_i := 1 + \delta_2(\gf_2(\beta-1)_{1: L + Ni})$, and $\xi_i := \frac{1}{q_i^{i+1}} \prod_{j=0}^{i} q_j$, for all $i \in \N_0$. If 
+%     \begin{equation}\label{eq:condition on n_0 general}
+%         L \geq \frac{1}{2}\log_2(-\log(C)),
+%     \end{equation} then 
+%     \begin{equation}
+%         \xi_i \geq C, \ \text{for all} \ i \in \N_0.
+%     \end{equation}
+% \end{lemma}
+% \begin{proof}
+    
+% Let $\beta \in (1,2)$, $L,N \in \N$, $q_i := 1 + \delta_2(\gf_2(\beta-1)_{1: L + Ni})$, and $\xi_i := \frac{1}{q_i^i} \prod_{j=0}^{i-1} q_j$, for all $i \in \N_0$. Note that
+% \begin{equation}
+%    \log( \xi_i) = \log\left(\frac{1}{q_i^{i+1}}\prod_{j=0}^{i} q_j\right) = \sum_{j=0}^{i} \log\left( \frac{q_j}{q_i}\right). 
+% \end{equation}
+% We will show that if $n_0$ satisfies (\ref{eq:condition on n_0 general}), then $\log(\xi_i) \geq \log(C)$ for all $i \in \N$. A numerical approximation allows to show that 
+% \begin{equation}\label{eq:minoration de log 1 + x}
+%     \log(1 + t) \geq 2t, \ \text{for all} \ t \in [-0.75, 0].
+% \end{equation}
+% Now, let $\xf := \gf_2(\beta-1)_{L+1:\infty}$. Note that by Lemma \ref{lem:factorisation of beta expansion through concatenation}, 
+% \begin{align}
+%     q_j &= 1 + \delta_2(\gf_2(\beta-1)_{1: L + Nj} = 1 + \delta_2(\gf_2(\beta-1)_{1: L}) + 2^{-L} \delta_2(\xf_{1: Nj})\\
+%     &= q_0 + 2^{-L} \delta_2(\xf_{1: Nj}),
+% \end{align}
+% for all $j \in \N$. Fix  $i \in \N$.
+% \begin{align}
+%     \log(\xi_i) &= \sum_{j=0}^{i} \log\left( \frac{q_j}{q_i}\right) = \sum_{j=0}^{i} \log\left( \frac{q_0 + 2^{-L} \delta_2(\xf_{1: Nj})}{q_0 + 2^{-L} \delta_2(\xf_{1: Ni})}\right)\\
+%     &=\sum_{j=0}^{i} \log\left( \frac{1 + \frac{1}{2^{L}q_0} \delta_2(\xf_{1: Nj})}{1 + \frac{1}{2^{L}q_0} \delta_2(\xf_{1: Ni})}\right) \\
+%     &=\sum_{j=0}^{i} \log\left( \frac{1 + \frac{1}{2^{L}q_0} (\delta_2(\xf_{1: Nj})- \delta_2(\xf_{1: Ni}) + \delta_2(\xf_{1: Ni}))}{1 + \frac{1}{2^{L}q_0} \delta_2(\xf_{1: Ni})}\right)\\
+%     &=\sum_{j=0}^{i} \log\left(1 +  \frac{\delta_2(\xf_{1: j}) - \delta_2(\xf_{1: Ni})}{2^{L}q_0 \left( 1 + \frac{1}{2^{L}q_0} \delta_2(\xf_{1: Ni})\right)}\right)\\
+%     &=\sum_{j=0}^{i} \log\left(1 +  \frac{\delta_2(\xf_{1: Nj}) - \delta_2(\xf_{1: Ni})}{2^{L}q_0 +  \delta_2(\xf_{1: Ni})}\right). \label{eq:other form xi i}
+% \end{align}
+% Note that, for all $i,j \in \N$, $j \leq i$ implies that
+% \begin{equation}
+%     0 \geq \frac{\delta_2(\xf_{1: Nj}) - \delta_2(\xf_{1: i})}{2^{L}q_0 +  \delta_2(\xf_{1: Ni})} \geq \frac{-2^{-L-Nj}}{2^{L}q_0 + \delta_2(\xf_{1: Ni})} \overset{(a)}{\geq} -\frac{2^{-L-Nj}}{2^{L}q_0} \overset{(b)}{\geq} - \frac{1}{2^{2L}} \overset{(c)}{\geq} - 0.75, \label{eq:simplification of the xi i terms}
+% \end{equation}
+% where (a) is by $\delta_2(\xf_{1: Ni}) \geq 0$, (b) follows from $q_0 \geq 1$ and $2^{-Nj} \leq 1$, and (c) is a consequence of $L \geq 1$. Therefore,
+% \begin{align}
+%     \log(\xi_i) &\overset{(\ref{eq:other form xi i})}{=} \sum_{j=0}^{i} \log\left(1 +  \frac{\delta_2(\xf_{1: Nj}) - \delta_2(\xf_{1: Ni})}{2^{L}q_0 +  \delta_2(\xf_{1: Li})}\right) \overset{(\ref{eq:minoration de log 1 + x})}{\geq} 2 \sum_{j=0}^{i} \frac{\delta_2(\xf_{1: Nj}) - \delta_2(\xf_{1: Ni})}{2^{L}q_0 +  \delta_2(\xf_{1: Ni})} \overset{(\ref{eq:simplification of the xi i terms})}{\geq} -2^{-2L}. \nonumber
+% \end{align}
+% It immediately follows that $L \geq \frac{1}{2}\log_2(-\log(C))$ implies $\xi_i \geq C$.
+% \end{proof}
+
+\begin{lemma}
+	\cite[Example 2.1.5]{li2008introduction} There exists $C_+>0$, such that
+	\begin{align}\label{eq:simple inequality on concatenation of sequences}
+		K[ x x'] &\leq K[x] + F(K[x']) + C_+, \ \ \text{for all} \ x,x' \in \{0,1\}^\ast,
+	\end{align}
+	and
+	\begin{align}\label{eq:simple inequality on pairing of sequences}
+		K[ \langle x, x'\rangle] &\leq K[x] + F(K[x']) + C_+, \ \ \text{for all} \ x,x' \in \{0,1\}^\ast,
+	\end{align}
+	where $F:t\mapsto t + 2\log_2(t)$.
+\end{lemma}
+\begin{lemma}\cite[Theorem 2.1.2]{li2008introduction} There exists $C_{||} > 0$, such that 
+	\begin{equation}\label{eq:algorithmic complexity is bounded by the length}
+		K[x] \leq |x| + C_{||}, \ \ \text{for all} \ x \in \{0,1\}^\ast.
+	\end{equation}
+\end{lemma}
+\begin{lemma}
+	Let $N \in \N$, $\xf \in \{0,1\}^\omega$, $(u_n)_{n \in \N}$ a sequence of integers. Then, 
+	\begin{equation}
+		K[\xf|N n] \leq u_n, \ \forall n \in \N \Rightarrow \exists C > 0 \ s.t. \ K[\xf|n] \leq u_{\lfloor n/N \rfloor } + C, \ \forall n \in \N.
+	\end{equation}
+\end{lemma}
+\begin{proof}
+	Let $N \in \N$, $\xf \in \{0,1\}^\omega$, $(u_n)_{n \in \N}$ a sequence of integers, and suppose that $K[\xf|N n] \leq u_n, \ \forall n \in \N$. Fix $n \in \N$. Then, $k := \lfloor n/N \rfloor$ satisfies $n = kN + (n - kN)$, where $n - kN \leq N$. Then,
+	\begin{align}
+		K[\xf|n] &= K[\xf_{1: n}] = K[\xf_{1: kN}  \xf_{1: (n- kN)}] \\
+		&\overset{(\ref{eq:simple inequality on concatenation of sequences})}{\leq} K[\xf_{1: kN}] + K[\xf_{1: (n- kN)}] + 2 \log_2 (K[\xf_{1: (n- kN)}]) + C_+\\
+		&\overset{(a)}{\leq} K[\xf_{1: kN}] + N + C_{||} + 2 \log_2 (N + C_{||}) + C_{+}\\
+		&\overset{(b)}{\leq} u_k + N + C_{||} + 2 \log_2 (N + C_{||}) + C_{+}\\
+		&= u_{\lfloor n/N \rfloor} + N + C_{||} + 2 \log_2 (N + C_{||}) + C_{+},
+	\end{align}
+	where (a) follows from (\ref{eq:algorithmic complexity is bounded by the length}) and $n - kN \leq N$, and (b) is by $K[\xf|N k] \leq u_k$. We set $C:= N + C_{||} + 2 \log_2 (N + C_{||}) + C_{+}$, thereby finishing the proof.
+\end{proof}
+\begin{lemma}\label{lem:kolmogorov complexity of closed sequences}
+	Let $\xf \in \{0,1\}^\omega$, $(i_n)_{n \in \N}$ and $(j_n)$ be two increasing sequences of natural numbers. Suppose that there exists $M > 0$ such that $|i_n-j_n| \leq M$, for all $n \in \N$. Then, there exists $C>0$, such that
+	\begin{equation}
+		K[\xf|i_n] \leq K[\xf|j_n] + C, \ \text{for all} \ n \in \N.
+	\end{equation}
+\end{lemma}
+\begin{proof}
+	Let $\xf \in \{0,1\}^\omega$, $(i_n)_{n \in \N}$ and $(j_n)$ be two increasing sequences of natural numbers. Suppose that there exists $M > 0$ such that $ |i_n-j_n| \leq M$, for all $n \in \N$. Fix $n \in \N$, and let $x:= 10^{j_n + M-i_n}$. Then, one can build an effective algorithm $\phi: \{0,1\}^\ast \to \{0,1\}^\ast$, which on input $\xf_{1: j_n + M}  x$, which uses $x$ to delete the $j_n + M - i_n$ last bits of $\xf_{1: j_n + M}$, and outputs the resulting sequence. Then, $\phi(\xf_{1: j_n + M}  x) = \phi(\xf_{1: i_n})$. By Lemma \ref{lem:if two sequences are connected through an algorithm, they have same kolmogorov complexity}, there exists $c_\phi > 0$ such that
+	\begin{align}
+		K[\xf|i_n] &= K[\xf_{1: i_n}] \leq K[\xf_{1: j_n}  x] + c_\phi\\
+		&\overset{(\ref{eq:simple inequality on concatenation of sequences})}{\leq} K[\xf_{1: j_n}] + K[x] + 2\log(K[x]) +c_{\phi} + C_{+}\\
+		&\overset{(\ref{eq:algorithmic complexity is bounded by the length})}{\leq} K[\xf_{1: j_n}] + |x| + C_{||} + 2 \log_2 (|x| + C_{||}) + c_\phi + C_{+}\\
+		&\overset{(a)}{\leq} K[\xf_{1: j_n}] + 2M + C_{||} + 2 \log_2 (2M + C_{||}) + c_\phi + C_{+},
+	\end{align}
+	where (a) is by $|x| = j_n + M - i_n$ and $i_n - M \leq j_n$. We set $C:= 2M + C_{||} + 2 \log_2 (2M + C_{||}) + c_\phi+ C_{+}$, thereby finishing the proof.
+\end{proof}
