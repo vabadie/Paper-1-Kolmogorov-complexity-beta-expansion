@@ -1,6 +1,7 @@
 %%% This file imports all useful packages
 
-\usepackage{subfiles} %designed to manage a project with subfiles
+%packages to manage files
+\usepackage{subfiles}
 
 %packages for encoding languages
 \usepackage[english]{babel} %gestion of english characters
@@ -28,7 +29,7 @@
 \usepackage{float} % most flexible package to make figures out of nothing
 \usepackage{graphicx} % used to insert images (the easiest tool to use)
 \usepackage{wrapfig} % makes figures in any way wanted (very precise precision etc) 
-\usepackage{caption, subcaption, cleveref, refcheck} % use to caption figures
+\usepackage{caption, subcaption} % use to caption figures
 \usepackage{multirow} % used to modify tables with high flexibility
 \usepackage{media9} %used to have animated 3D objects, sounds, etc
 %\usepackage[usenames, dvipsnames, x11names]{xcolor} %use to change color of figures
@@ -42,14 +43,9 @@
 \usepackage{comment} %to make commentaries
 
 % usage of functions within the latex code
-\usepackage{ifthen} %to be able to use boolean props in the latex code
+\usepackage{ifthen} %to be able to use boolean propositions in the latex code
 \usepackage{multido} %be able to make code loops
 
 
-% \usepackage{lipsum}
-\usepackage{amsfonts}
-% \usepackage{epstopdf}
-\usepackage[export]{adjustbox}
-
-
-% \usepackage{natbib}
+% to mention the page of an extract of the book
+\newcommand\pp[1]{$\{ #1 \}$}

@@ -1,15 +1,14 @@
 %%% This package imports packages with tools for writing science stuff
 
 
-%type math stuff
+%type math symbols, equations
 \usepackage{amssymb,mathrsfs,mathtools,stmaryrd, amsthm, amsbsy} % packages of mathematical symbols
 \usepackage{empheq} %extension of amsmath
-\usepackage{autonum} %to numerate only equations that have references
 \usepackage{esint} %integral symbols
 \usepackage{siunitx} %write numbers in scientific writing
 \usepackage{cancel} %to bar some expressions
 \usepackage{cases} % to make case by case equations
-\usepackage{mdframed}
+\usepackage{mdframed} % allows to frame equations
 \usepackage{bbm}
 
 %drawing graphs
@@ -21,3 +20,136 @@
 
 %algorithmy
 \usepackage{algorithm, algpseudocode} %to make algorithms
+
+
+
+%%%%%%%%%%%%%%% Commands to go faster in math equations %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Display mathbb fonts
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\M{\ensuremath{\mathbb{M}}}
+\newcommand\Obb{\ensuremath{\mathbb{O}}}
+\newcommand\U{\ensuremath{\mathbb{U}}}
+\newcommand\B{\ensuremath{\mathbb{B}}}
+\newcommand\Tbb{\ensuremath{\mathbb{T}}}
+\newcommand\I{\ensuremath{\mathbb{I}}}
+\newcommand\D{\ensuremath{\mathbb{D}}}
+\newcommand\K{\ensuremath{\mathbb{K}}}
+\newcommand\Sb{\ensuremath{\mathbb{S}}}
+
+% Display mathcal fonts
+\newcommand\CC{\ensuremath{\mathcal{C}}}
+\newcommand\RR{\ensuremath{\mathcal{R}}}
+\newcommand\DD{\ensuremath{\mathcal{D}}}
+\newcommand\LL{\ensuremath{\mathcal{L}}}
+\newcommand\PP{\ensuremath{\mathcal{P}}}
+\newcommand\SM{\ensuremath{\mathcal{S}}}
+\newcommand\MM{\ensuremath{\mathcal{M}}}
+\newcommand\TT{\ensuremath{\mathcal{T}}}
+\newcommand\UU{\ensuremath{\mathcal{U}}}
+\newcommand\II{\ensuremath{\mathcal{I}}}
+\newcommand\FF{\ensuremath{\mathcal{F}}}
+\newcommand\WW{\ensuremath{\mathcal{W}}}
+\newcommand\BB{\ensuremath{\mathcal{B}}}
+\newcommand\NN{\ensuremath{\mathcal{N}}}
+\newcommand\KK{\ensuremath{\mathcal{K}}}
+\newcommand\XX{\ensuremath{\mathcal{X}}}
+\newcommand\YY{\ensuremath{\mathcal{Y}}}
+\newcommand\EE{\ensuremath{\mathcal{E}}}
+
+
+% Display mathscr fonts
+\newcommand\CCC{\ensuremath{\mathscr{C}}}
+\newcommand\PPP{\ensuremath{\mathscr{P}}}
+\newcommand\FFF{\ensuremath{\mathscr{F}}}
+\newcommand\GGG{\ensuremath{\mathscr{G}}}
+\newcommand\MMM{\ensuremath{\mathscr{M}}}
+\newcommand\III{\ensuremath{\mathscr{I}}}
+
+% Display bf math big fonts
+\newcommand\Xf{\mathbf{X}}
+
+
+% Display fat fonts in math equations
+\newcommand\xf{{\bf x}}
+\newcommand\wf{{\bf w}}
+\newcommand\yf{{\bf y}}
+\newcommand\zf{{\bf z}}
+\newcommand\gf{{\bf g}}
+\newcommand\ssf{{\bf s}}
+\newcommand\Jf{{\bf J}}
+\newcommand\Uf{{\bf U}}
+\newcommand\Thetaf{{\bf \Theta}}
+\newcommand\ellf{\ensuremath{\boldsymbol\ell}}
+\newcommand\ff{\ensuremath{\boldsymbol f}}
+
+
+% Fast commands for displaying some math operators
+\newcommand{\ints}[1]{\ensuremath{\left\llbracket #1 \right\rrbracket}} % subset of integers, like [[n]]
+\newcommand{\limu}[2]{\ensuremath{\underset{#1 \to #2}{\lim}}} %limit with 2 arguments, 1 for the variable, and 1 for the limit to which the variable tends to
+\newcommand{\limi}[1]{\ensuremath{\underset{#1 \to \infty}{\lim}}} %limit to infinity with 1 argument, that is the variable of the limit
+\newcommand\card{\ensuremath{\operatorname{Card}}} %Cardinal of a set
+\newcommand{\bslash}{\ensuremath{\text{\textnormal{\textbackslash}}}} %to denote a set that is removed from another
+\newcommand\dom{\ensuremath{\operatorname{dom}}} %to denote the domain of a function
+\newcommand\Card[1]{\ensuremath{\# \hspace{-0.2mm} #1 }} %to denote the cardinal of a set
+
+%displaying of some sets
+\newcommand\Uninf{\ensuremath{(1,\infty)}}
+
+
+
+% Special command (osetlem) to quote a Lemma/Theorem inside of an equation
+\makeatletter
+\newcommand{\oset}[3][0ex]{%
+  \mathrel{\mathop{#3}\limits^{
+    \vbox to#1{\kern-2\ex@
+    \hbox{$\scriptstyle #2$}\vss}}}}
+\makeatother
+
+\newcommand{\osetlem}[3][1.8ex]{\oset[#1]{\substack{\hspace{.07cm} \text{\tiny Lem.}\\ #2}}{#3}}
+
+
+%%%%%%%%%%%%%%% Commands to go faster with theorems %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Theorem/properties styles
+\newtheorem{conjecture}{Conjecture}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{thesis}{Thesis}
+\newtheorem{property}{Proposition}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{notation}[definition]{Notation}
+\newtheorem{example}{Example}
+
+
+\newtheoremstyle{flexith}{}{}{\mdseries}{}{\itshape}{}{.5em}{\textit{\textbf{Theorem}}  \thmnumber{#2}: (#3).}
+\theoremstyle{flexith}
+
+\newtheorem{flexitheoreminner}{Theorem}
+\newenvironment{flexitheorem}[1]{
+  \renewcommand\theflexitheoreminner{#1}%
+  \flexitheoreminner
+}{\endflexitheoreminner}
+
+\newtheoremstyle{flexide}{}{}{\mdseries}{}{\itshape}{}{.5em}{\textit{\textbf{Definition}}  \thmnumber{#2}: (#3).}
+\theoremstyle{flexide}
+
+\newtheorem{flexidefinitioninner}{Definition}
+\newenvironment{flexidefinition}[1]{
+  \renewcommand\theflexidefinitioninner{#1}%
+  \flexidefinitioninner
+}{\endflexidefinitioninner}
+
+\newtheoremstyle{flexile}{}{}{\mdseries}{}{\itshape}{}{.5em}{\textit{\textbf{Lemma}}  \thmnumber{#2}: (#3).}
+\theoremstyle{flexile}
+
+\newtheorem{flexilemmainner}{Lemma}
+\newenvironment{flexilemma}[1]{
+  \renewcommand\theflexilemmainner{#1}%
+  \flexilemmainner
+}{\endflexilemmainner}
