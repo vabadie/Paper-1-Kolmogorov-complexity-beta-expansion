@@ -1,44 +1,128 @@
 \documentclass[../main.tex]{subfiles}
+% \externaldocument{./main.tex}
 
 
 \begin{document}
 
 $\N_2 := \{2,3,4,\ldots\}$
 
-Story justification for the upcoming definition. It is not possible to convert a prefix of the greedy expansion of a number $s$ to the prefix of the greedy expansion but in another base, except if some very specific conditions hold between the bases (established for integer bases in Brattka, to be investigated for nonintegers). Make the example with base $2$ and $3$. Hence given a prefix the greedy expansion of a number $s$ in base $b_1$, we can only hope to build a function that gives a list of possible prefixes in base $b_2$, i.e., such a function takes one element as input, and outputs a set of elements. This exactly falls into the framework introduced previously. as a multivalued function in Brattka. 
+Story justification for the upcoming definition. It is not possible to convert a prefix of the greedy expansion of a number $s$ to the prefix of the greedy expansion but in another base, except if some very specific conditions hold between the bases (established for integer bases in Brattka, to be investigated for nonintegers). Make the example with base $2$ and $3$. Hence given a prefix the greedy expansion of a number $s$ in base $b_1$, we can only hope to build a function that gives a list of possible prefixes in base $b_2$, i.e., such a function takes one element as input, and outputs a set of elements. This exactly falls into the framework introduced previously. as a multivalued function in Brattka
+
+For $b \in (1,\infty)$, we define the base $b$ evaluation function $\ev_b : \subseteq \N^\N \to [0,1]$ as
+\begin{equation}
+    \ev_b(\xf) = \sum_{i=1}^\infty \xf_i b^{-i},
+\end{equation}
+for all $\xf \in \dom(\ev_b) := \{0,\ldots,\lceil b \rceil -1 \}$. We set $\delta_b := \ev_b|^{[0,1]}$, i.e., $\delta_b$ is the evaluation function restricted to those elements of $\{0,\ldots,\lceil b \rceil -1 \}$ that are a $b$-expansion of a real number in $[0,1]$. For $f : X \to \{0,1\}^\N$, $A \subseteq X$ and $n \in \N$, we define
+\begin{equation}
+    f(A)_{1:n} := \{ \xf_{1:n} : \xf \in f(A)\}.
+\end{equation}
 
 
-\begin{definition} Let $b_1,b_2 \in (1,\infty)$, and $f : \N \to \N$ be a nondecreasing function. The prefix base conversion multifunction is denoted by $c_{b_1,b_2}(\cdot | f)$ the function that, upon presentation of a prefix of length $n \in \N$ of any expansion in base $b_1$ as input, outputs the possible corresponding prefixes of length $f(n)$ of the greedy expansion in base $b_2$. In mathematical symbols, this translate to
+\begin{definition} Let $b_1,b_2 \in (1,\infty)$, and $f : \N \to \N$ be a nondecreasing function. The prefix base conversion multifunction is denoted by $c_{b_1,b_2}(\cdot | f)$ the function that, upon presentation of a prefix of length $n \in \N$ of any expansion in base $b_1$ as input, outputs the possible corresponding prefixes of length $f(n)$ of the greedy expansion in base $b_2$. In mathematical symbols, this translates to
     \begin{equation}
         \begin{array}{cclc}
             c_{b_1,b_2}(\cdot | f) : & \subseteq \N^\ast & \rightrightarrows & \N^\ast\\
-            & x & \mapsto &  \gf_{b_2}(\delta_{b_1}(x\N^\N))_{1:f(|x|)}.
+            & x & \mapsto &  \gf_{b_2}\circ\delta_{b_1}(x\N^\N)_{1:f(|x|)}.
         \end{array}
     \end{equation}
-    We also define $N_{b_1,b_2}(\cdot|f) : \subseteq \N^\ast \to \N$ as
-    \begin{equation}
-        N_{b_1,b_2}(x|f) := \#c_{b_1,b_2}(x| f), \ \forall x \in \dom(c_{b_1,b_2}(\cdot|f)) := \rg(\gf_{b_1}).
-    \end{equation}
+    Note that $\dom c_{b_1,b_2}(\cdot|f)$ is the set of finite words in $\N^\ast$ that are a prefix of some element of $\dom \delta_{b_1}$.
+    % We also define $N_{b_1,b_2}(\cdot|f) : \subseteq \N^\ast \to \N$ as
+    % \begin{equation}
+    %     N_{b_1,b_2}(x|f) := \#c_{b_1,b_2}(x| f), \ \forall x \in \dom(c_{b_1,b_2}(\cdot|f)).
+    % \end{equation}
 \end{definition}
 
-We now want to establish an upper bound on $N_{b_1,b_2}(x|f)$.  Note that $\delta_{b_1}(x \N^\N)$ is an interval, of length $\frac{\beta^{-|x|}}{\beta-1}$. We next establish a general uppoer bound on $\# \gf_{b_2}(I)_{1:n}$, where $I$ is an interval and $n \in \N$. The upper bound will notably depend on $|I|$.
+We now want to establish an upper bound on $\#c_{b_1,b_2}(x|f)$.  Note that $\delta_{b_1}(x \N^\N)$ is an interval, of length at most $\frac{\beta^{-|x|}}{\beta-1}$. We next establish an upper bound on $\# \gf_{b_2}(I)_{1:n}$, where $I \subset [0,1]$ is a closed interval and $n \in \N$. The upper bound will notably depend on $|I|$.
 
-\begin{lemma}
-    Let $b \in (1,\infty)$, and $I \subseteq [0,1]$ be an interval. Then,
+\begin{theorem}
+    Let $b \in (1,\infty)$ and $I \subseteq [0,1]$ be a closed interval. Then,
+    \begin{equation}\label{eq:bound number canonical sequences interval}
+        \# \gf_b(I)_{1:n} \leq |I|\frac{\lceil b \rceil}{b-1} b^{n} + (\lceil b \rceil -b)\sum_{i=1}^n (G_b^i(\inf I) - G_b^i(\sup I)).
+    \end{equation}
+\end{theorem}
+\begin{proof}
+    Let $b \in (1,2)$, $I \subseteq [0,1]$ be a closed interval, and $n \in \N$. First note that for $A,B \subseteq [0,1]$ disjoint,
+    \begin{equation}\label{eq:greedy expansions union}
+        \gf_b(A )_{1:n} \subseteq \gf_b(A \cup B)_{1:n} \subseteq \gf_b(A)_{1:n} \cup \gf_b(B)_{1:n}.
+    \end{equation}
+    Next, let us define 
+    \begin{align}
+        s_n &:= \delta_b(\gf_b(\inf I)_{1:n}),\\
+        t_n &:= \delta_b(\gf_b(\sup I)_{1:n}),
+    \end{align}
+    and $I_n := [s_n,t_n]$. We prove that (a) $\gf_b(I_n)_{1:n} = \gf_b(I)_{1:n}$ and (b) that (\ref{eq:bound number canonical sequences interval}) holds for $I_n$.
+    \begin{enumerate}[label=(\alph*)]
+        \item Note that $I_n \cup (s_n, \sup I] = [s_n, \inf I) \cup I = [s_n, \sup I]$. We show that $\gf_b([s_n, \sup I])_{1:n} =\gf_b(I_n)_{1:n}$ and that $\gf_b([s_n, \sup I])_{1:n} =\gf_b(I)_{1:n}$, yielding $\gf_b(I_n)_{1:n} =\gf_b(I)_{1:n}$. 
+        
+        First note that, by \ref{eq:greedy expansions union}, we have
+        \begin{align}
+            \gf_b(I)_{1:n} &\subseteq \gf_b([s_n, \sup I])_{1:n} \subseteq \gf_b(I)_{1:n} \cup \gf_b([s_n,\inf I))_{1:n}.\\
+            \gf_b(I_n)_{1:n} &\subseteq \gf_b([s_n, \sup I])_{1:n} \subseteq \gf_b(I_n)_{1:n} \cup \gf_b((t_n,\sup I])_{1:n}.
+        \end{align}
+        We prove that (i) $\gf_b([s_n,\inf I))_{1:n} \subseteq \gf_b(I)_{1:n}$ and (ii) $\gf_b(I_n)_{1:n} \subseteq \gf_b((t_n,\sup I])_{1:n}$.
+        \begin{enumerate}[label=(\roman*)]
+            \item Suppose that there exists $x \in \gf_b((s_n, \inf I])_{1:n} \backslash \ \gf_b(I)_{1:n}$. Note that, in particular, $x \neq \gf_b(s_n)$. As $\inf I - \delta_b(x) < \inf I - s_n \leq b^{-n}$, $x$ is the $n$-prefix of a $b$-expansion of $\inf I$. But since $\delta_b(x) > s_n = \delta_b(\gf_b(\inf I)_{1:n})$, then {\color{red} by some Lemma}, $x >_L \gf_b(\inf I)_{1:n}$, which is a contradiction.
+            \item Suppose that there exists $x \in \gf_b((t_n, \sup I])_{1:n} \backslash \ \gf_b(I_n)_{1:n}$. Note that, in particular, $x \neq \gf_b(s_n)$. As $\sup I - \delta_b(x) < \sup I - t_n \leq b^{-n}$, $x$ is the $n$-prefix of a $b$-expansion of $\sup I$. But since $\delta_b(x) > t_n = \delta_b(\gf_b(\sup I)_{1:n})$, then {\color{red} by some Lemma}, $x >_L \gf_b(\sup I)_{1:n}$, which is a contradiction.
+        \end{enumerate}
+        \item We find a law on the number of elemts of $\gf_b(\inf I)_{1:n}$ based on $\gf_b(\inf I)_{1:n-1}$
+    \end{enumerate}
+\end{proof}
+
+\begin{lemma}(Greedy expansion preserves order)
+    Let $s,t \in [0,1]$, and $b \in (1,\infty)$. Then,
     \begin{equation}
-        \# \gf_b(I)_{1:n} \leq 1 + |I|b^{n} + \sum_{i=1}^n (G_b^i(\inf I) - G_b^i(\sup I)).
+        s < t \iff \gf_b(s) <_L \gf_b(t).
     \end{equation}
 \end{lemma}
-\noindent We denote 
-\begin{align}
-    s_i &:= \delta_b(\gf_b(\inf I)_{1:i}) \\
-    t_i &:= \delta_b(\gf_b(\sup I)_{1:i})
-\end{align}
-A variant of the right term of the above equation is
-\begin{align}
-    \sum_{i=1}^n (G_b^i(\inf I) - G_b^i(\sup I)) &= \sum_{i=1}^n \left[\beta^i (\inf I - s_i) - \beta^i(\sup I - t_i) \right]\\
-    &= \sum_{i=1}^n \beta^i (t_i - s_i - |I|) 
-\end{align}
+\begin{proof}
+    Let $s,t \in [0,1]$, and $b \in (1,\infty)$.
+    First note that, obviously, $s \neq t \iff \gf_b(s) \neq \gf_b(t)$. It then suffices to prove that (a) $s < t \Rightarrow \gf_b(s) \leq_L \gf_b(t)$ and (b) $\gf_b(s) <_L \gf_b(t) \Rightarrow s\leq t$. Note that (b) is simply the contraposition of (a), so we only need to prove (a). We proceed by contradiction: suppose that $s < t$, and that $\gf_b(s) >_L \gf_b(t)$, i.e., that there exists $i \in \N$ such that $\gf_b(s)_j = \gf_b(t)_j$, for all $j < i$, and $\gf_b(s)_i > \gf_b(t)_i$. Hence,
+    \begin{equation}
+        t > s \geq \sum_{j=1}^i \gf_b(s)_jb^{-j} > \sum_{j=1}^i \gf_b(t)_jb^{-j} \geq t - b^{-i}.
+    \end{equation}
+    So $\gf_b(s)_{1:i}$ is the $i$-prefix of some $b$-expansion $\xf$ of $t$, satisfying $\xf >_L \gf_b(t)$, which is a contradiction.
+\end{proof}
+\begin{lemma}(Greedy expansion is stable by appending $0$)
+    Let $n \in \N$, and $b \in (1,\infty)$. Then,
+    \begin{equation}
+        \gf_b(\delta_b(x)) = x0^\infty, \ \forall x \in \gf_b([0,1])_{1:n}.
+    \end{equation}
+\end{lemma}
+\begin{proof}
+    Let $n \in \N$, $b \in (1,\infty)$ and $x \in \gf_b([0,1])_{1:n}$. Suppose that $\yf := \gf_b(\delta_b(x)) >_L x0^\infty =: \xf$, i.e., that there exists $i \in \N$ such that $\yf_j = \xf_j$, for all $j < i$, and $1 = \yf_i > \xf_i = 0$.
+    \begin{enumerate}[label=(\alph*)]
+        \item Suppose that $i > n$. Then,
+        \begin{align}
+            \delta_b(\yf) &\leq \delta_b(\yf_{1:n}) + b^{-i}\yf_i\\
+            &= \delta_b(x) + b^{-i}\yf_i\\
+            &> \delta_b(x),
+        \end{align}
+        so $\yf$ is not a $b$-expansion of $\delta_b(x)$, which is a contradiction.
+        \item Suppose that $i \leq n$. Since $x \in \gf_b([0,1])_{1:n}$, there exists $s \in [0,1]$ such that $\gf_b(s)_{1:n} = x$. Note that
+        \begin{equation}
+            s = \delta_b(\gf_b(s)) \geq \delta_b(\gf_b(s)_{1:n}) = \delta_b(x),
+        \end{equation} 
+        and that
+        \begin{equation}
+            \gf_b(s)_{1:i-1} = x_{1:i-1} = \yf_{1:i-1} = \gf_b(\delta_b(x))_{1:i-1}.
+        \end{equation}
+        Hence,
+        \begin{align}
+            G_b^{i-1}(s) &= b^{i-1}(s - \delta_b(\gf_b(s)_{i-1}))\\
+                         &\geq b^{i-1}(\delta_b(x) - \delta_b(\gf_b(s)_{i-1}))\\
+                         &= b^{i-1}(\delta_b(x) - \delta_b(\gf_b(\delta_b(x))_{i-1}))\\
+                         &= G_b^{i-1}(\delta_b(x)).
+        \end{align}
+        However, $\gf_b(\delta_b(x))_i = \yf_i = 1$, so $G_b^{i-1}(\delta_b(x)) > 1/b$, and $\gf_b(s)_i = x_i = 0$, so $G_b^{i-1}(s) \leq 1/b$, which yields a contradiction.
+    \end{enumerate}
+\end{proof}
+% \noindent We denote 
+% 
+% A variant of the right term of the above equation is
+% \begin{align}
+%     \sum_{i=1}^n (G_b^i(\inf I) - G_b^i(\sup I)) &= \sum_{i=1}^n \left[\beta^i (\inf I - s_i) - \beta^i(\sup I - t_i) \right]\\
+%     &= \sum_{i=1}^n \beta^i (t_i - s_i - |I|) 
+% \end{align}
 
 \begin{theorem}
     Let $b_1 \in (1,\infty)$ and $b_2 \in \N_2$. Then,
