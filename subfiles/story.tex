@@ -63,7 +63,7 @@ one can replace the last digit $1$ of the binary expansion of $s$ according to
 	&= x_1 \times 2^{-1} + \ldots + x_n \times 2^{-n} + 0 \times 2^{-(n+1)} + 1 \times 2^{-(n+2)} +  1 \times 2^{-(n+3)} + \ldots \label{eq:lazy expansion ending with infinitetail of ones}
   \end{align}
 This establishes that $\xf' = x 0  1^\infty$ is also a binary expansion of $s$. The lexicographically larger of these two expansions  $\xf = x  1  0^\infty$ is referred to as the greedy binary expansion of $s$, and the lexicographically smaller $\xf' = x  0  1^\infty$ is called the lazy binary expansion. When the binary expansion of $s$ is unique,  the greedy and lazy binary expansion coincide. Both the greedy and the lazy binary expansion have an associated algorithm generating them. We detail the algorithm generating the first $n$ bits of the greedy binary expansion of $s$ as follows \cite[Section 2]{dajani2002greedy}.
-\begin{algorithm}[h]
+\begin{algorithm}[ht]
 	\caption{Greedy algorithm for binary expansion}\label{alg:greedy algorithm binary expansion}
 	\begin{algorithmic}[1]
 		\Require $s \in [0,1]$, $n \in \N$
@@ -131,7 +131,7 @@ $\beta$-expansions exhibit a much richer structure than binary expansions, speci
   One can now define the notions of greedy and lazy expansions for arbitrary $\beta \in (1,2]$, in the same manner as in the binary case. Specifically, motivated by the insight in \cite[IV-A]{daubechies2006imperfect}, we implicitely define the greedy $\beta$-expansion of $s \in I_\beta$ as the lexicographically largest $\beta$-expansion, and the lazy $\beta$-expansion as the lexicographically smallest $\beta$-expansion. In contrast to the binary expansion case, there are, in general, infinitely many $\beta$-expansion between these two extreme cases. Both the greedy and the lazy $\beta$-expansion have an associated algorithm generating them. Algorithm 
   \ref{alg:greedy algorithm beta expansion} below generalizes Algorithm \ref{alg:greedy algorithm binary expansion} to deliver the first $n \in \N$ bits of the greedy $\beta$-expansion of $s$ for $\beta \in (1,2]$ \cite[Section 1]{dajani2002greedy}.
 
-  \begin{algorithm}[H]
+  \begin{algorithm}[ht]
 	\caption{Greedy algorithm for $\beta$-expansion}\label{alg:greedy algorithm beta expansion}
 	\begin{algorithmic}[1]
 		\Require $\beta \in (1,2]$, $s \in I_\beta$, $n\in\N$
@@ -152,7 +152,7 @@ $\beta$-expansions exhibit a much richer structure than binary expansions, speci
 
 	% Going further, for any $\alpha \in [1, (\beta-1)^{-1}]$, one can replace the condition $r < \beta^{-1}$ in line \ref{alg2:line 4} of Algorithm \ref{alg:greedy algorithm beta expansion} to $r < \beta^{-1}\alpha$, and the algorithm will still generate a valid $\beta$-expansion, which is called the $(\beta,\alpha)$-expansion \cite[Section 3]{dajani2002greedy}. This technique allows to generate a vast number of $\beta$-expansions by varying the parameter $\alpha$, but not necessarily all of them. A more subtle algorithm, called the random $\beta$-expansion algorithm \cite[Section 1]{dajani2003random}, allows to generate all the $\beta$-expansion \cite[Theorem 2]{dajani2007invariant}.
 
-	\begin{algorithm}[H]
+	\begin{algorithm}[ht]
 		\caption{Random $\beta$-expansion algorithm}\label{alg:random algorithm beta expansion}
 		\begin{algorithmic}[1]
 			\Require $\beta \in (1,2]$, $s \in I_\beta$, $n\in\N$
@@ -173,7 +173,7 @@ $\beta$-expansions exhibit a much richer structure than binary expansions, speci
 
   This redundancy of $\beta$-expansions of a given real number can be exploited in practical applications, e.g. in A/D-conversion. Specifically, it was shown in \cite{daubechies2006imperfect} that A/D-conversion based on $\beta$-expansions can yield arbitrary precision even in the presence of imperfect quantizers. To illustrate this, consider the problem of representing $s \in [0,1]$ as a binary sequence, i.e., we turn the analog quantity $s$ into a binary sequence $x$, for $\beta = 2$, say in a greedy manner. If one builds a physical device to accomplish this through Algorithm \ref{alg:greedy algorithm binary expansion}, the operation $r < 0.5$ is by virtue of requiring infinite precision impossible to realize in practice. Any physical device that has to realize the thresholding operation $r<0.5$ will fail from time to time. These failure can happen when $r \in [0.5 - \varepsilon, 0.5 + \varepsilon]$, for some small $\varepsilon > 0$, which correspond to the precision limit of the physical device. However, the random $\beta$-expansion delivered by Algorithm \ref{alg:random algorithm beta expansion} can be used to overcome this issue. Suppose in more general terms that we dispose of a device $T$ that can be tuned to compare an input $r \geq 0$ to a threshold $t>0$ fixed by the user, within precision $\varepsilon$, i.e., the device returns $0$ if $r < t - \varepsilon$, $1$ if $r > t + \varepsilon$, and either $0$ or $1$ if $r \in [t - \varepsilon, t + \varepsilon]$. We denote by $T(r) \in \{0,1\}$ the output of the device. Then, one can conceive an algorithm that uses this physical device that attempts to generate a $\beta$-expansion, as follows.
 
-  \begin{algorithm}[H]
+  \begin{algorithm}[ht]
 	\caption{Physical algorithm for $\beta$-expansion}\label{alg:physical algorithm beta expansion}
 	\begin{algorithmic}[1]
 		\Require $\beta \in (1,2]$, $s \in I_\beta$, $n\in\N$
@@ -295,7 +295,7 @@ In this paper, we manipulate infinite binary sequences. Hopefully, algorithmic c
 	 &\overset{(\ref{eq:generation of beta expansions sqrt m 2})}{=} \sum_{i=1}^\infty \xf'_{mi} \sqrt[m]{2}^{-mi} +  \sum_{k=1}^{m-1}\sum_{i=1}^\infty \xf'_{mi-k}  \sqrt[m]{2}^{-(mi-k)} = \sum_{i=1}^\infty \xf'_i \sqrt[m]{2}^{-i}.
   \end{align}
   We shall now cast (\ref{eq:generation of beta expansions sqrt m 2}) into an effective algorithm which takes the first $\lceil k/m \rceil$ bits $\xf_{1: \lceil k/m \rceil}$ of the greedy binary expansion of $s$ as input and produces the first $k$ bits $\xf'_{1: k}$ of a $\sqrt[m]{2}$-expansion $\xf'$. The procedure is made explicit in Algorithm \ref{alg:generator of sqrt m expansion from binary expansion}.
-  \begin{algorithm}
+  \begin{algorithm}[ht]
   \caption{$\sqrt[m]{2}$-expansion from a binary expansion}\label{alg:generator of sqrt m expansion from binary expansion}
   \begin{algorithmic}[1]
       \Require $m \in \N$, $x \in \{0,1\}^\ell$, $k \in \ints{m \ell}$
