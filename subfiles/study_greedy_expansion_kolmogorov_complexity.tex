@@ -6,6 +6,8 @@
 
 $\N_2 := \{2,3,4,\ldots\}$
 
+POLICY: We treat the case $b \in (1,2)$.
+
 Story justification for the upcoming definition. It is not possible to convert a prefix of the greedy expansion of a number $s$ to the prefix of the greedy expansion but in another base, except if some very specific conditions hold between the bases (established for integer bases in Brattka, to be investigated for nonintegers). Make the example with base $2$ and $3$. Hence given a prefix the greedy expansion of a number $s$ in base $b_1$, we can only hope to build a function that gives a list of possible prefixes in base $b_2$, i.e., such a function takes one element as input, and outputs a set of elements. This exactly falls into the framework introduced previously. as a multivalued function in Brattka
 
 For $b \in (1,\infty)$, we define the base $b$ evaluation function $\ev_b : \subseteq \N^\N \to [0,1]$ as
@@ -16,6 +18,10 @@ for all $\xf \in \dom(\ev_b) := \{0,\ldots,\lceil b \rceil -1 \}$. We set $\delt
 \begin{equation}
     f(A)_{1:n} := \{ \xf_{1:n} : \xf \in f(A)\}.
 \end{equation}
+
+\begin{definition}
+    Let $b \in (1,2)$.
+\end{definition}
 
 
 \begin{definition} Let $b_1,b_2 \in (1,\infty)$, and $f : \N \to \N$ be a nondecreasing function. The prefix base conversion multifunction is denoted by $c_{b_1,b_2}(\cdot | f)$ the function that, upon presentation of a prefix of length $n \in \N$ of any expansion in base $b_1$ as input, outputs the possible corresponding prefixes of length $f(n)$ of the greedy expansion in base $b_2$. In mathematical symbols, this translates to
