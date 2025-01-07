@@ -25,6 +25,9 @@
 
 %%%%%%%%%%%%%%% Commands to go faster in math equations %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% FONTS
+
+
 % Display mathbb fonts
 \newcommand\R{\ensuremath{\mathbb{R}}}
 \newcommand\C{\ensuremath{\mathbb{C}}}
@@ -32,10 +35,10 @@
 \newcommand\Z{\ensuremath{\mathbb{Z}}}
 \newcommand\Q{\ensuremath{\mathbb{Q}}}
 \newcommand\M{\ensuremath{\mathbb{M}}}
-\newcommand\Obb{\ensuremath{\mathbb{O}}}
+\newcommand\Ob{\ensuremath{\mathbb{O}}}
 \newcommand\U{\ensuremath{\mathbb{U}}}
 \newcommand\B{\ensuremath{\mathbb{B}}}
-\newcommand\Tbb{\ensuremath{\mathbb{T}}}
+\newcommand\Tb{\ensuremath{\mathbb{T}}}
 \newcommand\I{\ensuremath{\mathbb{I}}}
 \newcommand\D{\ensuremath{\mathbb{D}}}
 \newcommand\K{\ensuremath{\mathbb{K}}}
@@ -70,50 +73,56 @@
 \newcommand\MMM{\ensuremath{\mathscr{M}}}
 \newcommand\III{\ensuremath{\mathscr{I}}}
 
-% Display bf math big fonts
-\newcommand\Xf{\mathbf{X}}
+% Display big fat fonts in math equations
+\newcommand\Xf{{\bf X}}
+\newcommand\Jf{{\bf J}}
+\newcommand\Uf{{\bf U}}
+\newcommand\Thetaf{{\bf \Theta}}
 
-
-% Display fat fonts in math equations
+% Display small fat fonts in math equations
 \newcommand\xf{{\bf x}}
 \newcommand\wf{{\bf w}}
 \newcommand\yf{{\bf y}}
 \newcommand\zf{{\bf z}}
 \newcommand\gf{{\bf g}}
 \newcommand\ssf{{\bf s}}
-\newcommand\Jf{{\bf J}}
-\newcommand\Uf{{\bf U}}
-\newcommand\Thetaf{{\bf \Theta}}
 \newcommand\ellf{\ensuremath{\bm{\ell}}}
 \newcommand\ff{\ensuremath{\boldsymbol f}}
 
 
-% Fast commands for displaying some math operators
-\newcommand{\ints}[1]{\ensuremath{\left\{1,\ldots, #1 \right\}}} % subset of integers
+% COMMANDS FOR MATH OPERATORS
+
+% Notations for sequences
+\newcommand\pn[1]{\ensuremath{|_{#1}}}
+\newcommand\pnm[2]{\ensuremath{|_{#1}^{#2}}}
+\newcommand\len[1]{\ensuremath{\left| #1 \right|}}
+
+% Limits and big O notations
 \newcommand{\limu}[2]{\ensuremath{\underset{#1 \to #2}{\lim}}} %limit with 2 arguments, 1 for the variable, and 1 for the limit to which the variable tends to
 \newcommand{\limi}[1]{\ensuremath{\underset{#1 \to \infty}{\lim}}} %limit to infinity with 1 argument, that is the variable of the limit
-\newcommand\card{\ensuremath{\operatorname{Card}}} %Cardinal of a set
-\newcommand{\bslash}{\ensuremath{\text{\textnormal{\textbackslash}}}} %to denote a set that is removed from another
+\newcommand\bigOx[2][const]{
+    \ifthenelse{\equal{#1}{1}}{\underset{|#1| \to \infty}{\mathcal{O}}(1)}{\underset{#2 \to \infty}{\mathcal{O}}(#2#1)}} %big O notations
+  \newcommand\bigOw[2][const]{
+    \ifthenelse{\equal{#1}{1}}{\underset{|#1| \to \infty}{\mathcal{O}}(1)}{\underset{|#2| \to \infty}{\mathcal{O}}(|#2|#1)}} %big O notations on the length of a sequence
+% \newcommand{\constw}[1]{\bigOw{1}}
+% \newcommand{\constn}[1]{\underset{#1 \to \infty}{\mathcal{O}}(1)}
+
+% Operations sets and functions
 \newcommand\dom{\ensuremath{\operatorname{dom}}} %to denote the domain of a function
-\newcommand\Card[1]{\ensuremath{\# \hspace{-0.2mm} #1 }} %to denote the cardinal of a set
+\newcommand\rg{\operatorname{range}} % range of a function
+\newcommand\ev{\operatorname{ev}} % evaluation of a function
+\newcommand\card[1]{\ensuremath{\# \hspace{-0.2mm} #1 }} %to denote the cardinal of a set
+\newcommand{\bslash}{\ensuremath{\text{\textnormal{\textbackslash}}}} %to denote a set that is removed from another
+
 
 %displaying of some sets
-\newcommand\Uninf{\ensuremath{(1,\infty)}}
+\newcommand\Uninf{\ensuremath{(1,\infty)}} % open interval between 1 and infty
+\newcommand{\ints}[1][none]{\ifthenelse{none}{\N}{\ensuremath{\left\{1,\ldots, #1 \right\}}}} % set of subset of integers
+\newcommand{\rats}{\Q} % set of rationals
+\newcommand{\reals}{\R} %set of reals
+\newcommand{\compl}{\C} % set of complex
 
-
-
-% Special command (osetlem) to quote a Lemma/Theorem inside of an equation
-\makeatletter
-\newcommand{\oset}[3][0ex]{%
-  \mathrel{\mathop{#3}\limits^{
-    \vbox to#1{\kern-2\ex@
-    \hbox{$\scriptstyle #2$}\vss}}}}
-\makeatother
-
-\newcommand{\osetlem}[3][1.8ex]{\oset[#1]{\substack{\hspace{.07cm} \text{\tiny Lem.}\\ #2}}{#3}}
-
-
-%%%%%%%%%%%%%%% Commands to go faster with theorems %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%% Commands for theorems %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Theorem/properties styles
 \newtheorem{conjecture}{Conjecture}[section]
@@ -153,3 +162,24 @@
   \renewcommand\theflexilemmainner{#1}%
   \flexilemmainner
 }{\endflexilemmainner}
+
+
+%%%%%%%%%%%%%%% Miscellaneous commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Special command (osetlem) to quote a Lemma/Theorem inside of an equation
+\makeatletter
+\newcommand{\oset}[3][0ex]{%
+  \mathrel{\mathop{#3}\limits^{
+    \vbox to#1{\kern-2\ex@
+    \hbox{$\scriptstyle #2$}\vss}}}}
+\makeatother
+
+\newcommand{\osetlem}[3][1.8ex]{\oset[#1]{\substack{\hspace{.07cm} \text{\tiny Lem.}\\ #2}}{#3}}
+
+% creates an environment in which everything is written a little bit translucid, so that it is clear that this is doubtful.
+\newenvironment{doubtfulsec}{%
+    \begingroup
+    \color{black!20}%
+}{%
+    \endgroup
+}
