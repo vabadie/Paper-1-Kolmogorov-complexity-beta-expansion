@@ -19,12 +19,19 @@ jobs:
     - name: Install LaTeX
       run: sudo apt-get update && sudo apt-get install -y texlive-full
 
-    # Step 3: Compile LaTeX
-    - name: Compile LaTeX document
-      run: |
-        pdflatex -interaction=nonstopmode -output-directory=output main.tex
-        # Repeat pdflatex if you have references or indexes
-        pdflatex -interaction=nonstopmode -output-directory=output main.tex
+    # Step 3: Compile LaTeX (1st pass)
+    - name: First LaTeX Compilation
+      run: pdflatex -interaction=nonstopmode -output-directory=output main.tex
+
+    # Step 4: Run BibTeX for references
+    - name: Run BibTeX
+      run: bibtex output/main.aux
+
+    # Step 5: Compile LaTeX document (2nd and 3rd pass for references)
+    - name: Second LaTeX Compilation
+      run: pdflatex -interaction=nonstopmode -output-directory=output main.tex
+    - name: Third LaTeX Compilation
+      run: pdflatex -interaction=nonstopmode -output-directory=output main.tex
 
     # Step 4: Upload PDF as an artifact
     - name: Upload PDF
