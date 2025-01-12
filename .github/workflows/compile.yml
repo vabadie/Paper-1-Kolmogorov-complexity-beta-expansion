@@ -4,7 +4,12 @@ on:
   push:                # Trigger on push events
     branches:
       - december_2024  # Trigger on the main branch
-  pull_request:        # Trigger on pull requests
+  workflow_dispatch:
+    inputs:
+      tex_file:
+        description: "The main LaTeX file to compile"
+        required: true
+        default: "main.tex"
 
 jobs:
   build-pdf:
