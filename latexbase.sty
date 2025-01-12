@@ -1,8 +1,5 @@
 %%% This file imports all useful packages
 
-%packages to manage files
-\usepackage{subfiles}
-
 %packages for encoding languages
 \usepackage[english]{babel} %gestion of english characters
 \usepackage[utf8]{inputenc}  % The package translates various standard and other input encodings into a ‘LaTeX internal language’.
@@ -22,9 +19,14 @@
 % emphasizing text (bold, underlining, letterspacing)
 \usepackage{soul} %basic stuff
 \usepackage[normalem]{ulem} %more precise entries
+
+% manage different pdf files
+\usepackage{xr-hyper} % gestion of refs between different files
+\usepackage{subfiles} %packages to manage files and subfiles
 \usepackage{hyperref} % gestion of hypertext links
-\usepackage{url} %goes with hyperref
+% \usepackage{url} %goes with hyperref
 \hypersetup{unicode,colorlinks,linkcolor=blue,urlcolor=blue,runcolor=blue,breaklinks=true} %initialises hyperref package
+
 
 % to make cool figures
 \usepackage{float} % most flexible package to make figures out of nothing
@@ -35,6 +37,8 @@
 \usepackage{media9} %used to have animated 3D objects, sounds, etc
 %\usepackage[usenames, dvipsnames, x11names]{xcolor} %use to change color of figures
 
+% to make custom commands
+\usepackage{xargs} % handles multiple optional parameters
 
 %easy use of labelling
 \usepackage{lastpage} %new command to address last page labels

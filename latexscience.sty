@@ -21,6 +21,9 @@
 %algorithmy
 \usepackage{algorithm, algpseudocode} %to make algorithms
 
+%make nice references to equations, etc
+\usepackage{cleveref} % make nice references
+
 
 
 %%%%%%%%%%%%%%% Commands to go faster in math equations %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -115,9 +118,10 @@
 \newcommand{\bslash}{\ensuremath{\text{\textnormal{\textbackslash}}}} %to denote a set that is removed from another
 
 
+
 %displaying of some sets
 \newcommand\Uninf{\ensuremath{(1,\infty)}} % open interval between 1 and infty
-\newcommand{\ints}[1][none]{\ifthenelse{none}{\N}{\ensuremath{\left\{1,\ldots, #1 \right\}}}} % set of subset of integers
+\newcommandx{\ints}[2][1=none,2=1]{\ifthenelse{\equal{#1}{none}}{\ensuremath{\mathbb{N}}}{\ensuremath{\left\{#2,\ldots, #1 \right\}}}} % set of subset of integers
 \newcommand{\rats}{\Q} % set of rationals
 \newcommand{\reals}{\R} %set of reals
 \newcommand{\compl}{\C} % set of complex
