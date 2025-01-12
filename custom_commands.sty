@@ -1,25 +1,47 @@
 %%% this file contains commands to be used often for quicker use
 
 
-%around the symbol beta
+%%% Around the symbol beta
 \newcommand\base{\ensuremath{\beta}}
 % \newcommand\betaf{\pmb{\beta}}
 % \newcommand\betaprox{\ensuremath{\underline{\smash{\beta}}}}
 % \newcommand\betaun{\ensuremath{\beta \hspace{-1mm} - \hspace{-1mm} 1}}
 % \newcommand\lowbeta{\underline{\smash{\beta}}}
 
-% beta-expansions notations
-\newcommand\sets[1][\base]{\ensuremath{\Sigma_{#1}}} %notation for the set of beta-expansions of the real number s
+
+
+
+%%% Greedy beta-expansion functions/maps/sets notations
+\newcommand\shiftg[1][\base]{\ensuremath{\Sigma_{#1}}} %notation for the set of beta-expansions of the real number s
 \newcommand\setad[1][\base]{\ensuremath{\Omega_{#1}}} %notation for the set of sequences that can be a beta expansion (admissible sequences)
 \newcommand\grd[1][\base]{\ensuremath{\gf_{#1}}} %notation for the greedy beta expansion
 \newcommand\eval[1][\base]{\ensuremath{\delta_{#1}}} %notation for the beta-valuation operator
-\newcommand\mdig[1][\base]{\ensuremath{\lceil #1 \rceil -1}} %notation for the maximal digit of the beta expansions
-\newcommand\Ibet{\ensuremath{\left[0, \frac{\lceil \beta\rceil - 1}{\beta - 1}\right)}}
-\newcommand\ibet{\ensuremath{\left[0, \frac{1}{\beta - 1}\right]}}
-\newcommand\ib{\ensuremath{I_\beta}}
-\newcommand\grpref{\ensuremath{d_\beta^N \hspace{-1mm} }}
-\newcommand\qbet{\ensuremath{\left\{ 0, \ldots, \lceil \beta\rceil - 1 \right\}}}
-\newcommand\Mbet{\ensuremath{\frac{\lceil \beta \rceil -1}{\beta - 1}}}
+\newcommand\grr[1][\base]{\ensuremath{X_{#1}}} %set of real number corresponding to finite greedy expansions
+\newcommand\ngr[1][\base]{\ensuremath{N_{#1}}} %number of greedy expansions
+
+
+%%% Beta-expansion digit/sets notation
+\newcommand\betaint{0}
+% \newcommand\betaint{0}
+\newcommandx\ndig[2][1=\base, 2=\betaint{}]{\ifthenelse{
+    \equal{#2}{0}
+}{\ensuremath{\lceil #1 \rceil}}
+{\ensuremath{\the\numexpr #2 + 1 \relax}}} %notation for the maximal digit of the beta expansions
+\newcommandx\mdig[2][1=\base, 2=\betaint]{\ifthenelse{
+    \equal{#2}{0}
+}{\ensuremath{\lceil #1 \rceil - 1}}
+{{\ensuremath{ #2 }}}} %notation for the maximal digit of the beta expansions
+\newcommandx\digs[2][1=\base, 2=\betaint]{\ensuremath{\ints[{\mdig[#1][#2]}][0]}} %notation for the digits of the beta-expansion
+\newcommandx\mreal[2][1=\base, 2=\betaint]{\ifthenelse{
+    \equal{#2}{0}
+}{\ensuremath{\frac{\mdig[#1]}{#1 - 1}}}
+{\ensuremath{ \frac{#2}{#1 - 1}}}}
+\newcommandx\Ibet[2][1=\base,2=\betaint]{\left[0, \mreal[\base][\betaint] \right)} %%% displays the set of possible real numbers having beta expansions
+\newcommand\ib[1][\base]{\ensuremath{I_{#1}}} %% abbrev of the set of possible real numbers having beta-expansions
+
+
+% \newcommand\grpref{\ensuremath{d_\beta^N \hspace{-1mm} }}
+
 
 
 % Kolmogorov complexity notations
