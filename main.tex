@@ -1,19 +1,17 @@
-\documentclass[12pt,a4paper]{article}
+\documentclass[12pt, a4paper]{article}
 
 % imports useful packages
-\usepackage{latexscience}
 \usepackage{latexbase}
+\usepackage{latexscience}
 \usepackage{custom_commands}
 
-%sets page layout
-% \pagestyle{fancy}
-% \setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\externaldocument[GR-]{greedy_beta_expansions}
+
 
 %defining new commands
-% \newcommand{\hsp}{\hspace{50pt}} ICI
-% \newcommand{\vsp}{\vspace{50pt}} ICI
-% \newcommand{\HRule}{\rule{\linewidth}{0.5mm}} ICI
-\renewcommand{\baselinestretch}{1} 
+\renewcommand{\baselinestretch}{1}
+
+
 
 \begin{document}
 
@@ -31,18 +29,21 @@ We establish a relationship between the algorithmic (Kolmogorov) complexity of t
 
 \tableofcontents
 
+% \subfile{subfiles/introduction.tex}
 
-\subfile{subfiles/story.tex}
+% \subfile{subfiles/notation.tex}
 
-\subfile{subfiles/technical_preliminaries.tex}
+% \subfile{subfiles/story.tex}
 
-\subfile{subfiles/study_kolmogorov_complexity_multifunctions.tex}
+% \subfile{subfiles/technical_preliminaries.tex}
+
+% \subfile{subfiles/study_kolmogorov_complexity_multifunctions.tex}
 
 \subfile{subfiles/study_greedy_expansion_kolmogorov_complexity.tex}
 
-\appendix 
+% \appendix 
 
-\subfile{subfiles/appendices.tex}
+% \subfile{subfiles/appendices.tex}
 
 % \nocite{*}
 \bibliography{biblio.bib}
