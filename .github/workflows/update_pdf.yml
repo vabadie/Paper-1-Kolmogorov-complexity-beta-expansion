@@ -27,7 +27,7 @@ jobs:
           -d '{
             "parent": { "database_id": "'$DATABASE_ID'" },
             "properties": {
-              "title": {
+              "Name": {
                 "title": [
                   {
                     "text": { "content": "${{ github.event.inputs.page_title }}" }
