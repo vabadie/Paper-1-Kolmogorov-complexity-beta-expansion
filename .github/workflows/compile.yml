@@ -1,9 +1,9 @@
 name: Build LaTeX PDF
 
 on:
-  push:                # Trigger on push events
-    branches:
-      - december_2024  # Trigger on the main branch
+  # push:                # Trigger on push events
+  #  branches:
+  #    - december_2024  # Trigger on the main branch
   workflow_dispatch:
     inputs:
       tex_file:
