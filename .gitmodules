@@ -1,0 +1,3 @@
+[submodule "LatexCommands"]
+	path = LatexCommands
+	url = https://github.com/vabadie/LatexCommands.git
