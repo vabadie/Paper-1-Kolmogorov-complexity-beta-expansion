@@ -28,8 +28,7 @@
 
 %%%%%%%%%%%%%%% Commands to go faster in math equations %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% FONTS
-
+% COMMANDS FOR MATH FONTS
 
 % Display mathbb fonts
 \newcommand\R{\ensuremath{\mathbb{R}}}
@@ -95,7 +94,16 @@
 
 % COMMANDS FOR MATH OPERATORS
 
+% Notations for lexicographical order
+\newcommand{\lexleq}{\ensuremath{\leq_L}}
+\newcommand{\lexl}{\ensuremath{<_L}}
+\newcommand{\lexgeq}{\ensuremath{\geq_L}}
+\newcommand{\lexg}{\ensuremath{>_L}}
+\newcommand{\lexsup}{\ensuremath{\mathop{\operatorname{lexsup}}}}
+\newcommand{\lexinf}{\ensuremath{\mathop{\operatorname{lexinf}}}}
+
 % Notations for sequences
+\newcommand\po[1]{\ensuremath{_{#1}}}
 \newcommand\pn[1]{\ensuremath{|_{#1}}}
 \newcommand\pnm[2]{\ensuremath{|_{#1}^{#2}}}
 \newcommand\len[1]{\ensuremath{\left| #1 \right|}}
@@ -110,23 +118,115 @@
 % \newcommand{\constw}[1]{\bigOw{1}}
 % \newcommand{\constn}[1]{\underset{#1 \to \infty}{\mathcal{O}}(1)}
 
-% Operations sets and functions
+% Operations on sets and functions
 \newcommand\dom{\ensuremath{\operatorname{dom}}} %to denote the domain of a function
 \newcommand\rg{\operatorname{range}} % range of a function
 \newcommand\ev{\operatorname{ev}} % evaluation of a function
 \newcommand\card[1]{\ensuremath{\# \hspace{-0.2mm} #1 }} %to denote the cardinal of a set
 \newcommand{\bslash}{\ensuremath{\text{\textnormal{\textbackslash}}}} %to denote a set that is removed from another
 
+% Standard definitions
+\newcommandx\funcdef[6][6=rrcl]{
+  \ensuremath{
+    \begin{array}{#6}
+      #1 : & #2 & \to & #3\\
+           & #4 & \mapsto & #5
+    \end{array}
+  }
+}
 
+
+% COMMANDS FOR MATH USUAL SYMBOLS
 
 %displaying of some sets
 \newcommand\Uninf{\ensuremath{(1,\infty)}} % open interval between 1 and infty
-\newcommandx{\ints}[2][1=none,2=1]{\ifthenelse{\equal{#1}{none}}{\ensuremath{\mathbb{N}}}{\ensuremath{\left\{#2,\ldots, #1 \right\}}}} % set of subset of integers
-\newcommand{\rats}{\Q} % set of rationals
-\newcommand{\reals}{\R} %set of reals
-\newcommand{\compl}{\C} % set of complex
+\newcommand{\unit}{[0,1]} %set of real numbers between 0 and 1
+\newcommandx\listIntegers[2][1=none,2=0]{ % set of consecutive integers
+  \ensuremath{\left\{#2,\ldots, #1 \right\}} 
+}
+\newcommand\nat{\N} % set of natural integers
+\newcommand\sint{\Z} % set of signed integers
+\newcommand{\rats}{\Q} % set of rational numbers
+\newcommand{\reals}{\R} %set of real numbers
+\newcommand{\comps}{\C} % set of complex numbers
+\newcommand\bools{\{0,1\}} % set of booleans
 
-%%%%%%%%%%%%%%% Commands for theorems %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%displaying the standard notation for elements of some sets
+\ExplSyntaxOn 
+\newcommandx{\igflex}[1][1=0]{ % standard rational number notation
+  \str_case:nnF { #1 } {
+    { 1 } { i }
+    { 2 } { j }
+    { 3 } { k }
+    { 4 } { \ell }
+    { 5 } { m }
+    { 6 } { p }
+  } { n }
+}
+\newcommand\iga{{\igflex[0]}} % first standard notation for integers
+\newcommand\igb{{\igflex[1]}} % second standard notation for integers
+\newcommand\igc{{\igflex[2]}} % third standard notation for integers
+\newcommand\igd{{\igflex[3]}} % fourth standard notation for integers
+\newcommand\ige{{\igflex[4]}} % fifth standard notation for integers
+\newcommand\igf{{\igflex[5]}} % sixth standard notation for integers
+\newcommand\igg{{\igflex[6]}} % seventh standard notation for integers
+
+\newcommandx{\ra}[1][1=0]{ % standard rational number notation
+  \str_case:nnF { #1 } {
+    { 1 } { r }
+  } { q }
+}
+\newcommandx{\re}[1][1=0]{ % standard real number notation
+  \str_case:nnF { #1 } {
+    { 1 } { y }
+    { 2 } { z }
+  } { x }
+}
+\newcommand\rea{{\re[0]}} % first standard real number notation
+\newcommand\reb{{\re[1]}} % second standard real number notation
+\newcommand\rec{{\re[2]}} % third standard real number notation
+\newcommand\co{z} % standard complex number notation
+\newcommand\bo{b} % standard boolean notation
+
+\newcommandx{\wo}[1][1=0]{ % standard word notation
+  \str_case:nnF { #1 } {
+    { 1 } { u }
+    { 2 } { v }
+    { 3 } { y }
+    { 4 } { z }
+  } { w }
+}
+\newcommand\woa{{\wo[0]}} % first standard word notation
+\newcommand\wob{{\wo[1]}} % second standard word notation
+\newcommand\woc{{\wo[2]}} % third standard word notation
+
+\newcommandx{\sq}[1][1=0]{ % standard symbol sequence notation
+  \str_case:nnF { #1 } {
+    { 1 } { q }
+    { 2 } { \omega }
+    { 3 } { {\bf x} }
+    { 4 } { {\bf y} }
+  } { p }
+}
+\newcommand\sqa{{\sq[0]}} % first standard symbol sequence notation
+\newcommand\sqb{{\sq[1]}} % second standard symbol sequence notation
+
+\newcommandx{\iv}[1][1=0]{ % standard interval notation
+  \str_case:nnF { #1 } {
+    { 1 } { J }
+    { 2 } { K }
+  } { I }
+}
+\newcommand\iva{{\iv[0]}} % first standard notation for intervals
+\newcommand\ivb{{\iv[1]}} % second standard notation for intervals
+\newcommand\ivc{{\iv[2]}} % third standard notation for intervals
+\ExplSyntaxOff
+
+
+%%%%%%%%%%%%%%% Commands for theorems/definitions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Special font when introducing a new variable
+\newcommand\newname[1]{\textit{#1}}
 
 % Theorem/properties styles
 \newtheorem{conjecture}{Conjecture}[section]

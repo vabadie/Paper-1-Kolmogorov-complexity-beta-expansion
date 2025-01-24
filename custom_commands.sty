@@ -1,8 +1,16 @@
 %%% this file contains commands to be used often for quicker use
+\renewcommand{\unit}{{\bf I}}
+
+
+%%% some operations needed for the proofs
+\newcommand\cvx{\ensuremath{\operatorname{int}}} %to denotes the half-open convex hull of a set
+\newcommand\halfints{\ensuremath{\mathcal{I}}} %to denote the set of halt-open intervals in [0,1]
+
 
 
 %%% Around the symbol beta
 \newcommand\base{\ensuremath{\beta}}
+\newcommand\setbase{\Uninf}
 % \newcommand\betaf{\pmb{\beta}}
 % \newcommand\betaprox{\ensuremath{\underline{\smash{\beta}}}}
 % \newcommand\betaun{\ensuremath{\beta \hspace{-1mm} - \hspace{-1mm} 1}}
@@ -12,18 +20,64 @@
 
 
 %%% Greedy beta-expansion functions/maps/sets notations
-\newcommand\shiftg[1][\base]{\ensuremath{\Sigma_{#1}}} %notation for the set of beta-expansions of the real number s
-\newcommand\setad[1][\base]{\ensuremath{\Omega_{#1}}} %notation for the set of sequences that can be a beta expansion (admissible sequences)
+\newcommand\setGreedyExpansions[1][\base]{\ensuremath{\widehat{\Omega}_{#1}}} %notation for the set of beta-expansions of the real number s
+\newcommandx\setBetaExpansions[2][1=,2=\base]{%notation for the set of sequences that can be a beta expansion
+    \ifthenelse{\equal{#1}{}}{\ensuremath{\Omega_{#2}}}{\ensuremath{\Omega_{#2}(#1)}
+    }
+} 
+\newcommandx\setBetaPrefixes[3][1=,2=\iga,3=\base]{%notation for the set of beta prefixes
+    \ifthenelse{\equal{#1}{} \AND \equal{#2}{}}{\ensuremath{W_{#3}}}{
+        \ifthenelse{\equal{#2}{}}{
+            \ensuremath{W_{#3}^\ast(#1)}
+        }{\ensuremath{W_{#3,#2}(#1)}}
+    }
+}
+\newcommandx\setBetadics[3][1=,2=\iga,3=\base]{%notation for the set of betadics
+\ifthenelse{\equal{#1}{} \AND \equal{#2}{}}{\ensuremath{\mathbb{Q}_{#3}}}{
+    \ifthenelse{\equal{#2}{}}{
+        \ensuremath{\mathbb{Q}_{#3}(#1)}
+        }{
+            \ifthenelse{\equal{#1}{}}{
+            \ensuremath{\mathbb{Q}_{#3,#2}}
+            }{\ensuremath{\mathbb{Q}_{#3,#2}(#1)}}
+        }
+    }
+}
+\newcommand\trans[1][\base]{\ensuremath{T_{#1}}} %notation for the beta-transformation map
+\newcommand\digz[1][\base]{\ensuremath{d_{#1}}} %notation for the beta-digitization map
 \newcommand\grd[1][\base]{\ensuremath{\gf_{#1}}} %notation for the greedy beta expansion
-\newcommand\eval[1][\base]{\ensuremath{\delta_{#1}}} %notation for the beta-valuation operator
-\newcommand\grr[1][\base]{\ensuremath{X_{#1}}} %set of real number corresponding to finite greedy expansions
-\newcommand\ngr[1][\base]{\ensuremath{N_{#1}}} %number of greedy expansions
+\newcommandx\eval[2][1=,2=\base]{%notation for the beta-valuation operator
+    \ifthenelse{\equal{#1}{}}{\ensuremath{\delta_{#2}}}{
+        \ensuremath{\delta_{#2}\left(#1\right)}
+    }
+} 
+\renewcommand\sup[1][]{
+    \ifthenelse{\equal{#1}{}}{\ensuremath{\mathop{\operatorname{sup}}}}{
+        \ensuremath{\mathop{\operatorname{sup}}}\left(#1\right)
+    }
+}
 
+
+\newcommand\vrr[1][\base]{\ensuremath{V_{#1}}} %difference set of real number corresponding to finite greedy expansions of size n+1 and n
+
+\newcommandx\betadicSolver[3][1=,2=\iga,3=\base]{%n order betadic solver
+    \ifthenelse{\equal{#1}{}}{
+        \ensuremath{\mathcal{S}_{#3,#2}}
+    }{
+        \ensuremath{\mathcal{S}_{#3,#2}}\left(#1\right)
+    }
+} 
+\newcommandx\betaPrefixSolver[3][1=,2=\iga,3=\base]{%n order beta prefix solver
+    \ifthenelse{\equal{#1}{}}{
+        \ensuremath{\mathcal{S}^{\operatorname{lex}}_{#3,#2}}
+    }{
+        \ensuremath{\mathcal{S}^{\operatorname{lex}}_{#3,#2}\left(#1\right)}
+    }
+} 
 
 %%% Beta-expansion digit/sets notation
 \newcommand\betaint{0}
-% \newcommand\betaint{0}
-\newcommandx\ndig[2][1=\base, 2=\betaint{}]{\ifthenelse{
+\newcommandx\ndig[2][1=\base, 2=\betaint]{\ifthenelse{
     \equal{#2}{0}
 }{\ensuremath{\lceil #1 \rceil}}
 {\ensuremath{\the\numexpr #2 + 1 \relax}}} %notation for the maximal digit of the beta expansions
@@ -31,16 +85,47 @@
     \equal{#2}{0}
 }{\ensuremath{\lceil #1 \rceil - 1}}
 {{\ensuremath{ #2 }}}} %notation for the maximal digit of the beta expansions
-\newcommandx\digs[2][1=\base, 2=\betaint]{\ensuremath{\ints[{\mdig[#1][#2]}][0]}} %notation for the digits of the beta-expansion
+\newcommandx\digs[2][1=\base, 2=\betaint]{\ensuremath{\listIntegers[{\mdig[#1][#2]}][0]}} %notation for the digits of the beta-expansion
 \newcommandx\mreal[2][1=\base, 2=\betaint]{\ifthenelse{
     \equal{#2}{0}
 }{\ensuremath{\frac{\mdig[#1]}{#1 - 1}}}
-{\ensuremath{ \frac{#2}{#1 - 1}}}}
+{\ensuremath{ \frac{#2}{#1 - 1}}}} %maximal real number reachable with beta expansions
 \newcommandx\Ibet[2][1=\base,2=\betaint]{\left[0, \mreal[\base][\betaint] \right)} %%% displays the set of possible real numbers having beta expansions
 \newcommand\ib[1][\base]{\ensuremath{I_{#1}}} %% abbrev of the set of possible real numbers having beta-expansions
 
 
-% \newcommand\grpref{\ensuremath{d_\beta^N \hspace{-1mm} }}
+%%% Beta-expansion prefixes/beta-adic numbers notation
+\newcommandx\setGreedyBetaPrefixes[2][1=none,2=\base]{%set of greedy beta prefixes
+\ifthenelse{
+    \equal{#1}{none}}{\ensuremath{\widehat{W}_{#2}}}{
+        \ensuremath{\widehat{W}_{#2,#1}}
+    }
+}
+\newcommandx\setGreedyBetadics[2][1=none,2=\base]{%set of greedy betadic numbers
+    \ifthenelse{
+        \equal{#1}{none}}{\ensuremath{\widehat{\mathbb{Q}}_{#2}}}{
+            \ensuremath{\widehat{\mathbb{Q}}_{#2,#1}}
+        }
+} 
+\newcommandx\setGreedyBetadicsWithOne[2][1=none,2=\base]{%set of greedy betadic numbers including the number one
+    \ifthenelse{
+        \equal{#1}{none}}{\ensuremath{\widehat{\mathbb{Q}}^+_{#2}}}{
+            \ensuremath{\widehat{\mathbb{Q}}^+_{#2,#1}}
+        }
+} 
+\newcommandx\numberGreedyPrefixes[2][1=none,2=\base]{ %number of greedy prefixes or greedy betadic numbers
+    \ifthenelse{
+    \equal{#1}{none}}{\ensuremath{N_{#2}}}{
+        \ensuremath{N_{#2}({#1})}
+    }
+}
+\newcommandx\indicesGreedyPrefixes[2][1=none,2=\base]{%indices of greedy prefixes or greedy betadic numbers
+            \ensuremath{\listIntegers[{\numberGreedyPrefixes[#1][#2]-1}][0]}
+}
+\newcommandx\enumerationBetadics[3][1=\igb,2=\iga,3=\base]{{\ensuremath{x_{#3,#2}(#1)}}} %enumeration of greedy betadic numbers
+
+\newcommandx\enumerationGreedyPrefixes[3][1=\igb,2=\iga,3=\base]{{\ensuremath{w_{#3,#2}(#1)}}} %enumeration of greedy prefixes
+
 
 
 
