@@ -126,7 +126,7 @@
 \newcommand{\bslash}{\ensuremath{\text{\textnormal{\textbackslash}}}} %to denote a set that is removed from another
 
 % Standard definitions
-\newcommandx\funcdef[6][6=rrcl]{
+\newcommandx\funcdef[6][6=rrcl]{ %definition of a function
   \ensuremath{
     \begin{array}{#6}
       #1 : & #2 & \to & #3\\
@@ -272,13 +272,15 @@
 
 % Special command (osetlem) to quote a Lemma/Theorem inside of an equation
 \makeatletter
-\newcommand{\oset}[3][0ex]{%
+\newcommand{\oset}[3][0ex]{%this command is a flexible way to put something on top of an element in an equation
   \mathrel{\mathop{#3}\limits^{
     \vbox to#1{\kern-2\ex@
     \hbox{$\scriptstyle #2$}\vss}}}}
 \makeatother
 
-\newcommand{\osetlem}[3][1.8ex]{\oset[#1]{\substack{\hspace{.07cm} \text{\tiny Lem.}\\ #2}}{#3}}
+\newcommand{\osetlem}[3][1.8ex]{\oset[#1]{\substack{\hspace{.07cm} \text{\tiny Lem.}\\ #2}}{#3}} % This is the command above but applied specially to the case of referencing a Lemma
+
+\newcommand\under[2]{\underset{#2}{\underbrace{#1}}}% Special command (osetlem) to quote a Lemma/Theorem inside of an equation
 
 % creates an environment in which everything is written a little bit translucid, so that it is clear that this is doubtful.
 \newenvironment{doubtfulsec}{%

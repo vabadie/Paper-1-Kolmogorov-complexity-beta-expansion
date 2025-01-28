@@ -107,9 +107,9 @@
             \ensuremath{\widehat{\mathbb{Q}}_{#2,#1}}
         }
 } 
-\newcommandx\setGreedyBetadicsWithOne[2][1=none,2=\base]{%set of greedy betadic numbers including the number one
+\newcommandx\setGreedyBetadicsWithOne[2][1=,2=\base]{%set of greedy betadic numbers including the number one
     \ifthenelse{
-        \equal{#1}{none}}{\ensuremath{\widehat{\mathbb{Q}}^+_{#2}}}{
+        \equal{#1}{}}{\ensuremath{\widehat{\mathbb{Q}}^+_{#2}}}{
             \ensuremath{\widehat{\mathbb{Q}}^+_{#2,#1}}
         }
 } 
@@ -126,7 +126,19 @@
 
 \newcommandx\enumerationGreedyPrefixes[3][1=\igb,2=\iga,3=\base]{{\ensuremath{w_{#3,#2}(#1)}}} %enumeration of greedy prefixes
 
-
+%%% Beta-expansion variation sets prefixes/beta-adic numbers notation
+\newcommandx\variationSetGreedyBetadics[3][1=,2=,3=\base]{%set of greedy betadic numbers
+\ifthenelse{
+    \equal{#1}{} \OR \equal{#2}{}}{\setGreedyBetadics[#2][#3]}{
+        \ensuremath{\partial_#1\setGreedyBetadics[#2][#3]}
+    }
+}
+\newcommandx\variationSetGreedyPrefixes[3][1=,2=,3=\base]{%set of greedy betadic numbers
+\ifthenelse{
+    \equal{#1}{} \OR \equal{#2}{}}{\setGreedyBetaPrefixes[#2][#3]}{
+        \ensuremath{\partial_#1\setGreedyBetaPrefixes[#2][#3]}
+    }
+}
 
 
 % Kolmogorov complexity notations
