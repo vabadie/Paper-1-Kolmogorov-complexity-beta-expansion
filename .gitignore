@@ -12,3 +12,4 @@
 **/*.upb
 **/Versions
 **/Comments
+**/*.DS_Store
