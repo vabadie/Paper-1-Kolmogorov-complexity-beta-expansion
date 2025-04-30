@@ -45,8 +45,10 @@
 \newcommand\D{\ensuremath{\mathbb{D}}}
 \newcommand\K{\ensuremath{\mathbb{K}}}
 \newcommand\Sb{\ensuremath{\mathbb{S}}}
+\newcommand\Lb{\ensuremath{\mathbb{L}}}
 
 % Display mathcal fonts
+\newcommand\AM{\ensuremath{\mathcal{A}}}
 \newcommand\CC{\ensuremath{\mathcal{C}}}
 \newcommand\RR{\ensuremath{\mathcal{R}}}
 \newcommand\DD{\ensuremath{\mathcal{D}}}
@@ -82,10 +84,14 @@
 \newcommand\Thetaf{{\bf \Theta}}
 
 % Display small fat fonts in math equations
+\newcommand\sff{{\bf s}}
+\newcommand\tff{{\bf t}}
 \newcommand\xf{{\bf x}}
 \newcommand\wf{{\bf w}}
 \newcommand\yf{{\bf y}}
 \newcommand\zf{{\bf z}}
+\newcommand\uf{{\bf u}}
+\newcommand\vf{{\bf v}}
 \newcommand\gf{{\bf g}}
 \newcommand\ssf{{\bf s}}
 \newcommand\ellf{\ensuremath{\bm{\ell}}}
@@ -113,10 +119,19 @@
 % Limits and big O notations
 \newcommand{\limu}[2]{\ensuremath{\underset{#1 \to #2}{\lim}}} %limit with 2 arguments, 1 for the variable, and 1 for the limit to which the variable tends to
 \newcommand{\limi}[1]{\ensuremath{\underset{#1 \to \infty}{\lim}}} %limit to infinity with 1 argument, that is the variable of the limit
-\newcommand\bigOx[2][const]{
-    \ifthenelse{\equal{#1}{1}}{\underset{|#1| \to \infty}{\mathcal{O}}(1)}{\underset{#2 \to \infty}{\mathcal{O}}(#2#1)}} %big O notations
-  \newcommand\bigOw[2][const]{
-    \ifthenelse{\equal{#1}{1}}{\underset{|#1| \to \infty}{\mathcal{O}}(1)}{\underset{|#2| \to \infty}{\mathcal{O}}(|#2|#1)}} %big O notations on the length of a sequence
+\newcommand\smallO{
+  \mathchoice
+    {{\scriptstyle\mathcal{O}}}% \displaystyle
+    {{\scriptstyle\mathcal{O}}}% \textstyle
+    {{\scriptscriptstyle\mathcal{O}}}% \scriptstyle
+    {\scalebox{.7}{$\scriptscriptstyle\mathcal{O}$}}%\scriptscriptstyle
+  }
+\newcommand\smallOx[2][1]{
+    \ifthenelse{\equal{#1}{1}}{\underset{|#2| \to \infty}{\smallO}(1)}{\underset{#2 \to \infty}{\smallO}(#1)}} %small o notations
+\newcommand\bigOx[2][1]{
+    \ifthenelse{\equal{#1}{1}}{\underset{#2 \to \infty}{\mathcal{O}}(1)}{\underset{#2 \to \infty}{\mathcal{O}}(#1)}} %big O notations
+  \newcommand\bigOw[2][1]{
+    \ifthenelse{\equal{#1}{1}}{\underset{|#1| \to \infty}{\mathcal{O}}(1)}{\underset{|#2| \to \infty}{\mathcal{O}}(#1)}} %big O notations on the length of a sequence
 % \newcommand{\constw}[1]{\bigOw{1}}
 % \newcommand{\constn}[1]{\underset{#1 \to \infty}{\mathcal{O}}(1)}
 
