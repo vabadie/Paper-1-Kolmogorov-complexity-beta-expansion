@@ -1,0 +1,91 @@
+% !TEX root = main.tex
+
+\section{Proof of the separation lemma}
+
+In this section, we prove Lemma \ref{lem:generalization of the garsia separation lemma}. We first introduce a succession classical algebraic results, that ultimately yield the Lemma. We assume that the reader is familiar to elementary notions of algebra, such as the definition of a field. We refer to the standard books of algebra, such as LANG.
+\begin{lemma}\label{lem:from polynomials in q, one of the roots of the polynomial not being a root of another polynomial implies that all the roots are not the rroots of the other}
+    Let $P,Q \in \Q[X]$, with $P$ irreducible in $\Q[X]$. Suppose that one of the roots of $P$ is not a root of $Q$. Then, none of the roots of $P$ is a root of $Q$.
+\end{lemma}
+\begin{proof}
+    We show the contraposition of the statement. Let $P,Q \in \Q[X]$, with $P$ irreducible in $\Q[X]$. We will show that if a root of $P$ is also a root of $Q$, then all the roots of $P$ must be roots of $Q$. First, note that since $P$ is irreducible in $\Q[X]$, the its dividors in $\Q[X]$ are either polynomials of the form $\alpha P$ with $\alpha \in \Q$, or constant polynomials in $\Q[X]$. Then, the greatest common dividors of $P$ and $Q$, by being a subsets of the dividors of $P$, must be also be either of the form $\alpha P$ or constant polynomials. In particular, this means that either all the greatest common dividors of $P$ and $Q$ in $\Q[X]$ are of degree $\deg P$, or they all are of degree $0$. 
+    
+    
+    Now, assume that one root $\alpha \in \C$ of $P$ is also a root of $Q$, then we know that the polynomial $X - \alpha$ divides both $P$ and $Q$ in $\C[X]$, hence the greatest common dividors of $P$ and $Q$ in $\C[X]$ are at least of degree $1$. There is a standard result in algebra that states that for any two fields $\K,\Lb$ satisfying $\K \subseteq \Lb$, the greatest common dividors of two polynomials in $\K[X]$ are also greastest common dividors in $\Lb[X]$ \cite[Section III-8, Proposition 3]{mazet1996capes}. In particular, this means that if the greatest common dividors of $P$ and $Q$ in $\Lb[X]$ are of degree $d$, then the greatest common dividors of $P$ and $Q$ in $\K[X]$ also are of degree $d$. Since $\Q$ and $\C$ are fields such that $\Q \subseteq \C$, then by the discussion above the degree of the greatest common dividors of $P$ and $Q$ in $\Q[X]$ are of degree at least $1$, which implies that they must be of the form $\alpha P$, $\alpha \in \Q$, i.e., there exists a polynomial $A \in \Q[X]$ such that $Q = AP$. Consequently, for any root $r$ of $P$, we have 
+    \begin{equation}
+        Q(r) = A(r) P(r) = 0,
+    \end{equation}
+    i.e., $r$ is a root of $Q$.
+\end{proof}
+
+The next statement emerges from the theory of polynomial resultants. We introduce this theory along the lines of \cite[Section IV.8]{lang2002Algebra}. Let $P,Q \in \C[X]$ of respective degrees $n$ and $m$. We denote by $p_0,\ldots,p_n \in \C$ the coefficients of $P$, and by $q_0,\ldots,q_m \in \C$ the coefficients of $Q$. The resultant $Res(P,Q)$ is defined to be the determinant of the matrix METTRE FLECHES POUR EXPLIQUER LA TAILLE DE LA MATRICE
+\begin{equation}
+    \RR(P,Q) = \begin{pmatrix}
+        p_n & p_{n-1} & \ldots & p_0 & 0 & 0 & 0 \\
+        0 & p_n & p_{n-1} & \ldots & p_0 & 0 & 0 \\
+        & \vdots & & & & &\\
+        0& 0 & 0 & p_n & p_{n-1} & \ldots & p_0 \\
+        q_m & \ldots & q_0 & 0 & 0 & 0 & 0 \\
+        0 & q_m & \ldots & q_0 & 0 & 0 & 0 \\
+        & \vdots & & & & &\\
+        0& 0 & 0 & 0 & q_m & \ldots & q_0 \\
+    \end{pmatrix}
+\end{equation}
+Further denote $\alpha_1,\alpha_2,\ldots,\alpha_{n} \in \C$ be the roots of $P$, counted with multiplicities. Then, following \cite[Section IV, Proposition 8.3]{lang2002Algebra}, we have
+\begin{equation}\label{eq:polynomial resultant is equal to the product of one of the polynomials on the roots of the other}
+    Res(P,Q) = p_0^m \prod_{i=1}^n Q(\alpha_i).
+\end{equation}
+The next lemma bounds the resultant of two polynomials with integer coefficients from below.
+\begin{lemma}\label{lem:the polynomial result of integer polynomials is bigger than one}
+    Let $P,Q \in \Z[X]$, with $P$ irreducible in $\Z[X]$. Suppose that one of the roots of $P$ is not a root of $Q$. Then,
+    \begin{equation}
+        |Res(P,Q)| \geq 1.
+    \end{equation}
+\end{lemma}
+\begin{proof}
+    Let $P,Q \in \Z[X]$, with $P$ irreducible in $\Z[X]$. Then, in particular, $P,Q \in \Q[X]$ and $P$ is irreducible in $\Q[X]$. Suppose that one of the roots of $P$ is not a root of $Q$. Then, by Lemma \ref{lem:from polynomials in q, one of the roots of the polynomial not being a root of another polynomial implies that all the roots are not the rroots of the other}, none of the roots of $P$ are roots of $Q$. By (\ref{eq:polynomial resultant is equal to the product of one of the polynomials on the roots of the other}), it follows that
+    \begin{equation}\label{eq:0:proof:lem:the polynomial result of integer polynomials is bigger than one}
+        Res(P,Q) = p_0^n \prod_{i=1}^n Q(\alpha_i) \neq 0.
+    \end{equation}
+    Moreover, since $Res(P,Q)$ is defined to be the determinant of the matrix $\RR(P,Q)$, and that this matrix has only coefficients in $\Z$, then $Res(P,Q) \in \Z$. Combined with (\ref{eq:0:proof:lem:the polynomial result of integer polynomials is bigger than one}), we get that $Res(P,Q) \in \Z \backslash \{0\}$, and hence that $|Res(P,Q)| \geq 1$.
+\end{proof}
+
+We are now ready to prove Lemma \ref{lem:generalization of the garsia separation lemma}. For an algebraic number $\beta \in (1,2)$, recall that $L_\beta$ denotes the leading coefficient of its minimal polynomial $P_\beta$. Fix $n \in \N$. For all $x,y \in \{0,1\}^n$, we can express the quantity $\left|\sum_{i=1}^n x_i \beta^{-i} - \sum_{i=1}^n y_i \beta^{-i}\right|$ as $|\beta^{-n}A_{xy}(\beta)|$, where $A_{xy}$ is a poynomial of degree $n-1$, and of coefficients $a_0 := x_n - y_n$, $a_1 := x_{n-1} - y_{n-1}, \ldots, a_{n-1} := x_{1} - y_{1}$. There are two cases.
+\begin{enumerate}[label=(\alph*)]
+    \item $x \sim y$, i.e., $A_{xy}(\beta) = 0$.
+    \item $x \not\sim y$, so $A_{xy}(\beta) \neq 0$, i.e., $\beta$ is not a root of $A_{xy}$. Lemma \ref{lem:the polynomial result of integer polynomials is bigger than one} yields
+\begin{equation}
+    |Res(P_\beta,A_{xy})| \geq 1,
+\end{equation}
+which, combined with (\ref{eq:polynomial resultant is equal to the product of one of the polynomials on the roots of the other}), delivers
+\begin{equation}\label{eq:0:proof:lem:generalization of the garsia separation lemma}
+    \left|L_\beta^{n-1} A_{xy}(\beta) \prod_{z \in G_\beta} A_{xy}(z)\right| \geq 1 \iff |A_{xy}(\beta)| \geq \frac{1}{L_\beta^{n-1}} \prod_{z \in G_\beta} \frac{1}{\left|A_{xy}(z)\right|} \cdot
+\end{equation}
+We now give an upper bound on $|A_{xy}(z)|$, for $z \in \C$. First note that
+\begin{equation}
+    |A_{xy}(z)| = \left|\sum_{i=0}^{n-1} (x_i - y_i) z^i \right| \leq \sum_{i=0}^{n-1} |x_i-y_i| |z|^i \leq \sum_{i=0}^{n-1} |z|^i, \ \forall z \in \C.
+\end{equation}
+Then, we can split the study in three subcases.
+\begin{enumerate}[label=(\roman*)]
+    \item Suppose that $|z| < 1$. Then,
+    \begin{equation}
+        |A_{xy}(z)| \leq \sum_{i=0}^{n-1} |z|^i = \frac{1 - |z|^n}{1 - |z|} \leq \frac{1}{1 - |z|}.
+    \end{equation}
+    \item Suppose that $|z| = 1$. Then,
+    \begin{equation}
+        |A_{xy}(z)| \leq \sum_{i=0}^{n-1} |z|^i = n.
+    \end{equation}
+    \item Suppose that $|z| > 1$. Then,
+    \begin{equation}
+        |A_{xy}(z)| \leq \sum_{i=0}^{n-1} |z|^i = \frac{|z|^n-1}{|z|-1} \leq \frac{|z|^n}{|z|-1}.
+    \end{equation}
+\end{enumerate}
+By incorporation of these results in (\ref{eq:0:proof:lem:generalization of the garsia separation lemma}), we get
+\begin{equation}
+    |A_{xy}(\beta)| \geq \frac{1}{L_\beta^{n-1}}  \frac{\prod_{z \in G_\beta} |1-|z||}{n^{k_\beta}\prod_{z \in G^+_\beta} |z|^n} = \frac{L_\beta\Pi_\beta}{n^{k_\beta} (L_\beta \Pi_\beta^+)^n}.
+\end{equation}
+Finally, as $\left|\sum_{i=1}^n x_i \beta^{-i} - \sum_{i=1}^n y_i \beta^{-i}\right| = |\beta^{-n}A_{xy}(\beta)|$, we get
+\begin{equation}
+    \left|\sum_{i=1}^n x_i \beta^{-i} - \sum_{i=1}^n y_i \beta^{-i}\right| \geq \frac{L_\beta\Pi_\beta}{n^{k_\beta} (L_\beta \beta \Pi_\beta^+)^n},
+\end{equation}
+thereby proving Lemma \ref{lem:generalization of the garsia separation lemma}.
+\end{enumerate}

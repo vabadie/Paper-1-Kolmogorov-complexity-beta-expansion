@@ -1,0 +1,113 @@
+% !TEX root = main.tex
+
+\section{Lower bound on the complexity of $\beta$-expansions}
+
+This section is devoed to the proof of Theorem 1.2. Let $\beta \in (1,2]$. For $s \in [0,1]$, we denote by $\Sigma_\beta(s)$ the set of all $\beta$-expansions of $s$, i.e.,
+\begin{equation}
+    \Sigma_\beta(s) := \left\{ \xf \in \{0,1\}^\N : \sum_{i=1}^\infty \xf_i \beta^{-i} = s \right\}.
+\end{equation}
+Recall that, as explain in the first section, $\# \Sigma_2(s) \leq 2$ and $\# \Sigma_\beta(s) = 2^{\aleph_0}$ if $\beta < \frac{1+\sqrt{5}}{2}$, for all $s \in [0,1]$. Further, we define $\Sigma_\beta(s,n)$ to be the set of sequences of length $n$ that are prefix of some $\beta$-expansion of $s$, i.e.,
+\begin{equation}
+    \Sigma_\beta(s,n) := \{ \xf_{1:n} : \xf \in \Sigma_\beta(s)\}.
+\end{equation}
+
+In order to prove Theorem 1.2, we will construct a multivalued function $f_{\beta \to 2} : \{0,1\}^\ast  \rightrightarrows \{0,1\}^\ast$ that is computable relatively to $\beta$, for $\beta \in (1,2]$. This function $f_{\beta \to 2}$ will be designed so that when it is presented with an $n\log_\beta(2)$-prefix $x$ of some $\beta$-expansion of a given real number $s \in [0,1]$, it outputs a set that contains all the $n$-prefixes of all the binary expansions of $s$. In mathematical symbols, this is expressed as
+\begin{equation}
+    \Sigma_2(s,n) \subseteq f_{\beta \to 2}(x), \forall x \in \Sigma_\beta(s,n\log_\beta(n)), \ n \in \N.
+\end{equation}
+The function $f_{\beta \to 2}$ will be constructed so that $x \mapsto \# f_{\beta \to 2}(x)$ is bounded, in order to use Theorem \ref{thm:relatively computable multivalued functions and complexity}. 
+
+We now explain the heuristic that is at the origin of the contruction of the function $f_{\beta \to 2}$. This heuristic is inspired from the proof of \cite[Theorem 3]{staiger2002kolmogorov}. Let $\beta \in (1,2]$, $s \in [0,1]$ and $x \in \Sigma_\beta(s,n\log_\beta(2))$. Since $x \in \Sigma_\beta(s,n\log_\beta(2))$, then there exists $\xf \in \{0,1\}^\N$ such that $x\xf$ is a $\beta$-expansion of $s$, i.e.,
+\begin{equation}\label{eq:1:construction of a multivalued function computable wrt beta that maps beta expansions to binary expansions of a real number}
+    s = \sum_{i=1}^{n\log_\beta(2)} x_i \beta^{-i} + \sum_{i=n\log_\beta(2)+1}^{\infty} \xf_i \beta^{-i}.
+\end{equation}
+Observe that 
+\begin{equation}\label{eq:2:construction of a multivalued function computable wrt beta that maps beta expansions to binary expansions of a real number}
+    0 \leq \sum_{i=n\log_\beta(2)+1}^{\infty} \xf_i \beta^{-i} \leq \sum_{i=n\log_\beta(2)+1}^{\infty} \beta^{-i} \leq \frac{\beta^{-n\log_\beta(2)}}{\beta-1} \leq \frac{2^{-n}}{\beta-1}\cdot
+\end{equation}
+Combining (\ref{eq:1:construction of a multivalued function computable wrt beta that maps beta expansions to binary expansions of a real number}) and (\ref{eq:2:construction of a multivalued function computable wrt beta that maps beta expansions to binary expansions of a real number}), we obtain
+\begin{equation}\label{eq:3:construction of a multivalued function computable wrt beta that maps beta expansions to binary expansions of a real number}
+    \sum_{i=1}^{n\log_\beta(2)} x_i \beta^{-i} \leq s \leq \sum_{i=1}^{n\log_\beta(2)} x_i \beta^{-i} + \frac{2^{-n}}{\beta-1}\cdot
+\end{equation}
+Therefore, from the knowledge of $x$ only, we can deduce that $s$ belongs to the interval $I(x)$ defined as 
+\begin{equation}\label{eq:4:construction of a multivalued function computable wrt beta that maps beta expansions to binary expansions of a real number}
+    I(x) :=  \left[\sum_{i=1}^{n\log_\beta(2)} x_i \beta^{-i},  \sum_{i=1}^{n\log_\beta(2)} x_i \beta^{-i}+ \frac{2^{-n}}{\beta-1} \right].
+\end{equation}
+Now, by combining again (\ref{eq:1:construction of a multivalued function computable wrt beta that maps beta expansions to binary expansions of a real number}) and (\ref{eq:2:construction of a multivalued function computable wrt beta that maps beta expansions to binary expansions of a real number}) for the specific case of $\beta = 2$, we get that
+\begin{equation}\label{eq:5:construction of a multivalued function computable wrt beta that maps beta expansions to binary expansions of a real number}
+    t - 2^{-n} \leq \sum_{i=1}^{n} y_i 2^{-i} \leq t,
+\end{equation}
+for all $t \in [0,1]$ and $y \in \Sigma_2(t,n)$. This means that if we know exactly the value of $t$, we can deduce that all the $n$-prefixes of the binary expansions of $t$ are exactly those sequences $y \in \{0,1\}^n$ that satisfy 
+\begin{equation}\label{eq:6:construction of a multivalued function computable wrt beta that maps beta expansions to binary expansions of a real number}
+    \sum_{i=1}^{n} y_i 2^{-i} \in [t-2^{-n}, t].
+\end{equation}
+However, if we do not know exactly $t$, but rather we know that $t \in [a,b] \subseteq [0,1]$, then we can deduce that all the $n$-prefixes $y$ of the binary expansions of $t$ satisfy
+\begin{equation}\label{eq:7:construction of a multivalued function computable wrt beta that maps beta expansions to binary expansions of a real number}
+    \sum_{i=1}^{n} y_i 2^{-i} \in [a-2^{-n}, b].
+\end{equation}
+Now, in light of (\ref{eq:7:construction of a multivalued function computable wrt beta that maps beta expansions to binary expansions of a real number}), (\ref{eq:4:construction of a multivalued function computable wrt beta that maps beta expansions to binary expansions of a real number}) can be reinterpreted as follows. From the knowledge of the $x$, we can deduce that all the $n$-prefixes $y$ of the binary expansions of $s$ satisfy
+\begin{equation}\label{eq:8:construction of a multivalued function computable wrt beta that maps beta expansions to binary expansions of a real number}
+    \sum_{i=1}^{n} y_i 2^{-i} \in \left[\sum_{i=1}^{n\log_\beta(2)} x_i \beta^{-i} - 2^{-n},  \sum_{i=1}^{n\log_\beta(2)} x_i \beta^{-i}+ \frac{2^{-n}}{\beta-1} \right] =: J(x).
+\end{equation}
+The above heuristic results in the following formal definition of $f_{\beta \to 2}$.
+\begin{definition}\label{def:multivalued function converting from base beta to base 2}
+    Let $f_{\beta \to 2} : \{0,1\}^\ast \rightrightarrows \{0,1\}^\ast$ be the multivalued function defined as 
+\begin{equation}\label{eq:main:def:multivalued function converting from base beta to base 2}
+    f_{\beta \to 2}(x) := \left\{ y \in \{0,1\}^n :  \sum_{i=1}^{n} y_i 2^{-i} \in J(x)\right\},
+\end{equation}
+for all $x \in \{0,1\}^{n\log_\beta(2)}$ for some $n \in \N$, and $f_{\beta \to 2}(x) = \epsilon$ for $x \in \{0,1\}^m$ where $m \neq n \log_\beta(2)$ for all $n \in \N$.
+\end{definition} 
+ This function is clearly computable relatively to $\beta$, since we can design an algorithm that queries $x$ and bits of the greedy binary expansion of $\beta-1$, until it can enumerate all the $y \in \{0,1\}^n$ that satisfy (\ref{eq:8:construction of a multivalued function computable wrt beta that maps beta expansions to binary expansions of a real number}). We now establish an upper bound on the cardinality of $f_{\beta \to 2}(x)$, for all $x \in \{0,1\}^\ast$.
+\begin{lemma}\label{lem:upper bound on the cardinality of the beta to 2 conversion multifunction}
+    For $\beta \in (1,2]$ and $x \in \{0,1\}^\ast$,
+    \begin{equation}
+        \#f_{\beta \to 2}(x) \leq \frac{1}{\beta-1} + 1, \ \forall x \in \{0,1\}^\ast.
+    \end{equation}
+\end{lemma}
+\begin{proof}
+    Let $\beta \in (1,2]$ and $x \in \{0,1\}^\ast$. 
+    \begin{enumerate}[label=(\alph*)]
+        \item Suppose that there is no $n \in \N$ such that $\len x = n\log_\beta(2)$. Then, $f(x) = \epsilon$, so $\#f(x) = 1 \leq \frac{1}{\beta-1} + 1$.
+        \item Suppose that there exists $n \in \N$ such that $\len x = n\log_\beta(2)$. Note that for $y,z \in \{0,1\}^n$, satisfying $y \neq z$, we have
+        \begin{equation}
+            \left|\sum_{i=1}^{n} y_i 2^{-i} - \sum_{i=1}^{n} z_i 2^{-i}\right| \geq 2^{-n}.
+        \end{equation}
+        Therefore, for an interval $I = [a,b]$, there can be at most $2^n(b-a)$ sequences $y \in \{0,1\}^n$ that satisfy $\sum_{i=1}^{n} y_i 2^{-i} \in I$. We conclude that 
+        \begin{align}
+            \#f(x) &\leq 2^n \left(\sum_{i=1}^{n\log_\beta(2)} x_i \beta^{-i}+ \frac{2^{-n}}{\beta-1} - \left(\sum_{i=1}^{n\log_\beta(2)} x_i \beta^{-i} - 2^{-n} \right)\right)\\
+            &= 2^n \left(2^{-n}\frac{1}{\beta-1} + 2^{-n}\right) = \frac{1}{\beta-1} + 1.
+        \end{align}
+    \end{enumerate}
+\end{proof}
+Finally, we prove Theorem \ref{thm:binary expansions are at least as compressible as as beta expansions} as a corollary of Theorem \ref{thm:relatively computable multivalued functions and complexity} and Lemma \ref{lem:upper bound on the cardinality of the beta to 2 conversion multifunction}. 
+
+\begin{corollary}\label{cor:binary expansions are at least as compressible as as beta expansions}
+    Let $\beta \in (1,2)$. Then,
+		\begin{equation}
+			0 \leq \underline\Delta_\beta(\xf) \leq \bar\Delta_\beta(\xf),
+		\end{equation}
+		for all $\xf \in \Omega_\beta$.
+\end{corollary}
+\begin{proof}
+    Let $\beta \in (1,2)$, $\xf \in \Omega_\beta$, and $s := \sum_{i=1}^\infty \xf_i \beta^{-i}$. Then, by Lemma \ref{lem:upper bound on the cardinality of the beta to 2 conversion multifunction}, there exists a multivalued function $f : \{0,1\}^\ast  \rightrightarrows \{0,1\}^\ast$ that is computable relatively to $\beta$, such that
+    \begin{equation}
+        \Sigma_2(s,n) \subseteq f(\xf_{1:n\log_\beta(2)}),
+    \end{equation}
+    and
+    \begin{equation}
+        \#f(\xf_{1:n\log_\beta(2)}) \leq \frac{1}{\beta-1} - 1.
+    \end{equation}
+    Consequently, Theorem \ref{thm:relatively computable multivalued functions and complexity} yields that 
+    \begin{align}
+        K[y] &\leq K[\xf_{1:n\log_\beta(2)}] + \log \left(\frac{1}{\beta-1} - 1\right) + \log\log \left(\frac{1}{\beta-1} - 1\right) + \bigOx[1]{n}\\
+        &= K[\xf_{1:n\log_\beta(2)}] + \bigOx[1]{n},
+    \end{align}
+    for all $y \in  \Sigma_2(s,n)$. In particular, if $\yf \in \{0,1\}^\N$ is the greedy binary expansion of $s$, then 
+    \begin{equation}
+        K[\yf_{1:n}] \leq K[\xf_{1:n\log_\beta(2)}] + \bigOx[1]{n}.
+    \end{equation}
+    Finally, this yields
+    \begin{equation}
+        \bar{\Delta}_{\beta}(\xf) \geq \underline{\Delta}_{\beta}(\xf) = \liminf_{n\to \infty} \frac{K[\xf_{1:n\log_\beta(2)}] - K[\yf_{1:n}]}{n} \geq \liminf_{n\to \infty}\bigOx[^{-1}]{n} = 0.
+    \end{equation}
+\end{proof}
