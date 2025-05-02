@@ -835,16 +835,16 @@ We now define a computable function that allows to calculate $w_\beta(s,x)$, giv
             \EndFor
             \State \Return $\coprod S$.\label{line:12:alg:algorithm that computes f 1 all noise}
         \end{algorithmic}
-        \end{algorithm}
+    \end{algorithm}
 
-        \noindent Note that the set $S$ constructed by the algorithm exactly satisfies 
-        \begin{equation}
-            S = \left\{ i \in \{1,\ldots, \len x\}: \exists y \in \Sigma_\beta(s,\len x) \ s.t. \ y_{1:i-1} = x_{1:i-1}, y_i \neq x_i \right\}.
-        \end{equation}
-        By combining Lemma \ref{lem:the noise can be expressed from the time steps for which the trajectory is in switch set} and Lemma \ref{lem:characterization of the set of indices in the switch set by divergences in the tree of beta expansions}, we get that indeed
-        \begin{equation}
-            w_\beta(s,x) = \coprod S.
-        \end{equation}
+    \noindent Note that the set $S$ constructed by the algorithm exactly satisfies 
+    \begin{equation}
+        S = \left\{ i \in \{1,\ldots, \len x\}: \exists y \in \Sigma_\beta(s,\len x) \ s.t. \ y_{1:i-1} = x_{1:i-1}, y_i \neq x_i \right\}.
+    \end{equation}
+    By combining Lemma \ref{lem:the noise can be expressed from the time steps for which the trajectory is in switch set} and Lemma \ref{lem:characterization of the set of indices in the switch set by divergences in the tree of beta expansions}, we get that indeed
+    \begin{equation}
+        w_\beta(s,x) = \coprod S.
+    \end{equation}
 \end{proof}
 
 \subsection{\texorpdfstring{Distribution of algorithmic complexity of $\beta$-expansions}{}}
