@@ -2,5 +2,173 @@
 
 \section{A fast algorithm to control complexity}
 
+Recall that for $\beta \in (1,2)$, we have defined an equivalence relationship as follows
+\begin{equation}
+    x \sim_\beta y \iff n := \len x = \len y \ \text{and} \ \sum_{i=1}^n x_i \beta^{-i} = \sum_{i=1}^n y_i \beta^{-i},
+\end{equation}
+for all $x \in \{0,1\}^\ast$. The subsequent equivalence classes are denoted $[x]_\beta \in \{0,1\}^\ast / \sim_\beta$. We also have proven that the function $M_\beta$ that maps any $x \in \{0,1\}^\ast$ to the lexicographically maximal element of $[x]_\beta$ is computable, by showing that Algorithm \ref{alg:algorithm that computes M beta} delivers $\langle [x]_\beta \rangle$ on input $x \in \{0,1\}^\ast$, which we can then use to find the lexicographically maximal element of $[x]_\beta$. However, we can be convinced that this algorithm might run for a very long time before delivering its input. The main bottleneck is the line 5 of Algorithm \ref{alg:algorithm that computes M beta}. As stated, the algorithm evaluates, for every $u \in \{0,1\}^{|x|}$, if 
+\begin{equation}
+    \left| \sum_{i=1}^n x_i \beta^{-i} - \sum_{i=1}^n u_i \beta^{-i}\right| \leq \varepsilon/4
+\end{equation}
+is satisfied. This step hence requires $2^{|x|}$ steps, making this algorithm of exponential complexity. In this section, shiw that if $\beta \in (1,2)$ is a Pisot number, we can construct another algorithm to compute $M_\beta$, that computes in linear time, i.e., on input $x \in \{0,1\}^\ast$, the algorithm delivers its output in $\bigOw[|x|]{x}$ steps.
+
+For $s \in I_\beta$, we define
+% \begin{equation}\label{eq:definition set of lexicographically maximal elements of equivalence classes in beta expansions of s}
+%     \hat \Sigma_\beta(s,n) := \left\{ x \in \Sigma_\beta(s,n) : x = \max lex ([x]_\beta) \right\},
+% \end{equation}
+\begin{equation}\label{eq:definition set of beta expansions wrt to a binary sequence}
+    \Sigma_\beta(x) := \Sigma_\beta\left(\sum_{i=1}^{\len x} x_i \beta^{-i}, \len x\right),
+\end{equation}
+and
+\begin{equation}\label{eq:definition set of lexicographically maximal elements of equivalence classes in beta expansions of sum x beta -i}
+    \hat \Sigma_\beta(x) := \left\{ lex \max (u) : u \in \Sigma_\beta(x) / \sim_\beta\right\}.
+\end{equation}
+\begin{lemma}
+    Let $\beta \in (1,2)$, $x \in \{0,1\}^\ast$, and $n := \len x$. Then,
+    \begin{equation}
+        M_\beta(x) = \underset{u \in \hat \Sigma_\beta(x)}{\arg\max} \sum_{i=1}^n u_i \beta^{-i}.
+    \end{equation}
+\end{lemma}
+\begin{proof}
+    Let $\beta \in (1,2)$, $x \in \{0,1\}^\ast$, and $n := \len x$. We first prove that $M_\beta(x) \in \hat \Sigma_\beta(x)$, and then that $M_\beta(x)$ is the element of $\hat \Sigma_\beta(x)$ that maximizes the function $u \mapsto \sum_{i=1}^n u_i \beta^{-i}$.
+    \begin{enumerate}[label = (\alph*)]
+        \item Let $s_x := \sum_{i=1}^n x_i \beta^{-i}$. By (\ref{eq:definition set of beta expansions wrt to a binary sequence}), $x \in \Sigma_\beta(x) = \Sigma_\beta(s_x, n)$. By Lemma \ref{lem:the set of beta expansion is expressed as a union of consecutive equivalence classes}, $[x]_\beta \subseteq \Sigma_\beta(s_x,n)$, which implies in particular that $M_\beta(x) \in \Sigma_\beta(s_x,n) = \Sigma_\beta(x)$, since by definition $M_\beta(x) \in [x]_\beta$. Furthermore, by definition, $M_\beta(x) = \max lex ([x]_\beta) = \max lex ([M_\beta(x)]_\beta)$, we get by (\ref{eq:definition set of lexicographically maximal elements of equivalence classes in beta expansions of sum x beta -i}) that $M_\beta(x) \in \hat \Sigma_\beta(x)$.
+        \item Let $u \in \hat \Sigma_\beta(x) := \hat \Sigma_\beta\left(s_x, \len x\right) \subseteq \Sigma_\beta(s,n)$. By EQUATION SOMETHING, $\sum_{i=1}^n u_i \beta^{-i} \leq s_x = \sum_{i=1}^n x_i \beta^{-i} = \sum_{i=1}^n M_\beta(x)_i \beta^{-i}$. Therefore, $M_\beta(x)$ maximizes the function $u \mapsto \sum_{i=1}^n u_i \beta^{-i}$ over $\hat \Sigma_\beta(x)$.
+    \end{enumerate}
+\end{proof}
+
+We now proceed to establish an iterative constructive method to calculate the set $\hat \Sigma_\beta(x)$. For $\beta \in (1,2)$ and $x \in \{0,1\}^\ast$, define 
+\begin{equation}
+    \Pi_\beta(x) := \left\{u \in \Sigma_\beta(x) : u_{1:n-1} \in \hat \Sigma_\beta(x_{1:n-1})\right\},
+\end{equation}
+where $n := \len x$.
+\begin{theorem}
+    Let $\beta \in (1,2)$, and $\xf \in \{0,1\}^\N$. Then,
+    \begin{equation}
+        \hat\Sigma_\beta(\xf_{1:n}) = \left\{ lex \max (u) : u \in \Pi_\beta(\xf_{1:n}) / \sim_\beta\right\},
+    \end{equation}
+    for all $n \in \N$.
+\end{theorem}
+\begin{proof}
+    Let $\beta \in (1,2)$, $\xf \in \{0,1\}^\N$, and $n \in \N$. We first prove that $\hat\Sigma_\beta(\xf_{1:n}) \subseteq \Pi_\beta(\xf_{1:n})$, and then that $\Pi_\beta(\xf_{1:n})/ \sim_\beta = \Sigma_\beta(\xf_{1:n})/ \sim_\beta$.
+    \begin{enumerate}[label=(\alph*)]
+        \item Let $x \in \hat\Sigma_\beta(\xf_{1:n})$, and suppose by contradiction that $x \notin \Pi_\beta(\xf_{1:n})$. Then, by DEFINITION of $\Pi_\beta(\xf_{1:n})$, either $x \notin \Sigma_\beta(\xf_{1:n})$ or $x_{1:n-1} \notin  \hat \Sigma_\beta(\xf_{1:n-1})$. Since $\hat\Sigma_\beta(\xf_{1:n}) \subseteq \Sigma_\beta(\xf_{1:n})$, we know that $x \in \Sigma_\beta(\xf_{1:n})$, and hence $x_{1:n-1} \notin  \hat \Sigma_\beta(\xf_{1:n-1})$. Then, there exists a $y \in [x_{1:n-1}]_\beta$ such that $y >_L x_{1:n-1}$, which further implies that $yx_n >_L x$. Moreover, since $y \in [x_{1:n-1}]_\beta$, we have 
+        \begin{align}
+            \sum_{i=1}^{n-1} y_i \beta^{-i} &= \sum_{i=1}^{n-1} x_i \beta^{-i}\\
+            \Rightarrow \sum_{i=1}^{n-1} y_i \beta^{-i} + x_n \beta^{-n} &= \sum_{i=1}^{n} x_i \beta^{-i}.
+        \end{align}
+        Therefore, $yx_n \sim_\beta x$, so $yx_n \in [x]_\beta$ and $yx_n >_L x$. Hence, $x$ is not the lexicographically maximal element of $[x]_\beta$, i.e., $x \notin \hat\Sigma_\beta(\xf_{1:n})$, which is a contradiction. This concludes the proof that $\hat\Sigma_\beta(\xf_{1:n}) \subseteq \Pi_\beta(\xf_{1:n})$.
+        \item Since $\hat \Sigma_\beta(\xf_{1:n}) \subseteq \Pi_\beta(\xf_{1:n}) \subseteq \Sigma_\beta(\xf_{1:n})$, then 
+        \begin{equation}
+            \hat \Sigma_\beta(\xf_{1:n}) / \sim_\beta \, \subseteq \Pi_\beta(\xf_{1:n}) / \sim_\beta \subseteq \Sigma_\beta(\xf_{1:n}) / \sim_\beta.
+        \end{equation}
+        Moreover, by definition, $\hat \Sigma_\beta(\xf_{1:n})$ consists of the elements of $\Sigma_\beta(\xf_{1:n})$ that are the lexicographically element of their equivalence class. In particular,
+        \begin{equation}
+            \hat \Sigma_\beta(\xf_{1:n}) / \sim_\beta \, = \Sigma_\beta(\xf_{1:n})/ \sim_\beta.
+        \end{equation}
+        Therefore,
+        \begin{equation}
+            \hat \Sigma_\beta(\xf_{1:n}) / \sim_\beta \, = \Pi_\beta(\xf_{1:n}) / \sim_\beta = \Sigma_\beta(\xf_{1:n}) / \sim_\beta.
+        \end{equation}
+    \end{enumerate}
+    We can finally conclude the proof with
+    \begin{align}
+        \hat \Sigma_\beta(\xf_{1:n}) &= \left\{ lex \max (u) : u \in \Sigma_\beta(\xf_{1:n}) / \sim_\beta\right\}\\
+        & = \left\{ lex \max (u) : u \in \Pi_\beta(\xf_{1:n}) / \sim_\beta\right\}.
+    \end{align}
+\end{proof}
 
 
+\begin{algorithm}[ht]
+    \caption{Fast algorithm for computing $M_\beta$}
+    \label{alg:fast algorithm for computing M beta}
+    \begin{algorithmic}[1]
+        \Require $x \in \{0,1\}^\ast$
+        \State $n \gets \len x$. 
+        \State $s \gets \sum_{i=1}^nx_i \beta^{-i}$
+        \State $S_0 \gets \{\epsilon\}$
+        \For {$i = 1, \ldots, n$}
+            \State $R_i \gets \{\epsilon\}$
+            \For {$u \in S_{i-1}$}
+                \State $s_u \gets \sum_{j=1}^{i-1}u_j \beta^{-j}$
+                \If {$s - \beta^{-i}/(\beta-1) - \varepsilon \leq s_x$}
+                    \State $R_i \gets R_i \cup {u0}$
+                \EndIf
+                \If {$s_x + \beta^{-i} \leq s + \varepsilon$}
+                    \State $R_i \gets R_i \cup {u1}$
+                \EndIf
+            \EndFor
+            \State $S_i \gets \{\epsilon\}$
+            \While {$R_i \neq \varnothing$}
+                \State Take any $v \in R_i$
+                \State Create the set $X_v$ of all the elements $u$ in $R_i$ that satisfy
+                \begin{equation}
+                    \left| \sum_{i=1}^n v_i \beta^{-i} - \sum_{i=1}^n u_i \beta^{-i}\right| \leq \varepsilon
+                \end{equation}
+                \State Find the lexicographically maximal element $v^\ast$ of $X_v$.
+                \State $S_i \gets S_i \cup \{v^\ast\}$
+                \State $R_i \gets R_i \backslash X_v$
+            \EndWhile
+        \EndFor
+        \State Find the element $u^\ast$ in $S_n$ that maximizes the quantity $\sum_{i=1}^n u_i \beta^{-i}$
+        \State \Return $u^\ast$
+    \end{algorithmic}
+\end{algorithm}
+
+
+
+% \subsection{\texorpdfstring{The greedy $\beta$-transformation}{}}
+
+% We define the greedy $\beta$-transformation $G_\beta : I_\beta \to I_\beta$ to be the function underlying the generation of the sequence $(r_i)$ is Algorithm \ref{alg:greedy algorithm beta expansion}, i.e., the function satisfying 
+% \begin{equation}
+%     r_{i+1} = G_\beta(r_i).
+% \end{equation}
+% From a careful reading of the algorithm, this function satisfies
+% \begin{equation}
+%     G_\beta(s) = \begin{cases}
+%         \beta s \ \text{if} \ s < \beta^{-1},\\
+%         \beta s - 1 \ \text{if} \ s \geq \beta^{-1},
+%     \end{cases} \ \forall s \in I_\beta.
+% \end{equation}
+% Moreover, define $d_\beta : I_\beta \to \{0,1\}$ to be the map that calculates the sequence $(b_i)$ from the sequence $(r_i)$ in Algorithm \ref{alg:greedy algorithm beta expansion}, i.e., the function satisfying 
+% \begin{equation}
+%     b_{i+1} = d_\beta(r_i).
+% \end{equation}
+% An examination of the algorithm yields
+% \begin{equation}
+%     d_\beta(s) = \begin{cases}
+%         0 \ \text{if} \ s < \beta^{-1},\\
+%         1 \ \text{if} \ s \geq \beta^{-1},
+%     \end{cases} \ \forall s \in I_\beta.
+% \end{equation}
+% Note that $G_\beta(s) = \beta s - d_\beta(s)$, for all $s \in I_\beta$. On input $s \in [0,1]$ and $n \in \N$, the Algorithm \ref{alg:greedy algorithm beta expansion} delivers $\GG_\beta(s,n) = b_1 \ldots b_n$, which from the previous discussion can be restated as 
+% \begin{equation}
+%     \GG_\beta(s,n) = \coprod_{i=0}^{n-1} d_\beta \left(G_\beta^i(r_0) \right)= \coprod_{i=0}^{n-1} d_\beta \left(G_\beta^i(s) \right).
+% \end{equation}
+% This is well-known CITATION that 
+% \begin{equation}
+%     \GG_\beta(s) := \limi n \GG_\beta(s,n) = \coprod_{i=0}^{\infty} d_\beta \left(G_\beta^i(s) \right)
+% \end{equation}
+% is the greedy $\beta$-expansion of $s$, which the lexicographically maximal $\beta$-expansion of $s$, i.e., that for every $\xf \in \Sigma_\beta(s)$, $\xf <_L \GG_\beta(s)$. In particular, this means that $\GG_\beta(s,n)$ is the lexicographically maximal element of $\Sigma_\beta(s,n)$. We will use this property to compute $M_\beta$. The next Lemma establishes that we can use $\GG_\beta$ to find the lexicographically maximal element of $[x]_\beta$, for $x \in \{0,1\}^\ast$.
+% \begin{lemma}
+%     Let $\beta \in (1,2)$, $x \in \{0,1\}^\ast$, and $n := \len x$. Then,
+%     \begin{equation}
+%         M_\beta(x) = \GG_\beta\left(\sum_{i=1}^n x_i \beta^{-i}, n\right).
+%     \end{equation}
+% \end{lemma}
+% \begin{proof}
+%     Let $\beta \in (1,2)$, $x \in \{0,1\}^\ast$, $n := \len x$ and define $s_n := \sum_{i=1}^n x_i \beta^{-i}$. Denote by $x^\ast$ the lexicographically maximal element of $[x]_\beta$. We show that 
+%     \begin{equation}
+%         \GG_\beta(s_n, n) = x^\ast.
+%     \end{equation}
+%     Suppose by contradiction that $g := \GG_\beta(s_n, n) \neq x^\ast$. First remark that since $x^\ast \in [x]_\beta$, we have
+%     \begin{equation}
+%         \sum_{i=1}^n x_i^\ast \beta^{-i} = \sum_{i=1}^n x_i \beta^{-i} = s_n,
+%     \end{equation}
+%     so $x^\ast \in \Sigma_\beta(s,n)$. It follows that $x^\ast <_L g$, because $g$ is the lexicographically maximal element of $\Sigma_\beta(s,n)$. Hence,
+    
+%     Then, there exists $i \in \{1,\ldots ,n \}$ such that $x_j^\ast = g_j$ for all $j < i$, and $x_i^\ast < g_i$, i.e. $x_i^\ast = 0$ and $g_i = 1$. Then, by LEMMA,
+%     \begin{equation}
+%         G_\beta^{i-1}(s_n) = \beta^{i-1} \left(s_n -  \sum_{j=1}^{i-1} g_j\right) = \beta^{i-1} \left(s_n -  \sum_{j=1}^{i-1} x^\ast_j\right)
+%     \end{equation}
+% \end{proof}
