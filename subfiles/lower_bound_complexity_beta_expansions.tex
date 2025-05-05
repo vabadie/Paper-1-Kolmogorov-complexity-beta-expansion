@@ -17,6 +17,7 @@ In order to prove Theorem 1.2, we will construct a multivalued function $f_{\bet
 \end{equation}
 The function $f_{\beta \to 2}$ will be constructed so that $x \mapsto \# f_{\beta \to 2}(x)$ is bounded, in order to use Theorem \ref{thm:relatively computable multivalued functions and complexity}. 
 
+\subsection{\texorpdfstring{Construction of a multivalued function to convert between bases $\beta$ and $2$}{}}
 We now explain the heuristic that is at the origin of the contruction of the function $f_{\beta \to 2}$. This heuristic is inspired from the proof of \cite[Theorem 3]{staiger2002kolmogorov}. Let $\beta \in (1,2]$, $s \in [0,1]$ and $x \in \Sigma_\beta(s,n\log_\beta(2))$. Since $x \in \Sigma_\beta(s,n\log_\beta(2))$, then there exists $\xf \in \{0,1\}^\N$ such that $x\xf$ is a $\beta$-expansion of $s$, i.e.,
 \begin{equation}\label{eq:1:construction of a multivalued function computable wrt beta that maps beta expansions to binary expansions of a real number}
     s = \sum_{i=1}^{n\log_\beta(2)} x_i \beta^{-i} + \sum_{i=n\log_\beta(2)+1}^{\infty} \xf_i \beta^{-i}.
@@ -49,14 +50,138 @@ Now, in light of (\ref{eq:7:construction of a multivalued function computable wr
 \begin{equation}\label{eq:8:construction of a multivalued function computable wrt beta that maps beta expansions to binary expansions of a real number}
     \sum_{i=1}^{n} y_i 2^{-i} \in \left[\sum_{i=1}^{n\log_\beta(2)} x_i \beta^{-i} - 2^{-n},  \sum_{i=1}^{n\log_\beta(2)} x_i \beta^{-i}+ \frac{2^{-n}}{\beta-1} \right] =: J(x).
 \end{equation}
-The above heuristic results in the following formal definition of $f_{\beta \to 2}$.
+The above heuristic results in the following formal definition of a multivalued function $\hat f_{\beta \to 2}$, that however is still not the multivalued function $f_{\beta \to 2}$ we are looking for, for reasons we explain just after the staement of the definition.
 \begin{definition}\label{def:multivalued function converting from base beta to base 2}
-    Let $f_{\beta \to 2} : \{0,1\}^\ast \rightrightarrows \{0,1\}^\ast$ be the multivalued function defined as 
+    Let $\hat f_{\beta \to 2} : \{0,1\}^\ast \rightrightarrows \{0,1\}^\ast$ be the multivalued function defined as 
 \begin{equation}\label{eq:main:def:multivalued function converting from base beta to base 2}
-    f_{\beta \to 2}(x) := \left\{ y \in \{0,1\}^n :  \sum_{i=1}^{n} y_i 2^{-i} \in J(x)\right\},
+    \hat f_{\beta \to 2}(x) := \left\{ y \in \{0,1\}^n :  \sum_{i=1}^{n} y_i 2^{-i} \in J(x)\right\},
+\end{equation}
+for all $x \in \{0,1\}^{n\log_\beta(2)}$ for some $n \in \N$, and $\hat f_{\beta \to 2}(x) = \epsilon$ for $x \in \{0,1\}^m$ where $m \neq n \log_\beta(2)$ for all $n \in \N$.
+\end{definition} 
+However, this function is clearly not computable (even relatively) since it makes use of comparisons between arbitrary real numbers, i.e., its output cannot be calculated from its input through an effective algorithm. We construct another multivalued function $f_{\beta \to 2}$ as a slight modification of $\hat f_{\beta \to 2}$, which however is computable with respect to $\beta$. To do so, we first need to develop a systematic way to approximate comparison between real numbers with computable functions.
+
+\subsection{Computable approximate threshold functions}
+
+\begin{definition}
+    For all $s \in \R$, and $n \in \N$ we define 
+    \begin{equation}
+        s^{(n)} := \lfloor s \rfloor + \sum_{i=1}^n \yf_i 2^{-i},
+    \end{equation}
+    where $\yf \in \{0,1\}^\N$ is the greedy binary expansion of $\{s\} := s - \lfloor s \rfloor \in [0,1)$.
+\end{definition}
+Note that $s - s^{(n)} \leq 2^{-n}$, for all $s \in \R$, $n \in \N$. We define an approximate ordering relationship between real numbers.
+\begin{definition}
+    For $m \in \N$, we define the binary relation $\leq_m$ over $\R \times \R$ as 
+    \begin{equation}
+        s \leq_m t \iff s^{(m)} \leq t^{(m)} + 2^{-m},
+    \end{equation}
+    for all $s,t \in \R$.
+\end{definition}
+We recall here the definition of \textit{rational functions}. A rational function over $\R$ is a function of the form
+\begin{equation}
+    \begin{array}{lrcl}
+        g : & \dom g & \to & \R\\
+            & x & \mapsto & \frac{p_1(x)}{p_2(x)},
+    \end{array}
+\end{equation}
+where $p_1,p_2 : \R \to \R$ are two polynomials, and $\dom g := \R \backslash \{ x \in \R: p_2(x) = 0\}$. Note that then, if $p_2$ has $k$ roots, we denote by $r_1 < \ldots < r_k$ its roots, and then $\dom g = \R \backslash \{r_1, \ldots, r_k\}$. With $r_0 := -\infty$ and $r_{k+1} := \infty$, we then have 
+\begin{equation}
+    \dom g = \bigcup_{i=1}^k (r_i,r_{i+1}).
+\end{equation}
+For $i \in \{0,\ldots, k\}$, we call $(r_i, r_{i+1})$ an \textit{interval of continuity} of $g$, since $g$ is obviously continuous on such an interval. For a family $\{g_a\}_{a \in A}$ of rational functions, where $A$ is some set, we say that an interval $I \subseteq \R$ is a common interval of continuity of $\{g_a\}_{a \in A}$ if for every $a \in A$, $g_a$ has an interval of continuity $J$ such that $I \subseteq J$. We consider the class $\Q(X)$ of rational functions for which that the coefficients of the polynomials $p_1$ and $p_2$ are in $\Q$. 
+\begin{lemma}
+    Let $f \in \Q(X)$ and $I$ an interval of continuity of $f$, and $p,q \in \Q$ such that $[p,q] \subseteq I$. Then, there exists a computable function $\varphi : \N \to \Q$ such that 
+    \begin{equation}
+        \left|\varphi^{\yf} \left(n\right) - f(s)\right| \leq 2^{-n},
+    \end{equation}
+    for all $s \in [p,q]$, where $\yf$ is the greedy binary expansion of $s$.
+\end{lemma}
+\begin{proof}
+    We first prove the statement in the case that $f$ is a polynomial, i.e., $f \in \Q[X] \subseteq \Q(X)$. Note that then, $\R$ is an interval of continuity for $f$. Let $d$ be the degree of $f$, and $a_0, \ldots, a_d$ be the coeffcients of $f$, such that $f(s) = \sum_{i=0}^d a_i s^i$, for all $s \in \R$. Note that
+    \begin{align}
+        |f(s) - f(s^{(n)})| &\leq \sum_{i=0}^d |a_i| |s^i - \left(s^{(m)}\right)^i| \leq \sum_{i=0}^d |a_i| \left||s|^i - |t|^i\right|\\
+            &\leq  \sum_{i=0}^d |a_i| \left|(|s^{(m)}|+2^{-m})^i - |s^{(m)}|^i\right)\\
+            &= \sum_{i=0}^d |a_i| \sum_{j=1}^i \binom{i}{j} |s^{(m)}|^j 2^{-m(i-j)}\\
+            &\leq \sum_{i=0}^d |a_i| \max(1,|s^{(m)}|)^i \sum_{j=1}^i \binom{i}{j}  2^{-m(i-j)}\\
+            &\leq \sum_{i=0}^d |a_i| \max(1,|s^{(m)}|)^i \left((1+2^{-m})^i - 1\right) =: \varepsilon_m,
+    \end{align}
+    where PUT EXPLANATIONS. Based on the above inequality, we can construct an effective algorithm that, when equipped with the greedy binary expansion $\yf$ of $s$ and presented with input $n \in \N$, outputs a rational number $z \in \Q$ such that $|z - f(s)| \leq 2^{-n}$. For that, calculate successively $\varepsilon_1, \varepsilon_2, \ldots$ until reaching an $m \in \N$ such that $\varepsilon_m \leq 2^{-n}$. Then, output $f(s^{(m)})$.
+    % \begin{algorithm}[ht]
+    %     \caption{Algorithm }\label{alg:physical algorithm beta expansion}
+    %     \begin{algorithmic}[1]
+    %         \Require $\beta \in (1,2]$, $s \in I_\beta$, $n\in\N$
+    %         \State $r \gets s$, 
+    %         \State Initialize $x$ as the empty string $\epsilon$
+    %         \For {$i = 1,\ldots,n$}
+    %             \State $b \gets T(r)$  \label{alg4:line 4}
+    %             \State $x \gets xb$
+    %             \State $r \gets \beta \, r -  b$
+    %         \EndFor
+    %         \State \Return $x$
+    %     \end{algorithmic}
+    %     \end{algorithm}
+    
+    
+    Now, take a rational function $f \in \Q(X)$, and let $I$ be an interval of continuity of $f$. Recall that since $f \in \Q(X)$, there exists two polynomials $p_1,p_2 \in \Q[X]$ such that $f(s) = \frac{p_1(s)}{p_2(s)}$, for all $s \in I$, and $p_2(s) \neq 0$ for all $s \in I$. Note that 
+    \begin{align}
+        |f(s) - f(s^{(m)})| &\leq |s - s^{(m)}| \max_{t \in [s, s^{(m)}]} |f'(s)|\\
+            &\leq 2^{-m} \max_{t \in [s, s^{(m)}]} \frac{|p'_1(s)p_2(s) - p_1(s)p'_2(s)|}{(p_2(s))^2}\\
+            &\leq 2^{-m}  \frac{\displaystyle \max_{t \in [s, s^{(m)}]} \left|p'_1(s)p_2(s) - p_1(s)p'_2(s)\right|}{\displaystyle \min_{t \in [s, s^{(m)}]}(p_2(s))^2}\cdot
+    \end{align}
+    For $m \in \N$, since $p'_1p_2 - p_1p'_2$ and $p_2^2$ are both polynomials with rational coefficients, we can use the effectve algorithm used in the first part of the proof to calculate $M_m,N_m > 0 $ such that 
+    \begin{equation}
+        \max_{t \in [s, s^{(m)}]} \left|p'_1(s)p_2(s) - p_1(s)p'_2(s)\right| \leq M_m \ \ \text{and} \ \ \min_{t \in [s, s^{(m)}]}(p_2(s))^2 \geq N_m.
+    \end{equation}
+    Then, on input $n \in \N$, we can find $m \in \N$ such that $2^{-m} \frac{M_m}{N_m} \leq 2^{-n}$. We can the output $f(s^{(m)})$.
+
+\end{proof}
+We can now use the concept of rational functions and the approximate ordering relationship to construct a relatively computable function. 
+\begin{theorem}
+    Consider a family of functions $(f_x)_{x \in \{0,1\}^\ast} \in \Q(X)$, $g \in \Q(X)$, and let $I \subseteq \R$ be a common interval of continuity for the family $\{g\} \cup \{f_x\}_{x \in \{0,1\}^\ast}$. Then, for $s \in I$, the function $h_s : \{0,1\}^\ast \to \{0,1\}^\ast$ defined by 
+    \begin{equation}
+        h_s(\langle x,m \rangle) := \begin{cases}
+            0 \ if \ f_x(s) \leq_m g(s)\\
+            1 \ if \ f_x(s) >_m g(s)
+        \end{cases}
+    \end{equation}
+    is computable relatively to $s$, for all $s \in \R$.
+\end{theorem}
+\begin{proof}
+    Consider a family of functions $(f_x)_{x \in \{0,1\}^\ast} \in \Q(X)$, $g \in \Q(X)$, and let $I \subseteq \R$ be a common interval of continuity for the family $\{g\} \cup \{f_x\}_{x \in \{0,1\}^\ast}$. Let $s \in I$. FAIRE CETTE PREUVE
+\end{proof}
+We further define an approximate membership relation based on the approximate relation we just derived.
+\begin{definition}
+    For $m \in \N$, we define the binary relation $\in_m$ over $\R^3$ as 
+    \begin{equation}
+        s \in_m [a,b] \iff a \leq_m s \leq_m b,
+    \end{equation}
+    for all $s,a,b \in \R$.
+\end{definition} 
+\begin{corollary}
+    Consider a family of continuous functions $(f_x : \R \to \R)_{x \in \{0,1\}^\ast}$, and two continuous functions $g_1,g_2 : \R \to \R$. Then, for $s \in \R$, the function $h_s : \{0,1\}^\ast \to \{0,1\}^\ast$ defined by 
+    \begin{equation}
+        h_s(\langle x,m \rangle) := \begin{cases}
+            0 \ if \ f_x(s) \in_m [g_1(s), g_2(s)]\\
+            1 \ if \ f_x(s) \notin_m [g_1(s), g_2(s)]
+        \end{cases}
+    \end{equation}
+    is computable relatively to $s$, for all $s \in \R$.
+\end{corollary}
+\begin{proof}
+    This is a direct consequence of THEOREM.
+\end{proof}
+As a consequence, we define a modification of $e_{\beta \to 2}$ as follows.
+\begin{definition}\label{def:computable multivalued function converting from base beta to base 2}
+    Let $f_{\beta \to 2} : \{0,1\}^\ast \rightrightarrows \{0,1\}^\ast$ be the multivalued function defined as 
+\begin{equation}\label{eq:main:def:computable multivalued function converting from base beta to base 2}
+    f_{\beta \to 2}(x) := \left\{ y \in \{0,1\}^n :  \sum_{i=1}^{n} y_i 2^{-i} \in_n J(x)\right\},
 \end{equation}
 for all $x \in \{0,1\}^{n\log_\beta(2)}$ for some $n \in \N$, and $f_{\beta \to 2}(x) = \epsilon$ for $x \in \{0,1\}^m$ where $m \neq n \log_\beta(2)$ for all $n \in \N$.
 \end{definition} 
+
+\subsection{Consequences on algorithmic complexity}
+
+
  This function is clearly computable relatively to $\beta$, since we can design an algorithm that queries $x$ and bits of the greedy binary expansion of $\beta-1$, until it can enumerate all the $y \in \{0,1\}^n$ that satisfy (\ref{eq:8:construction of a multivalued function computable wrt beta that maps beta expansions to binary expansions of a real number}). We now establish an upper bound on the cardinality of $f_{\beta \to 2}(x)$, for all $x \in \{0,1\}^\ast$.
 \begin{lemma}\label{lem:upper bound on the cardinality of the beta to 2 conversion multifunction}
     For $\beta \in (1,2]$ and $x \in \{0,1\}^\ast$,
