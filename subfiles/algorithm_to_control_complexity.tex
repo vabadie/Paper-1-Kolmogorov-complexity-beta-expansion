@@ -12,6 +12,8 @@ for all $x \in \{0,1\}^\ast$. The subsequent equivalence classes are denoted $[x
 \end{equation}
 is satisfied. This step hence requires $2^{|x|}$ steps, making this algorithm of exponential complexity. In this section, shiw that if $\beta \in (1,2)$ is a Pisot number, we can construct another algorithm to compute $M_\beta$, that computes in linear time, i.e., on input $x \in \{0,1\}^\ast$, the algorithm delivers its output in $\bigOw[|x|]{x}$ steps.
 
+COMMENCER PAR UN BOUT DU LEMME 6.1
+
 For $s \in I_\beta$, we define
 % \begin{equation}\label{eq:definition set of lexicographically maximal elements of equivalence classes in beta expansions of s}
 %     \hat \Sigma_\beta(s,n) := \left\{ x \in \Sigma_\beta(s,n) : x = \max lex ([x]_\beta) \right\},
@@ -78,42 +80,81 @@ where $n := \len x$.
     \end{align}
 \end{proof}
 
-
-\begin{algorithm}[ht]
-    \caption{Fast algorithm for computing $M_\beta$}
-    \label{alg:fast algorithm for computing M beta}
+The algorithm we will design is hence based on the following heuristic.
+\begin{algorithm}[H]
+    \caption{Heuristic for computing $M_\beta$}
+    \label{alg:Heuristic for computing M beta}
     \begin{algorithmic}[1]
         \Require $x \in \{0,1\}^\ast$
-        \State $n \gets \len x$. 
-        \State $s \gets \sum_{i=1}^nx_i \beta^{-i}$
-        \State $S_0 \gets \{\epsilon\}$
+        \State $n \gets \len x$.
+        \State $\hat \Sigma_0 \gets \{\varepsilon\}$
         \For {$i = 1, \ldots, n$}
-            \State $R_i \gets \{\epsilon\}$
-            \For {$u \in S_{i-1}$}
-                \State $s_u \gets \sum_{j=1}^{i-1}u_j \beta^{-j}$
-                \If {$s - \beta^{-i}/(\beta-1) - \varepsilon \leq s_x$}
-                    \State $R_i \gets R_i \cup {u0}$
-                \EndIf
-                \If {$s_x + \beta^{-i} \leq s + \varepsilon$}
-                    \State $R_i \gets R_i \cup {u1}$
-                \EndIf
-            \EndFor
-            \State $S_i \gets \{\epsilon\}$
-            \While {$R_i \neq \varnothing$}
-                \State Take any $v \in R_i$
-                \State Create the set $X_v$ of all the elements $u$ in $R_i$ that satisfy
-                \begin{equation}
-                    \left| \sum_{i=1}^n v_i \beta^{-i} - \sum_{i=1}^n u_i \beta^{-i}\right| \leq \varepsilon
-                \end{equation}
-                \State Find the lexicographically maximal element $v^\ast$ of $X_v$.
-                \State $S_i \gets S_i \cup \{v^\ast\}$
-                \State $R_i \gets R_i \backslash X_v$
-            \EndWhile
+            \State $\Pi_i \gets \{ u \in \Sigma_\beta(x_{1:i-1}) : u_{1:i-1} \in \hat \Sigma_{i-1}\}$
+            \State $\hat \Sigma_i \gets \{ lex\max(u) : u \in \Pi_i/ \sim_\beta\}$
         \EndFor
-        \State Find the element $u^\ast$ in $S_n$ that maximizes the quantity $\sum_{i=1}^n u_i \beta^{-i}$
-        \State \Return $u^\ast$
     \end{algorithmic}
+    \Return $\underset{u \in \hat \Sigma_n}{\arg\max} \sum_{i=1}^n u_i \beta^{-i}$
 \end{algorithm}
+
+When $\beta$ is an algebraic number. this heuristic can be turned into an effective algorithm, that require only a linear number of steps.
+\begin{theorem}
+    Let $\beta \in (1,2)$ be an algebraic number. Then, $M_\beta$ is computable. Moreover, if $\beta$ is a Pisot number, then $M_\beta$ is computable in linear time.
+\end{theorem}
+\begin{proof}
+    Let $\beta \in (1,2)$ be an algebraic number. Define 
+    \begin{equation}
+        \varepsilon := \frac{L_\beta\Pi_\beta}{\displaystyle  4n^{k_\beta}\left(\beta L_\beta \Pi_\beta^+ \right)^n}
+    \end{equation}
+    \begin{algorithm}[ht]
+        \caption{Fast algorithm for computing $M_\beta$}
+        \label{alg:fast algorithm for computing M beta}
+        \begin{algorithmic}[1]
+            \Require $x \in \{0,1\}^\ast$
+            \State $n \gets \len x$. 
+            \State $s \gets \sum_{i=1}^nx_i \beta^{-i}$
+            \State $\hat \Sigma_0 \gets \{\epsilon\}$
+            \For {$i = 1, \ldots, n$}
+                \State $\Pi_i \gets \{\epsilon\}$
+                \For {$u \in \hat \Sigma_{i-1}$}
+                    \State $s_u \gets \sum_{j=1}^{i-1}u_j \beta^{-j}$
+                    \If {$s - \beta^{-i}/(\beta-1) - \varepsilon \leq s_x$}
+                        \State $\Pi_i \gets \Pi_i \cup {u0}$
+                    \EndIf
+                    \If {$s_x + \beta^{-i} \leq s + \varepsilon$}
+                        \State $\Pi_i \gets \Pi_i \cup {u1}$
+                    \EndIf
+                \EndFor
+                \State $\hat \Sigma_i \gets \{\epsilon\}$
+                \While {$\Pi_i \neq \varnothing$}
+                    \State Take any $v \in \Pi_i$
+                    \State Create the set $X_v$ of all the elements $u$ in $\Pi_i$ that satisfy
+                    \begin{equation}
+                        \left| \sum_{i=1}^n v_i \beta^{-i} - \sum_{i=1}^n u_i \beta^{-i}\right| \leq \varepsilon
+                    \end{equation}
+                    \State Find the lexicographically maximal element $v^\ast$ of $X_v$.
+                    \State $\hat \Sigma_i \gets \hat \Sigma_i \cup \{v^\ast\}$
+                    \State $\Pi_i \gets \Pi_i \backslash X_v$
+                \EndWhile
+            \EndFor
+            \State \Return $\underset{u \in \hat \Sigma_n}{\arg\max} \sum_{i=1}^n u_i \beta^{-i}$
+        \end{algorithmic}
+    \end{algorithm}
+    We consider that each elementary operation $\gets$, $+$, $-$, $\times$, $/$, $\leq$, $\cup$ and $\backslash$ to use one time step. Let $n \in \N$, and $i \in \{1,\ldots, n \}$. Each pass of the For loop defined in LINE 6 hence consumes $5$ steps. In total, this For loop requires $5 \# \hat \Sigma_i$ steps. Then, for each pass of the while loop defined in LINE 16, lines 18,20,21 consumes each one time step, line 18 consumes $\# \Pi_i$ time steps, and line 19 at most $\# \Pi_i$ time steps. Hence, since the while loop runs for at most $\# \Pi_i$ iterations, we get that the entire while loop consumes $3\#\Pi_i + \#\Pi_i^3$ steps. In total, each pass of the for loop defined in LINE 4 requires at most $2 + 5 \#\hat \Sigma_{i-1} + 3 \#\Pi_i + \#\Pi_i^3$. Note that, by EQUATION, $\#\Pi_i \leq 2 \# \hat \Sigma_{i-1}$. Moreover, by the same reasonning as SECTION BEFORE, one has 
+    \begin{equation}
+        \# \hat \Sigma_{i} \leq \frac{\beta^{-i}}{\beta-1} \frac{i^{k_\beta}(\beta L_\beta \Pi_\beta^+)^i}{L_\beta\Pi_\beta} = \frac{i^{k_\beta}(L_\beta \Pi_\beta^+)^i}{(\beta-1)L_\beta\Pi_\beta}\cdot
+    \end{equation}
+    Suppose that $\beta$ is a Pisot number, then $L_\beta = \Pi_\beta^+ = 1$, and $k_\beta =0$, so
+    \begin{equation}
+        \# \hat \Sigma_{i} \leq \frac{1}{(\beta-1)\Pi_\beta} =: C_\beta\cdot
+    \end{equation}
+    Therefore, the total number of steps required for the FOR LOOP defined in LINE 4 satisfies
+    \begin{align}
+        t_n &\leq \sum_{i=1}^n \left(2 + 11\#\hat \Sigma_{i-1} + 8 \#\hat \Sigma_{i-1}^3\right)\\
+        &\leq \sum_{i=1}^n \left(2 + 11 C_\beta + 8 C_\beta^3\right)\\
+        &\leq \left(2 + 11 C_\beta + 8 C_\beta^3\right) n.
+    \end{align}
+\end{proof}
+
 
 
 
