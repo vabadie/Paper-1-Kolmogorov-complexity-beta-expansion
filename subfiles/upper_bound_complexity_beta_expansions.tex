@@ -8,7 +8,7 @@ The base of the incoming proofs is the construction of a multivalued function $f
 \begin{definition}\label{def:multivalued function converting from base 2 to base beta}
     Let $f_{2 \to\beta} : \{0,1\}^\ast \rightrightarrows \{0,1\}^\ast$ be the multivalued function defined as 
 \begin{equation}\label{eq:main:def:multivalued function converting from base 2 to base beta}
-    f_{2 \to \beta}(x) := \left\{ y \in \{0,1\}^{\len x \log_\beta(2)} :  \sum_{i=1}^{\len y} y_i \beta^{-i} \in J(x)\right\},
+    f_{2 \to \beta}(x) := \left\{ y \in \{0,1\}^{\len x \log_\beta(2)} :  \sum_{i=1}^{\len y} y_i \beta^{-i} \in_{|x|} J(x)\right\},
 \end{equation}
 for all $x \in \{0,1\}^\ast$, where 
 \begin{equation}
@@ -91,9 +91,9 @@ for all $a, b \in I_\beta$, $a < b$. We can exploit this to study the asymptotic
         \end{equation}
         \item For every $z \in A_{m,n}$, since $z_{1:n\log_\beta(2)} \in f(\yf_{1:n})$, we have that
         \begin{equation}
-            a_n \leq \sum_{i=1}^{n\log_\beta(2)} z_i \beta^{-i} \leq \sum_{i=1}^{m} z_i \beta^{-i} \leq \sum_{i=1}^{n\log_\beta(2)} z_i \beta^{-i} + \frac{\beta^{-n\log_\beta(2)}}{\beta-1} \leq b_n + \frac{\beta^{-n\log_\beta(2)}}{\beta-1}.
+            a_n \leq_n \sum_{i=1}^{n\log_\beta(2)} z_i \beta^{-i} \leq \sum_{i=1}^{m} z_i \beta^{-i} \leq \sum_{i=1}^{n\log_\beta(2)} z_i \beta^{-i} + \frac{\beta^{-n\log_\beta(2)}}{\beta-1} \leq_n b_n + \frac{\beta^{-n\log_\beta(2)}}{\beta-1},
         \end{equation}
-        Hence, for every $z \in A_{m,n}$,
+        where (a) EXPLAIN. Hence, for every $z \in A_{m,n}$,
         \begin{equation}
             \sum_{i=1}^{m} z_i \beta^{-i} \in \left[a_n, b_n + \frac{2^{-n}}{\beta-1}\right],
         \end{equation}
@@ -228,7 +228,7 @@ As this result is tied to algebraic considerations that deviate a lot from the m
             \sum_{i=1}^{n\log_\beta(2)} x_i \beta^{-i} = \sum_{i=1}^{n\log_\beta(2)} u_i \beta^{-i} \overset{(a)}{\in} J(\yf_{1:n}),
         \end{equation}
         where (a) follows from Definition \ref{def:multivalued function converting from base 2 to base beta} of $f_{2 \to \beta}$. We conclude that, indeed, $x \in f_{2 \to \beta}(\yf_{1:n})$, so $F_\beta(\yf_{1:n}) \subseteq f_{2 \to \beta}(\yf_{1:n})$.
-        \item As a direct consequence, remark that by denoting $m_n$ to be the smallest distance between two different numbers of the form $\sum_{i=1}^{n\log_\beta(2)} x_i \beta^{-i}$, $x \in F_\beta(\yf_{1:n})$, we have that 
+        \item As a direct consequence, remark that by denoting $m_n$ to be the smallest distance between two different numbers of the form $\sum_{i=1}^{n\log_\beta(2)} x_i \beta^{-i}$, $x \in F_\beta(\yf_{1:n})$, we have that HERE MODIFY WITH THE APPROXIMATE COMPARISON
         \begin{equation}\label{eq:1:proof:cor:upper bound on the relative compressibility of beta expansions for algebraic beta}
            m_n \# F_\beta(\yf_{1:n}) \leq |J(\yf_{1:n})| = 2\cdot 2^{-n}.
         \end{equation}
