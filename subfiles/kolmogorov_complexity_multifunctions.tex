@@ -11,7 +11,7 @@ In this section, we introduce the multifunctions, and we expose the pivotal resu
 \begin{definition}[Computable multivalued function]\label{def:computable_multivalued_function}
     Let $f: \{0,1\}^\ast \rightrightarrows \{0,1\}^\ast$ be a multivalued function. We say that $f$ is computable if there exists a computable function $g : \{0,1\}^\ast \to \{0,1\}^\ast$ such that 
     \begin{equation}
-        g(x) = \coprod_{y \in f(x)} \bar{y}. 
+        g(x) = \langle  f(x) \rangle. 
     \end{equation}
 \end{definition}
 
@@ -26,9 +26,9 @@ We now state the result on the algorithmic complexity of the multifunctions, whi
 \begin{proof}
     Let $f: \{0,1\}^\ast \rightrightarrows \{0,1\}^\ast$ be a computable multivalued function. Then, by Definition \ref{def:computable_multivalued_function}, there exists $g : \{0,1\}^\ast \to \{0,1\}^\ast$ computable, such that 
     \begin{equation}
-        g(x) = \coprod_{y \in f(x)} \bar{y},
+        g(x) = \langle  f(x) \rangle,
     \end{equation}
-    where $\bar y$ denotes the prefix-free encoding that we entroduced in the notation section. For $x \in \{0,1\}^\ast$, we let $y_1(x), y_2(x), \ldots, y_{|f(x)|}$ be the list of all the elements of $f(x)$, such that 
+    where $\bar y$ denotes the prefix-free encoding that we entroduced in the notation section. For $x \in \{0,1\}^\ast$, we let $y_1(x), y_2(x), \ldots, y_{\#f(x)}$ be the list of all the elements of $f(x)$, such that A REVOIR
     \begin{equation}
         g(x) = \coprod_{i=1}^{\#f(x)} \bar{y}_i(x),
     \end{equation}
@@ -53,15 +53,15 @@ As mentionned in previous section, we will consider relative algorithmic complex
     \begin{equation}\label{eq:main:def:relatively computable function}
         g(x) = h(\langle x, y\rangle).
     \end{equation}
-    For $\beta \in (1,2]$, we say that $f$ is computable relatively to $\beta$ if it is computable relatively to the greedy binary expansion $\yf$ of $\beta-1$.
+    For $s \in \R$, we say that a multivalued function $f$ is computable relatively to $s$ if it is computable relatively to the greedy binary expansion $\yf$ of $\{s\} := s - \lfloor s \rfloor$.
 \end{definition}
  Based on the definition of relatively computable function, we define relatively computable multivalued functions.
 \begin{definition}[Relatively computable multivalued function]\label{def:relatively computable multivalued function}
     Let $f: \{0,1\}^\ast \rightrightarrows \{0,1\}^\ast$ be a multivalued function. We say that $f$ is computable relatively to $\yf\in \{0,1\}^\N$ if there exists a function $g : \{0,1\}^\ast \to \{0,1\}^\ast$ computable relatively to $\yf$ such that 
     \begin{equation}
-        g(x) = \coprod_{y \in f(x)} \bar{y}. 
+        g(x) = \langle  f(x) \rangle. 
     \end{equation}
-    For $\beta \in (1,2]$, we say that a multivalued function $f$ is computable relatively to $\beta$ if it is computable relatively to the greedy binary expansion $\yf$ of $\beta-1$.
+    For $s \in \R$, we say that a multivalued function $f$ is computable relatively to $s$ if it is computable relatively to the greedy binary expansion $\yf$ of $\{s\} := s - \lfloor s \rfloor$.
 \end{definition}
 We can finally derive a relation for relative algorithmic complexity of multivalued functions.
 \begin{theorem}[Relatively computable multivalued functions and complexity]\label{thm:relatively computable multivalued functions and complexity}
