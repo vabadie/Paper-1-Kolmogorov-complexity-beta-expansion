@@ -17,9 +17,12 @@ In this section, we prove Lemma \ref{lem:generalization of the garsia separation
     i.e., $r$ is a root of $Q$.
 \end{proof}
 
-The next statement emerges from the theory of polynomial resultants. We introduce this theory along the lines of \cite[Section IV.8]{lang2002Algebra}. Let $P,Q \in \C[X]$ of respective degrees $n$ and $m$. We denote by $p_0,\ldots,p_n \in \C$ the coefficients of $P$, and by $q_0,\ldots,q_m \in \C$ the coefficients of $Q$. The resultant $Res(P,Q)$ is defined to be the determinant of the matrix METTRE FLECHES POUR EXPLIQUER LA TAILLE DE LA MATRICE
+The next statement emerges from the theory of polynomial resultants. We introduce this theory along the lines of \cite[Section IV.8]{lang2002Algebra}. Let $P,Q \in \C[X]$ of respective degrees $n$ and $m$. We denote by $p_0,\ldots,p_n \in \C$ the coefficients of $P$, and by $q_0,\ldots,q_m \in \C$ the coefficients of $Q$. The resultant $Res(P,Q)$ is defined to be the determinant of the matrix 
+
 \begin{equation}
-    \RR(P,Q) = \begin{pmatrix}
+    \RR(P,Q) = 
+    \begin{tikzpicture}[baseline=(current bounding box.center)]
+        \matrix (m) [matrix of math nodes,left delimiter={(},right delimiter={)}] {
         p_n & p_{n-1} & \ldots & p_0 & 0 & 0 & 0 \\
         0 & p_n & p_{n-1} & \ldots & p_0 & 0 & 0 \\
         & \vdots & & & & &\\
@@ -28,7 +31,13 @@ The next statement emerges from the theory of polynomial resultants. We introduc
         0 & q_m & \ldots & q_0 & 0 & 0 & 0 \\
         & \vdots & & & & &\\
         0& 0 & 0 & 0 & q_m & \ldots & q_0 \\
-    \end{pmatrix}
+    };
+    % Arrow for rows
+    \draw[<->] ([xshift=-1.5em, yshift=-1em]m-8-1.south) -- node[below] {$m$} +(6.7,0);
+
+    % Arrow for columns
+    \draw[<->] ([xshift=1.5em, yshift=1em]m-1-7.east) -- node[right] {$n$} +(0,-5.7);
+\end{tikzpicture}
 \end{equation}
 Further denote $\alpha_1,\alpha_2,\ldots,\alpha_{n} \in \C$ be the roots of $P$, counted with multiplicities. Then, following \cite[Section IV, Proposition 8.3]{lang2002Algebra}, we have
 \begin{equation}\label{eq:polynomial resultant is equal to the product of one of the polynomials on the roots of the other}
