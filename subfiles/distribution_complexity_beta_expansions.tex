@@ -28,7 +28,7 @@ for all $y \in \Sigma_\beta(s,n)$. This leads to the definition of the following
 \begin{definition}\label{def:definition of g beta to be all the beta sequences that are inside of an interval}
     For $\beta \in (1,2)$, define $g_\beta : \{0,1\}^\ast \rightrightarrows \{0,1\}^\ast$ as 
 \begin{equation}
-    g_\beta(x) := \left\{ y \in \{0,1\}^n : n = \len x,  \sum_{i=1}^n y_i \beta^{-i} \in J(x)\right\},
+    g_\beta(x) := \left\{ y \in \{0,1\}^n : n = \len x,  \sum_{i=1}^n y_i \beta^{-i} \in_n J(x)\right\},
 \end{equation}
 for all $x \in \{0,1\}^\ast$.
 \end{definition}
@@ -69,11 +69,7 @@ We can then express $\Sigma_\beta(s,n)$ simply in function of the elements of $\
 \begin{proof}
     Let $\beta \in (1,2)$, $s \in [0,1]$, $n \in \N$, and $x \in \Sigma_\beta(s,n)$. The proof is in two parts: we first prove that $x \in \Sigma_\beta(s,n) \Rightarrow [x]_\beta \subseteq \Sigma_\beta(s,n)$, and further that $[x]_\beta \prec [y]_\beta \prec [z]_\beta$ together with $x,z \in \Sigma_\beta(s,n)$ implies $y \in \Sigma_\beta(s,n)$. 
     \begin{enumerate}[label = (\alph*)]
-        \item Let $x \in \Sigma_\beta(s,n)$. Then, for every $y \in [x]_\beta$,
-        \begin{equation}
-            \sum_{i=1}^n y_i \beta^{-i} = \sum_{i=1}^n x_i \beta^{-i} \in \left[ s - \frac{\beta^{-n}}{\beta-1}, s\right],
-        \end{equation}
-        which by adaptation of (\ref{eq:6:construction of a multivalued function computable wrt beta that maps beta expansions to binary expansions of a real number}) implies that $y \in \Sigma_\beta(s,n)$. It follows that $[x]_\beta \in \Sigma_\beta(s,n)$. Hence, $\Sigma_\beta(s,n)$ is expressed as 
+        \item Let $x \in \Sigma_\beta(s,n)$. By Lemma \ref{lem:sigma beta s n contains the equivalence classes}, $[x]_\beta \in \Sigma_\beta(s,n)$. Hence, $\Sigma_\beta(s,n)$ is expressed as 
         \begin{equation}
             \Sigma_\beta(s,n) = \bigcup_{u \in X} u,
         \end{equation}
@@ -98,7 +94,7 @@ We can then express $\Sigma_\beta(s,n)$ simply in function of the elements of $\
     \CC(M) := \{ \{i, \ldots, j\} : i,j \in \{1,\ldots,M\}, i \leq j\}.
 \end{equation}
 Moreover, for $x \in \{0,1\}^\ast$, 
-We are ready to state the definition of $f_{\beta, 1 \to all}$. 
+We are ready to state the definition of the computable function $f_{\beta, 1 \to all}$. 
 \begin{definition}\label{def:definition of f beta 1 all}
     Let $\beta \in (1,2)$. Define $\iota_\beta(x)$ to be the unique natural number such that 
     \begin{equation}
@@ -126,14 +122,10 @@ We are ready to state the definition of $f_{\beta, 1 \to all}$.
 \begin{lemma}\label{lem:f beta 1 all is computable relatively to beta}
     Let $\beta \in (1,2)$. Then, $f_{\beta, 1 \to all}$ is computable relatively to $\beta$.
 \end{lemma}
-\begin{proof}
-    MAKE THE PROOF 
-    Let $\beta \in (1,2)$. We write an algorithm to compute $f_{\beta, 1 \to all}$ .
-\end{proof}
 \begin{lemma}\label{lem:size of the multifunction that generates all beta expansions from one}
     Let $\beta \in (1,2)$ be an algebraic number and $n \in \N$. Then,
     \begin{equation}
-        \#f_{\beta, 1 \to all}(x) \leq \frac{n^{2k_\beta}}{((\beta-1)L_\beta\Pi_\beta)^2}\left(L_\beta \Pi_\beta^+ \right)^{2n},
+        \#f_{\beta, 1 \to all}(x) \leq \left(\frac{1}{\beta-1} + 2\right)^2\frac{n^{2k_\beta}}{(L_\beta\Pi_\beta)^2}\left(L_\beta \Pi_\beta^+ \right)^{2n},
     \end{equation}
     for all $x \in \{0,1\}^n$.
 \end{lemma}
@@ -143,19 +135,22 @@ We are ready to state the definition of $f_{\beta, 1 \to all}$.
         |\varphi_\beta(u) - \varphi_\beta(v)| \geq \frac{L_\beta\Pi_\beta}{n^{k_\beta}\left(\beta L_\beta  \Pi_\beta^+ \right)^n} =: m_n,
     \end{equation}
     for all $u,v \in \{0,1\}^n / \sim_\beta$ with $u \neq v$. Then,
-    \begin{equation}
-        \# \left(\varphi_\beta(\{0,1\}^n / \sim_\beta) \cap J(x)\right) \leq \frac{|J(x)|}{m_n} = 2 \frac{\beta^{-n}}{m_n(\beta-1)} \cdot
-    \end{equation}
+    \begin{align}
+        \# \left(\varphi_\beta(\{0,1\}^n / \sim_\beta) \cap J(x)^{(n)}\right) &\leq \frac{|J(x)^{(n)}|}{m_n}\\
+        & = \frac{2}{m_n}\left(\frac{\beta^{-n}}{\beta-1} + 2 \cdot 2^{-n}\right)\\
+        & \leq \frac{2\beta^{-n}}{m_n}\left(\frac{1}{\beta-1} + 2\right) \cdot
+    \end{align}
     By injectivity of $\varphi_\beta$,
+    \begin{align}
+        \# \varphi_\beta^{-1} \left(\varphi_\beta(\{0,1\}^n / \sim_\beta) \cap J(x)\right) &= \# \left(\varphi_\beta(\{0,1\}^n / \sim_\beta) \cap J(x)^{(n)}\right)\\ 
+        &\leq \frac{2\beta^{-n}}{m_n}\left(\frac{1}{\beta-1} + 2\right) \cdot
+    \end{align}
+    Hence, since by Definition \ref{def:definition of g beta to be all the beta sequences that are inside of an interval}, $\tilde g_\beta(x) \subseteq \varphi_\beta^{-1} \left(\varphi_\beta(\{0,1\}^n / \sim_\beta) \cap J(x)^{(n)}\right)$ for $x \in \{0,1\}^n$, we get that 
     \begin{equation}
-        \# \varphi_\beta^{-1} \left(\varphi_\beta(\{0,1\}^n / \sim_\beta) \cap J(x)\right) = \# \left(\varphi_\beta(\{0,1\}^n / \sim_\beta) \cap J(x)\right) \leq 2 \frac{\beta^{-n}}{m_n(\beta-1)} \cdot
-    \end{equation}
-    Hence, since by Definition \ref{def:definition of g beta to be all the beta sequences that are inside of an interval}, $\tilde g_\beta(x) = \varphi_\beta^{-1} \left(\varphi_\beta(\{0,1\}^n / \sim_\beta) \cap J(x)\right)$ for $x \in \{0,1\}^n$, we get that 
-    \begin{equation}
-        \tilde \NN_{g_\beta}(x) \leq 2 \frac{\beta^{-n}}{m_n(\beta-1)} = \frac{2n^{k_\beta}}{(\beta-1)L_\beta \Pi_\beta} \left(L_\beta \Pi_\beta^+ \right)^{n}.
+        \tilde \NN_{g_\beta}(x) \leq  \frac{2\beta^{-n}}{m_n}\left(\frac{1}{\beta-1} + 2\right) = \left(\frac{1}{\beta-1} + 2\right)\frac{2n^{k_\beta}}{L_\beta \Pi_\beta} \left(L_\beta \Pi_\beta^+ \right)^{n}.
     \end{equation}
     
-    Now, there remains to establish a bound on $\#f_{\beta, 1 \to all}(x) = \#\{ A : A \in \CC(\tilde \NN_{g_\beta}(x)), \iota_\beta(x) \in A\}$, for $x \in \{0,1\}^n$. Let $M \in \N$, and $i \in \{1,\ldots, i\}$. Define the set $\DD(M,i) := \{ A : A \in \CC(M), i \in A\}$. We will establish a general bound on $\#\DD(M,i)$, which as a corollary will give a bound on $\#\DD(\tilde \NN_{g_\beta}(x),\iota_\beta(x))$. By symmetry, we can restrict ourselves to $i \leq M/2$ without loss of generality. Define the sets $\DD_k(M,i) = \{ A \in \DD(M,i) : \#A = k\}$, for $k \in \{1, \ldots, M\}$. Note that 
+    \noindent Now, there remains to establish a bound on $\#f_{\beta, 1 \to all}(x) = \#\{ A : A \in \CC(\tilde \NN_{g_\beta}(x)), \iota_\beta(x) \in A\}$, for $x \in \{0,1\}^n$. Let $M \in \N$, and $i \in \{1,\ldots, i\}$. Define the set $\DD(M,i) := \{ A : A \in \CC(M), i \in A\}$. We will establish a general bound on $\#\DD(M,i)$, which as a corollary will give a bound on $\#\DD(\tilde \NN_{g_\beta}(x),\iota_\beta(x))$. By symmetry, we can restrict ourselves to $i \leq M/2$ without loss of generality. Define the sets $\DD_k(M,i) = \{ A \in \DD(M,i) : \#A = k\}$, for $k \in \{1, \ldots, M\}$. Note that 
     \begin{equation}
         \#\DD_k(M,i) = \min\{k, i, M-k\}.
     \end{equation}
@@ -171,9 +166,10 @@ We are ready to state the definition of $f_{\beta, 1 \to all}$.
         \# \DD(M,i) \leq \frac14 M^2.
     \end{equation}
     We conclude that 
-    \begin{equation}
-        \#f_{\beta, 1 \to all}(x) = \#\DD(\tilde \NN_{g_\beta}(x),\iota_\beta(x)) \leq \frac14 \tilde \NN^2_{g_\beta}(x) \leq \frac{n^{2k_\beta}}{((\beta-1)L_\beta\Pi_\beta)^2}\left(L_\beta \Pi_\beta^+ \right)^{2n},
-    \end{equation}
+    \begin{align}
+        \#f_{\beta, 1 \to all}(x) &= \#\DD(\tilde \NN_{g_\beta}(x),\iota_\beta(x)) \leq \frac14 \tilde \NN^2_{g_\beta}(x)\\
+        & \leq \left(\frac{1}{\beta-1} + 2\right)^2\frac{n^{2k_\beta}}{((\beta-1)L_\beta\Pi_\beta)^2}\left(L_\beta \Pi_\beta^+ \right)^{2n},
+    \end{align}
     for all $x \in \{0,1\}^n$.
 \end{proof}
 
@@ -849,13 +845,13 @@ We now define a computable function that allows to calculate $w_\beta(s,x)$, giv
 
 \subsection{\texorpdfstring{Distribution of algorithmic complexity of $\beta$-expansions}{}}
 We are now ready to move on to the proofs on algorithmic complexity. We combine the different functions defined previously to build a new big multifunction.
-\begin{definition}
+\begin{definition}\label{def:f beta to 2 + noise}
     Let $\beta \in (1,2)$, $f_{\beta \to \noise} : \{0,1\}^\ast \rightrightarrows \{0,1\}^\ast$ be defined as 
     \begin{equation}
         f_{\beta \to \noise}(x) = \left\{ f_{\beta,1+all\to noise}(\langle x, y\rangle) : y \in f_{\beta, 1 \to all}(x)\right\},
     \end{equation}
     and $f_{\beta \to 2+noise} : \{0,1\}^\ast \rightrightarrows \{0,1\}^\ast$ be defined by 
-    \begin{equation}
+    \begin{equation}\label{eq:main:def:f beta to 2 + noise}
         f_{\beta \to 2+noise}(x) = \left\{ \left\langle y,z \right\rangle : (y,z) \in f_{\beta \to 2}(x) \times f_{\beta \to \noise}(x) \right\},
     \end{equation}
     for all $x \in \{0,1\}^\ast$.
@@ -868,31 +864,46 @@ We are now ready to move on to the proofs on algorithmic complexity. We combine 
     for all $n \in \N$, where $\yf$ is the greedy binary expansion of $s$.
 \end{lemma}
 \begin{proof}
-    MAKE THE PROOF
+    Let $\beta \in (1,2)$, $s \in [0,1]$, $n \in \N$, $\xf \in \Sigma_\beta(s)$ and define $\yf$ to be the greedy binary expansion of $s$. Then,
+    \begin{equation}
+        \yf_{1:n} \in f_{\beta \to 2}(\xf_{1:n\log_\beta(2)}),
+    \end{equation}
+    and 
+    \begin{equation}
+        \langle \Sigma_\beta(s, n \log_\beta(2)) \rangle \in f_{\beta, 1 \to all}(\xf_{1:n\log_\beta(2)}),
+    \end{equation}
+    so 
+    \begin{equation}
+        w_\beta(s, \xf_{1:n\log_\beta(2)}) = f_{\beta,1+all\to noise}(\langle x, \langle \Sigma_\beta(s,n \log_\beta(2))\rangle\rangle) \in f_{\beta \to \noise}(\xf_{1:n\log_\beta(2)}).
+    \end{equation}
+    Then,
+    \begin{equation}
+        (\yf_{1:n}, w_\beta(s, \xf_{1:n\log_\beta(2)})) \in f_{\beta \to 2}(\xf_{1:n\log_\beta(2)}) \times f_{\beta \to \noise}(\xf_{1:n\log_\beta(2)}),
+    \end{equation}
+    and the Lemma follows from (\ref{eq:main:def:f beta to 2 + noise}).
 \end{proof}
 \begin{lemma}\label{lem:size of the multifunction converting a beta expansion into its noise and the binary expansion}
     Let $\beta \in (1,2)$ be an algebraic number. Then, for all $n \in \N$, and all $x \in \{0,1\}^n$,
     \begin{equation}
-        \# f_{\beta \to 2+noise}(x) \leq \left(\frac{1}{\beta-1} + 1\right) \frac{n^{2k_\beta}}{((\beta-1)L_\beta\Pi_\beta)^2}\left(L_\beta \Pi_\beta^+ \right)^{2n}.
+        \# f_{\beta \to 2+noise}(x) \leq \left(\frac{1}{\beta-1} + 3\right) \left(\frac{1}{\beta-1} + 2\right)^2\frac{n^{2k_\beta}}{(L_\beta\Pi_\beta)^2}\left(L_\beta \Pi_\beta^+ \right)^{2n}.
     \end{equation}
 \end{lemma}
 \begin{proof}
-    Let $\beta \in (1,2)$ be an algebraic number, and $x \in \{0,1\}^\ast$. First, by LEMMA
+    Let $\beta \in (1,2)$ be an algebraic number, and $x \in \{0,1\}^\ast$. First, by Lemma \ref{lem:upper bound on the cardinality of the beta to 2 conversion multifunction},
     \begin{equation}
-        \#f_{\beta \to 2}(x) \leq \frac{1}{\beta-1} + 1.
+        \#f_{\beta \to 2}(x) \leq \frac{1}{\beta-1} + 3.
     \end{equation}
     Second, by Lemma \ref{lem:size of the multifunction that generates all beta expansions from one},
     \begin{equation}
-        \#f_{\beta, 1 \to all}(x) \leq \frac{n^{2k_\beta}}{((\beta-1)L_\beta\Pi_\beta)^2}\left(L_\beta \Pi_\beta^+ \right)^{2n},
+        \#f_{\beta, 1 \to all}(x) \leq \left(\frac{1}{\beta-1} + 2\right)^2\frac{n^{2k_\beta}}{(L_\beta\Pi_\beta)^2}\left(L_\beta \Pi_\beta^+ \right)^{2n},
     \end{equation}
     and therefore 
     \begin{equation}
-        \#f_{\beta \to \noise}(x) \leq \frac{n^{2k_\beta}}{((\beta-1)L_\beta\Pi_\beta)^2}\left(L_\beta \Pi_\beta^+ \right)^{2n}.
+        \#f_{\beta \to \noise}(x) \leq \left(\frac{1}{\beta-1} + 2\right)^2\frac{n^{2k_\beta}}{(L_\beta\Pi_\beta)^2}\left(L_\beta \Pi_\beta^+ \right)^{2n}.
     \end{equation}
-    Finally,
+    The proof is concluded by noting that
     \begin{align}
-        \# f_{\beta \to 2+noise}(x) &= \#f_{\beta \to 2}(x)  \times \#f_{\beta \to \noise}(x)\\
-        &\leq \left(\frac{1}{\beta-1} + 1\right) \frac{n^{2k_\beta}}{((\beta-1)L_\beta\Pi_\beta)^2}\left(L_\beta \Pi_\beta^+ \right)^{2n}.
+        \# f_{\beta \to 2+noise}(x) &= \#f_{\beta \to 2}(x)  \times \#f_{\beta \to \noise}(x).
     \end{align}
 \end{proof}
 \begin{theorem}\label{thm:lower bound of kolmogorov complexity for beta expansions when beta is algebraic}
@@ -935,6 +946,10 @@ for all $\xf \in \Sigma_\beta(s)$.
     \end{equation}
     (\ref{eq:pisot:thm:lower bound of kolmogorov complexity for beta expansions when beta is algebraic}) follows.
 \end{proof}
+\noindent In what follows, we use  
+\begin{equation}
+    K[x|y] := K[x|y0^\infty], \ \forall x,y \in \{0,1\}^\ast.
+\end{equation}
 \begin{corollary}\label{cor:lower bound of kolmogorov complexity for beta expansions when beta is algebraic}
     Let $\beta \in (1,2)$ be an algebraic number, $s \in [0,1]$ and $n \in \N$. Denote by $\yf \in \{0,1\}^\N$ the greedy binary expansion of $s$. Then,
     \begin{align}
@@ -947,11 +962,11 @@ for all $\xf \in \Sigma_\beta(s)$.
     Let $\beta \in (1,2)$ be an algebraic number, $s \in [0,1]$ and $n \in \N$.
     By \cite[Theorem 2.8.2]{li2008introduction}, 
     \begin{equation}
-        K(\langle y,x\rangle) \geq K(y) + K(x|y) + \bigOw[K(\langle y,x\rangle)]{\langle y,x \rangle},
+        K[\langle y,x\rangle] \geq K[y] + K[x|y] + \bigOw[K[\langle y,x\rangle]]{\langle y,x \rangle},
     \end{equation}
     for all $x,y \in \{0,1\}^\ast$. Therefore, in particular,
     \begin{equation}\label{eq:0:proof:cor:lower bound of kolmogorov complexity for beta expansions when beta is algebraic}
-        K(\langle y,x\rangle) \geq K(y) + K(x|y) + \bigOx[\log n]{n},
+        K[\langle y,x\rangle] \geq K[y] + K[x|y] + \bigOx[\log n]{n},
     \end{equation}
     for all $x \in \{0,1\}^n$ and $y \in \{0,1\}^{\leq n \log_\beta(2)}$. (\ref{eq:main:cor:lower bound of kolmogorov complexity for beta expansions when beta is algebraic}) follows immediately by combining (\ref{eq:0:proof:cor:lower bound of kolmogorov complexity for beta expansions when beta is algebraic}) and Theorem \ref{thm:lower bound of kolmogorov complexity for beta expansions when beta is algebraic}.
 \end{proof}
