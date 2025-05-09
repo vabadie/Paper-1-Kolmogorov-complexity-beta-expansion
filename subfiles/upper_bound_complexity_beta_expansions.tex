@@ -27,9 +27,9 @@ for all $s \in [0,1]$ and $\xf \in \Sigma_2(s)$. The main difference with previo
 \end{equation}
 for all $\beta \in \left(1,\frac{1+\sqrt{5}}{2}\right)$, $s \in [0,1]$ and from some $n \in \N$ onward. Therefore, it follows from (\ref{eq:multivalued function converting from base 2 to base beta is a supset of the beta prefixes}) that
 \begin{equation}
-    \#f_{2 \to \beta}(x) \geq 2^{\alpha \log_\beta(2) n}
+    \#f_{2 \to \beta}(x) \geq 2^{\alpha n(\beta)}
 \end{equation}
-for all $x \in \{0,1\}^n$, $\beta \in \left(1,\frac{1+\sqrt{5}}{2}\right)$ and from some $n \in \N$ onward. Also note that a trivial bound for $\#f(x)$ is is $2^{\len x \log_\beta(2)}$, for all $x \in \{0,1\}^\ast$, since $f(x)$ is a subset of $\{0,1\}^{\len x \log_\beta(2)}$. However, this trivial bound only allows to recover the trivial upper bound on $\underline \Delta_\beta$ and $\bar \Delta_\beta$ established in Lemma \ref{lem:trivial upper bound on the relative compressibility of beta expansions}. In the sequel, we show that we can improve this trivial upper bound in two cases: for almost all $\beta \in (1,2)$, and for algebraic $\beta \in (1,2)$.
+for all $x \in \{0,1\}^n$, $\beta \in \left(1,\frac{1+\sqrt{5}}{2}\right)$ and from some $n \in \N$ onward. Also note that a trivial bound for $\#f(x)$ is is $2^{n(\beta)}$, for all $x \in \{0,1\}^\ast$ with $n := \len x$, since $f(x)$ is a subset of $\{0,1\}^{n(\beta)}$. However, this trivial bound only allows to recover the trivial upper bound on $\underline \Delta_\beta$ and $\bar \Delta_\beta$ established in Lemma \ref{lem:trivial upper bound on the relative compressibility of beta expansions}. In the sequel, we show that we can improve this trivial upper bound in two cases: for almost all $\beta \in (1,2)$, and for algebraic $\beta \in (1,2)$.
 
 % For example, take $\beta = \frac{1+\sqrt{5}}{2}$. Going back to the example in Section 1.3 and the equations describing the redundancy of the $\beta$-expansions of $1$, we get that
 % \begin{equation}
@@ -76,7 +76,7 @@ for all $a, b \in I_\beta$, $a < b$. We can exploit this to study the asymptotic
 \begin{theorem}\label{thm:asymptotic behavior of card f x when the Bernoulli convolution is absolutely continuous}
     Let $\beta \in (1,2)$ such that $\nu_\beta$ is absolutely continuous with respect to $\lambda$, and let $h_\beta : I_\beta \to \R$ be the Radon-Nikodym derivative of $\nu_\beta$. Then,
     \begin{equation}
-        \limsup_{n\to\infty} 2^{-n\log_\beta(2/\beta)} \#f_{2 \to \beta}(\yf_{1:n}) \leq \left(4 + \frac{1}{\beta-1}\right) h_\beta\left(\sum_{i=1}^\infty \yf_i 2^{-i}\right),
+        \limsup_{n\to\infty} 2^{-n\log_\beta(2/\beta)} \#f_{2 \to \beta}(\yf_{1:n}) \leq 2\left(4 + \frac{1}{\beta-1}\right) h_\beta\left(\sum_{i=1}^\infty \yf_i 2^{-i}\right),
     \end{equation}
     for all $\yf \in \{0,1\}^\N$.
 \end{theorem}
@@ -140,10 +140,14 @@ for all $a, b \in I_\beta$, $a < b$. We can exploit this to study the asymptotic
     \end{align}
     Combining this result with (\ref{eq:0:proof:thm:asymptotic behavior of card f x when the Bernoulli convolution is absolutely continuous}) delivers
     \begin{align}
-        \limsup_{n\to \infty}2^{-n(\log_\beta(2)-1)} \# f_{2 \to \beta}(\yf_{1:n}) &\leq  \limsup_{n \to \infty}\frac{\nu_\beta\left(\left[a_n - 2^{-n}, b_n + 2^{-n} + \frac{2^{-n}}{\beta-1}\right]\right)}{ 2^{-n}}\\
+        \limsup_{n\to \infty}2^{-(n(\beta)-n)} \# f_{2 \to \beta}(\yf_{1:n}) &\leq  \limsup_{n \to \infty}\frac{\nu_\beta\left(\left[a_n - 2^{-n}, b_n + 2^{-n} + \frac{2^{-n}}{\beta-1}\right]\right)}{ 2^{-n}}\\
         &= \lim_{n \to \infty}\frac{\nu_\beta\left(\left[a_n - 2^{-n}, b_n + 2^{-n} + \frac{2^{-n}}{\beta-1}\right]\right)}{ 2^{-n}}\\
         &= \left(4+ \frac{1}{\beta-1}\right)h_\beta\left( \sum_{i=1}^\infty \yf_i \beta^{-i}\right).
     \end{align}
+    We conclude the proof by noting that 
+    \begin{equation}
+        2^{-(n(\beta)-n)} \geq 2^{-(n\log_\beta(2) + 1 -n)} = 2 \cdot 2^{- n \log_\beta(2/\beta)}, \ \forall n \in \N. 
+    \end{equation}
 \end{proof}
 \noindent As a direct Corollary, we get Theorem \ref{thm:upper bound on the relative compressibility of beta expansions for almost all beta in 1 sqrt 2}.
 \begin{corollary}\label{cor:upper bound on the relative compressibility of beta expansions for almost all beta in 1 2}
@@ -156,11 +160,11 @@ for all $a, b \in I_\beta$, $a < b$. We can exploit this to study the asymptotic
 \begin{proof}
     Let $\beta \in (1,2)$ such that $\nu_\beta$ is absolutely continuous with respect to $\lambda$, and let $h_\beta : I_\beta \to \R$ be the Radon-Nikodym derivative of $\nu_\beta$. Fix $\xf \in \Omega_\beta$, define $s := \sum_{i=1}^\infty \xf_i\beta^{-i} \in [0,1]$ and let $\yf$ be the greedy binary expansion of $s$. By Theorem \ref{thm:asymptotic behavior of card f x when the Bernoulli convolution is absolutely continuous}, we have
     \begin{equation}
-        \limsup_{n\to\infty} 2^{-n\log_\beta(2/\beta)} \#f_{2 \to \beta}\yf_{1:n}) \leq \left(4 + \frac{1}{\beta-1}\right) h_\beta\left(\sum_{i=1}^\infty \yf_i 2^{-i}\right).
+        \limsup_{n\to\infty} 2^{-n\log_\beta(2/\beta)} \#f_{2 \to \beta}\yf_{1:n}) \leq 2\left(4 + \frac{1}{\beta-1}\right) h_\beta\left(\sum_{i=1}^\infty \yf_i 2^{-i}\right).
     \end{equation}
     Therefore, there exists $N > 0$ such that for all $n \geq N$, 
     \begin{equation}
-        2^{-n\log_\beta(2/\beta)} \#f_{2 \to \beta}(\yf_{1:n}) \leq \left(4 + \frac{1}{\beta-1}\right) h_\beta\left(\sum_{i=1}^\infty \yf_i 2^{-i}\right) + 1 =: C,
+        2^{-n\log_\beta(2/\beta)} \#f_{2 \to \beta}(\yf_{1:n}) \leq 2\left(4 + \frac{1}{\beta-1}\right) h_\beta\left(\sum_{i=1}^\infty \yf_i 2^{-i}\right) + 1 =: C,
     \end{equation}
     so 
     \begin{equation}
@@ -234,7 +238,7 @@ As this result is tied to algebraic considerations that deviate a lot from the m
 \begin{lemma}\label{lem:bounding the size of the output set of the multivalued function projected on lexicographically maximal sequences}
     Let $\beta \in (1,2)$ be an algebraic number and $n \in \N$. Then,
     \begin{equation}\label{eq:main:lem:bounding the size of the output set of the multivalued function projected on lexicographically maximal sequences}
-        \# (M_\beta \circ f_{2 \to \beta}(\yf_{1:n})) \leq \frac{4}{L_\beta\Pi_\beta}(\nlogbeta)^{k_\beta}\left(L_\beta \Pi_\beta^+ \right)^{\nlogbeta}\cdot
+        \# (M_\beta \circ f_{2 \to \beta}(\yf_{1:n})) \leq \frac{4}{L_\beta\Pi_\beta}\nlogbeta^{k_\beta}\left(L_\beta \Pi_\beta^+ \right)^{\nlogbeta}\cdot
     \end{equation}
 \end{lemma}
 \begin{proof}
@@ -257,12 +261,12 @@ As this result is tied to algebraic considerations that deviate a lot from the m
         \end{equation}
         \item Finally, since $A(\yf_{1:n}) \subseteq \{0,1\}^{\nlogbeta}$, then $\hat F(\yf_{1:n}) \subseteq M_\beta(\{0,1\}^{\nlogbeta})$. By Corollary \ref{cor: separation lemma for lexicographically maximal sequences}, this shows that 
         \begin{equation}\label{eq:2:proof:cor:upper bound on the relative compressibility of beta expansions for algebraic beta}
-            m_n \geq \frac{L_\beta\Pi_\beta}{\displaystyle  (\nlogbeta)^{k_\beta}\left(\beta L_\beta \Pi_\beta^+\right)^{\nlogbeta}} = \frac{2^{-n}L_\beta\Pi_\beta}{\displaystyle (\nlogbeta)^{k_\beta}\left(L_\beta \Pi_\beta^+\right)^{\nlogbeta}}\cdot
+            m_n \geq \frac{L_\beta\Pi_\beta}{\displaystyle  \nlogbeta^{k_\beta}\left(\beta L_\beta \Pi_\beta^+\right)^{\nlogbeta}} = \frac{2^{-n}L_\beta\Pi_\beta}{\displaystyle \nlogbeta^{k_\beta}\left(L_\beta \Pi_\beta^+\right)^{\nlogbeta}}\cdot
         \end{equation}
     \end{enumerate}
     Combining (\ref{eq:1:proof:cor:upper bound on the relative compressibility of beta expansions for algebraic beta}) and (\ref{eq:2:proof:cor:upper bound on the relative compressibility of beta expansions for algebraic beta}), we get 
     \begin{equation}
-       \#F(\yf_{1:n}) \leq \# \hat F(\yf_{1:n}) \leq \frac{\displaystyle  4(\nlogbeta)^{k_\beta}\left(L_\beta \Pi_\beta^+ \right)^{\nlogbeta}}{L_\beta \Pi_\beta}\cdot
+       \#F(\yf_{1:n}) \leq \# \hat F(\yf_{1:n}) \leq \frac{\displaystyle  4\nlogbeta^{k_\beta}\left(L_\beta \Pi_\beta^+ \right)^{\nlogbeta}}{L_\beta \Pi_\beta}\cdot
     \end{equation}
 \end{proof}
 \noindent We further show that $M_\beta \circ f_{\beta \to 2}$ is computable relatively to $\beta$.
@@ -364,7 +368,7 @@ As this result is tied to algebraic considerations that deviate a lot from the m
     \end{align}
     By Lemma \ref{lem:bounding the size of the output set of the multivalued function projected on lexicographically maximal sequences}, 
     \begin{equation}
-        \# (F(\yf_{1:n})) \leq \frac{4}{L_\beta\Pi_\beta}  (\nlogbeta)^{k_\beta}\left(L_\beta \Pi_\beta^+ \right)^{\nlogbeta}\cdot
+        \# (F(\yf_{1:n})) \leq \frac{4}{L_\beta\Pi_\beta}  \nlogbeta^{k_\beta}\left(L_\beta \Pi_\beta^+ \right)^{\nlogbeta}\cdot
     \end{equation}
     Note that then,
     \begin{equation}
