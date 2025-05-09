@@ -6,7 +6,7 @@
 
 In this section, we establish the non-trivial upper bounds on $\underline \Delta_\beta$ and $\bar \Delta_\beta$, namely we prove Theorems \ref{thm:upper bound on the relative compressibility of beta expansions for almost all beta in 1 sqrt 2} and \ref{thm:upper bound on the relative compressibility of beta expansions for algebraic beta}. 
 
-The base of the incoming proofs is the construction of a multivalued function $f_{2 \to \beta}$ that is computable relatively to $\beta$, which is built to be the inverse of the function $f_{\beta \to 2}$ introduced in previous section. The heuristic guiding the construction of $f_{2 \to \beta}$ is exactly analoguous to the one we used for $f_{\beta \to 2}$, therefore we skip this part and directly give the definition of $f_{2 \to \beta}$.
+The base of the incoming proofs is the construction of a multivalued function $f_{2 \to \beta}$ that is computable relatively to $\beta$, which is built to be a kind of inverse of the function $f_{\beta \to 2}$ introduced in previous section. The heuristic guiding the construction of $f_{2 \to \beta}$ is exactly analoguous to the one we used for $f_{\beta \to 2}$, therefore we skip this part and directly give the definition of $f_{2 \to \beta}$.
 \begin{definition}\label{def:multivalued function converting from base 2 to base beta}
     Let $f_{2 \to\beta} : \{0,1\}^\ast \rightrightarrows \{0,1\}^\ast$ be the multivalued function defined as 
 \begin{equation}\label{eq:main:def:multivalued function converting from base 2 to base beta}
@@ -17,7 +17,7 @@ for all $x \in \{0,1\}^\ast$, where
     J(x) := \left[\sum_{i=1}^{\len x} x_i 2^{-i} - 2^{-\len x},  \sum_{i=1}^{\len x} x_i 2^{-i}+ 2^{-\len x} \right].
 \end{equation}
 \end{definition}
-\noindent By the same arguments that lead to the definition of $f_{\beta \to 2}$, one can establish that
+\noindent By the same arguments that led to the definition of $f_{\beta \to 2}$, one can establish that
 \begin{equation}\label{eq:multivalued function converting from base 2 to base beta is a supset of the beta prefixes}
     \Sigma_\beta(s,n\log_\beta(2)) \subseteq f_{2 \to \beta}(\xf_{1:n}),
 \end{equation}
@@ -38,7 +38,7 @@ for all $x \in \{0,1\}^n$, $\beta \in \left(1,\frac{1+\sqrt{5}}{2}\right)$ and f
 
 \subsection{\texorpdfstring{Upper bound for almost all $\beta \in (1,2)$}{}}
 
-In this part, we consider $\R$ as equipped with the Borel $\sigma$-algebra $\BB$ generated from the Euclidean topology. We denote by $\lambda$ the Lebesgue measure. Fix $\beta \in (1,2)$, $x \in \{0,1\}^\ast$ and let $n := \len x$. We are interested at establishing an upper bound on $\#f_{2\to \beta}(x)$, with $f_{2\to \beta}(x)$ being defined by (\ref{eq:main:def:multivalued function converting from base 2 to base beta}). We can reformulate the definition of $f_{2\to \beta}(x)$ in terms of an integral over a certain domain, with respect to a certain measure. For $t \in \R$, we denote by $\delta_t$ the Dirac measure centered in $t$, formally defined as
+In this part, we consider $\R$ as equipped with the Borel $\sigma$-algebra $\BB$ generated from the Euclidean topology. We denote by $\lambda$ the Lebesgue measure on $\R$. Fix $\beta \in (1,2)$, $x \in \{0,1\}^\ast$ and let $n := \len x$. We are interested at establishing an upper bound on $\#f_{2\to \beta}(x)$, with $f_{2\to \beta}(x)$ being defined by (\ref{eq:main:def:multivalued function converting from base 2 to base beta}). We can reformulate the definition of $f_{2\to \beta}(x)$ in terms of an integral over a certain domain, with respect to a certain measure. For $t \in \R$, we denote by $\delta_t$ the Dirac measure centered in $t$, formally defined as
 \begin{equation}\label{eq:0:introduction to the formalism of Bernoulli convolution}
     \delta_t(A) = \begin{cases}
         1 \text{ if } t \in A,\\
@@ -47,30 +47,30 @@ In this part, we consider $\R$ as equipped with the Borel $\sigma$-algebra $\BB$
 \end{equation}
 for all $A \in \BB$. Hence, for all $y \in \{0,1\}^{n\log_\beta(2)}$, we have
 \begin{equation}\label{eq:1:introduction to the formalism of Bernoulli convolution}
-    \delta_{\sum_{i=1}^{\len y} y_i \beta^{-i}}(J(x)) = \begin{cases}
-        1 \text{ if } \sum_{i=1}^{\len y} y_i \beta^{-i} \in J(x),\\
-        0 \text{ if } \sum_{i=1}^{\len y} y_i \beta^{-i} \notin J(x),
+    \delta_{\sum_{i=1}^{\len y} y_i \beta^{-i}}(J(x)^{(n)}) = \begin{cases}
+        1 \text{ if } \sum_{i=1}^{\len y} y_i \beta^{-i} \in J(x)^{(n)},\\
+        0 \text{ if } \sum_{i=1}^{\len y} y_i \beta^{-i} \notin J(x)^{(n)},
     \end{cases}
 \end{equation}
-By summing over all $y \in \{0,1\}^{n\log_\beta(2)}$, and by definition of $f(x)$ in (\ref{eq:main:def:multivalued function converting from base 2 to base beta}), we get
+By summing over all $y \in \{0,1\}^{n\log_\beta(2)}$, and by definition of $f_{\beta \to 2}(x)$ in (\ref{eq:main:def:multivalued function converting from base 2 to base beta}), we get
 \begin{equation}\label{eq:2:introduction to the formalism of Bernoulli convolution}
-    \sum_{y \in \{0,1\}^{n\log_\beta(2)}}\delta_{\sum_{i=1}^{\len y} y_i \beta^{-i}}(J(x)) = \#f(x).
+    \sum_{y \in \{0,1\}^{n\log_\beta(2)}}\delta_{\sum_{i=1}^{\len y} y_i \beta^{-i}}(J(x)^{(n)}) \geq \#f(x).
 \end{equation}
-This framework matches exactly that of the Bernoulli convolution, introduced in \cite[Section 6]{jessenDistributionFunctionsRiemann}. Define $I_\beta := \left[0, \frac{1}{\beta-1} \right]$, $C(I_\beta)$ to be the set of continuous functions $f : I_\beta \to \R$, and $\MM$ to be the set of regular Borel measures on $I_\beta$ (see Appendix \ref{sec:app:weak star limits}). Consider the sequence of regular Borel measures $(\nu_{\beta,m})_{m \in \N}$ defined by 
+This framework matches exactly that of the Bernoulli convolution, introduced in \cite[Section 6]{jessenDistributionFunctionsRiemann}. Define $C(I_\beta)$ to be the set of continuous functions $f : I_\beta \to \R$, and $\MM$ to be the set of regular Borel measures on $I_\beta$ (see Appendix \ref{sec:app:weak star limits}). Consider the sequence of regular Borel measures $(\nu_{\beta,m})_{m \in \N}$ defined by 
 \begin{equation}\label{eq:3:introduction to the formalism of Bernoulli convolution}
     \nu_{\beta,m} := \frac{1}{2^m} \sum_{u \in \{0,1\}^{m}} \delta_{\sum_{i=1}^{m} u_i \beta^{-i}}, \ \forall m \in \N.
 \end{equation}
 Note that (\ref{eq:2:introduction to the formalism of Bernoulli convolution}) can be reformulated as
 \begin{equation}\label{eq:4:introduction to the formalism of Bernoulli convolution}
-    2^{n\log_\beta(2)} \nu_{\beta,n\log_\beta(2)}(J(x)) = \#f(x).
+    2^{n\log_\beta(2)} \nu_{\beta,n\log_\beta(2)}(J(x)) \geq \#f_{\beta \to 2}(x).
 \end{equation}
 The Bernoulli convolution $\nu_\beta$ is defined as being the weak limit in $\MM$ of the sequence $(\nu_{\beta,m})_{m \in \N}$, i.e., the unique regular Borel measure satisfies
 \begin{equation}\label{eq:5:introduction to the formalism of Bernoulli convolution}
     \int_{I_\beta} f d\nu_\beta = \lim_{m \to \infty}\int_{I_\beta} f d\nu_{\beta,m},\ \forall f \in C(I_\beta).
 \end{equation}
-The fact that there is indeed such a regular Borel measure $\mu$ is a standard result of measure theory, see Appendix for greater details. The Bernoulli convolution has been widely studied in the literature. In particular, it was shown that that for $\lambda$-almost all $\beta \in (1,2)$, $\nu_\beta$ is absolutely continuous with respect to the Lebesgue measure $\lambda$, i.e., for all $A \in \BB$, $\lambda(A) = 0 \Rightarrow \nu_\beta(A) = 0$. In particular, the Radon-Nykodym theorem \cite[Section 31, Theorem B]{halmos1950MeasureTheory} states that if a measure $\nu$ is absolutely continuous with respect to the Lebesgue measure $\lambda$, there exists a function $h_\beta : I_\beta \to \R$, called \textit{Radon-Nikodym derivative of $\nu_\beta$}, such that 
+The fact that there is indeed such a regular Borel measure $\mu$ is a standard result of measure theory, see Appendix \ref{sec:app:weak star limits} for greater details. The Bernoulli convolution has been widely studied in the literature. In particular, it was shown in \cite{solomyak1995random} that for $\lambda$-almost all $\beta \in (1,2)$, $\nu_\beta$ is absolutely continuous with respect to the Lebesgue measure $\lambda$, i.e., for all $A \in \BB$, $\lambda(A) = 0 \Rightarrow \nu_\beta(A) = 0$. In particular, the Radon-Nykodym theorem \cite[Section 31, Theorem B]{halmos1950MeasureTheory} states that if a measure $\nu$ is absolutely continuous with respect to the Lebesgue measure $\lambda$, there exists a function $h : I_\beta \to \R$, called \newname{Radon-Nikodym derivative of $\nu$}, such that 
 \begin{equation}
-    \nu_\beta\left([a,b]\right) = \int_{a}^{b} h_\beta(x) dx,
+    \nu\left([a,b]\right) = \int_{a}^{b} h(x) dx,
 \end{equation}
 for all $a, b \in I_\beta$, $a < b$. We can exploit this to study the asymptotic behavior of $\#f_{2 \to \beta}(x)$.
 \begin{theorem}\label{thm:asymptotic behavior of card f x when the Bernoulli convolution is absolutely continuous}
@@ -123,7 +123,7 @@ for all $a, b \in I_\beta$, $a < b$. We can exploit this to study the asymptotic
         2^{-n\log_\beta(2)} \# f_{2 \to \beta}(\yf_{1:n}) \leq \nu_{\beta,m}\left(\left[a_n - 2^{-n}, b_n + 2^{-n} + \frac{2^{-n}}{\beta-1}\right]\right),
     \end{equation}
     since $f_{2 \to \beta}(\yf_{1:n}) \subseteq A(\yf_{1:n})$.
-    By taking the limit superior when $m \to \infty$, Lemma Appendix (bounding the absolute continuous limit measure, use a continuous function that gets closer and closer to the point) delivers
+    By taking the limit superior when $m \to \infty$, Lemma \ref{app:lem:sequence of weakly convergent measures can be upper bounded by the limit on compact sets} delivers
     \begin{equation}\label{eq:0:proof:thm:asymptotic behavior of card f x when the Bernoulli convolution is absolutely continuous}
         2^{-n\log_\beta(2)} \# f_{2 \to \beta}(\yf_{1:n}) \leq \nu_{\beta}\left(\left[a_n - 2^{-n}, b_n + 2^{-n} + \frac{2^{-n}}{\beta-1}\right]\right).
     \end{equation}
@@ -210,7 +210,7 @@ Moreover, we have defined the function $M_\beta : \{0,1\}^\ast \to \{0,1\}^\ast$
 \end{align}
 and
 \begin{equation}\label{eq:definition of pi beta - pi beta + and k beta}
-    \Pi_\beta := \prod_{z \in G_\beta^-} |1-|z||, \ \ \ \ \ \ \Pi_\beta^+ := \prod_{z \in G_\beta^+} |z|, \ \ \ \ \ \ \text{and} \ \ \ \ \ \ k_\beta := \# G_\beta^1.
+    \Pi_\beta := \prod_{z \in G_\beta} |1-|z||, \ \ \ \ \ \ \Pi_\beta^+ := \prod_{z \in G_\beta^+} |z|, \ \ \ \ \ \ \text{and} \ \ \ \ \ \ k_\beta := \# G_\beta^1.
 \end{equation}
 The result is expressed as follows.
 \begin{lemma}\label{lem:generalization of the garsia separation lemma}
@@ -219,7 +219,7 @@ The result is expressed as follows.
        \left|\sum_{i=1}^n x_i \beta^{-i} - \sum_{i=1}^n y_i \beta^{-i}\right| \geq \frac{L_\beta\Pi_\beta}{\displaystyle  n^{k_\beta}\left(\beta L_\beta \Pi_\beta^+ \right)^n}\cdot
     \end{equation}
 \end{lemma}
-As this result is tied to algebraic considerations that deviate a lot from the message of this paper, we postpone the proof to the Appendix. \textit{This Lemma has two important corollaries, that are essential to establish \ref{thm:upper bound on the relative compressibility of beta expansions for algebraic beta}. First, this implies that we can lower bound the distance between numbers of the form $\sum_{i=1}^n (Mx)_i \beta^{-i}$, $x \in \{0,1\}^n$, and second, we can show that $M_\beta$ is computable.}
+As this result is tied to algebraic considerations that deviate a lot from the message of this paper, we postpone the proof to Appendix \ref{sec:app:separation lemma}. This Lemma has two important consequences, that are essential to establish \ref{thm:upper bound on the relative compressibility of beta expansions for algebraic beta}. First, this implies that we can lower bound the distance between numbers of the form $\sum_{i=1}^n (Mx)_i \beta^{-i}$, $x \in \{0,1\}^n$, and second, we can show that $M_\beta$ is computable.
 \begin{corollary}\label{cor: separation lemma for lexicographically maximal sequences}
     Let $\beta \in (1,2)$ be an algebraic number and $n \in \N$. Then, for all $x,y \in M_\beta\left(\{0,1\}^n\right)$ such that $x \neq y$,
     \begin{equation}\label{eq:main:cor: separation lemma for lexicographically maximal sequences}
@@ -234,7 +234,7 @@ As this result is tied to algebraic considerations that deviate a lot from the m
 \begin{lemma}\label{lem:bounding the size of the output set of the multivalued function projected on lexicographically maximal sequences}
     Let $\beta \in (1,2)$ be an algebraic number and $n \in \N$. Then,
     \begin{equation}\label{eq:main:lem:bounding the size of the output set of the multivalued function projected on lexicographically maximal sequences}
-        \# (M_\beta \circ f_{2 \to \beta}(\yf_{1:n})) \leq \frac{ 2}{L_\beta\Pi_\beta}(n\log_\beta(2))^{k_\beta}\left(L_\beta \Pi_\beta^+ \right)^{n\log_\beta(2)}\cdot
+        \# (M_\beta \circ f_{2 \to \beta}(\yf_{1:n})) \leq \frac{4}{L_\beta\Pi_\beta}(n\log_\beta(2))^{k_\beta}\left(L_\beta \Pi_\beta^+ \right)^{n\log_\beta(2)}\cdot
     \end{equation}
 \end{lemma}
 \begin{proof}
@@ -253,7 +253,7 @@ As this result is tied to algebraic considerations that deviate a lot from the m
         where (a) follows from the definition of $A(\yf_{1:n})$. We conclude that, indeed, $x \in A(\yf_{1:n})$, so $\hat F(\yf_{1:n}) \subseteq A(\yf_{1:n})$.
         \item As a direct consequence, remark that by denoting $m_n$ to be the smallest distance between two different numbers of the form $\sum_{i=1}^{n\log_\beta(2)} x_i \beta^{-i}$, $x \in \hat F(\yf_{1:n})$, we have that 
         \begin{equation}\label{eq:1:proof:cor:upper bound on the relative compressibility of beta expansions for algebraic beta}
-           m_n \#\hat  F(\yf_{1:n}) \leq |J(\yf_{1:n})|^{(n)} \overset{(\ref{eq:definition of superset of size 2 -n more})}{=} |J(\yf_{1:n})| + 2\cdot 2^{-n} \overset{(\ref{eq:J x:def:multivalued function converting from base 2 to base beta})}{=} 4 2^{-n}.
+           m_n \#\hat  F(\yf_{1:n}) \leq |J(\yf_{1:n})|^{(n)} \overset{(\ref{eq:definition of superset of size 2 -n more})}{=} |J(\yf_{1:n})| + 2\cdot 2^{-n} \overset{(\ref{eq:J x:def:multivalued function converting from base 2 to base beta})}{=} 4 \cdot 2^{-n}.
         \end{equation}
         \item Finally, since $A(\yf_{1:n}) \subseteq \{0,1\}^{n \log_\beta(2)}$, then $\hat F(\yf_{1:n}) \subseteq M_\beta(\{0,1\}^{n\log_\beta(2)})$. By Corollary \ref{cor: separation lemma for lexicographically maximal sequences}, this shows that 
         \begin{equation}\label{eq:2:proof:cor:upper bound on the relative compressibility of beta expansions for algebraic beta}
@@ -262,10 +262,10 @@ As this result is tied to algebraic considerations that deviate a lot from the m
     \end{enumerate}
     Combining (\ref{eq:1:proof:cor:upper bound on the relative compressibility of beta expansions for algebraic beta}) and (\ref{eq:2:proof:cor:upper bound on the relative compressibility of beta expansions for algebraic beta}), we get 
     \begin{equation}
-       \#F(\yf_{1:n}) \leq \# \hat F(\yf_{1:n}) \leq \frac{\displaystyle  2(n\log_\beta(2))^{k_\beta}\left(L_\beta \Pi_\beta^+ \right)^{n\log_\beta(2)}}{L_\beta \Pi_\beta}\cdot
+       \#F(\yf_{1:n}) \leq \# \hat F(\yf_{1:n}) \leq \frac{\displaystyle  4(n\log_\beta(2))^{k_\beta}\left(L_\beta \Pi_\beta^+ \right)^{n\log_\beta(2)}}{L_\beta \Pi_\beta}\cdot
     \end{equation}
 \end{proof}
-\noindent We further show that $M_\beta$ is computable.
+\noindent We further show that $M_\beta \circ f_{\beta \to 2}$ is computable relatively to $\beta$.
 \begin{lemma}\label{cor:M is computable for algebraic beta}
     Let $\beta \in (1,2)$. Then, $M_\beta \circ f_{2 \to \beta}$ is computable relatively to $\beta$.
 \end{lemma}
@@ -283,7 +283,7 @@ As this result is tied to algebraic considerations that deviate a lot from the m
    
     Let $\beta \in (1,2)$. If $\beta$ is not algebraic, then $[x]_\beta = {x}$ for all $x\in \{0,1\}^\ast$, so $[\cdot]_\beta$ is computable.
 
-    Now, fix $\beta \in (1,2)$ algebraic, and $x \in \{0,1\}^\ast$. We define $n := |x|$. Let $P_\beta$ be the minimal polynomial of $\beta$ of leading coefficient $L_\beta$, of degree $d \in \N$, and denote by $\alpha_1 < \alpha_2 < \ldots < \alpha_k$ its real roots, for some $k \leq d$. Note that $\beta = \alpha_{\ell_\beta}$ for some $\ell_\beta \in \{1,\ldots, k\}$. Recall the definition of $\Pi_\beta$, $\Pi_\beta^+$ and $k_\beta$ in (\ref{eq:definition of pi beta - pi beta + and k beta}). Define two rational numbers $q,q_+$ such that $0 < q \leq L_\beta \Pi_\beta$ and $q_+ \geq \beta L_\beta \Pi_\beta^+$. We construct an algorithm that computes $x \mapsto \langle [x]_\beta \rangle$.
+    Now, fix $\beta \in (1,2)$ algebraic, and $x \in \{0,1\}^\ast$. We define $n := |x|$. Let $P_\beta$ be the minimal polynomial of $\beta$ of leading coefficient $L_\beta$, of degree $d \in \N$, and denote by $\alpha_1 < \alpha_2 < \ldots < \alpha_k$ its real roots, for some $k \leq d$. Note that $\beta = \alpha_{\ell_\beta}$ for some $\ell_\beta \in \{1,\ldots, k\}$. Recall the definition of $\Pi_\beta$, $\Pi_\beta^+$ and $k_\beta$ in (\ref{eq:definition of pi beta - pi beta + and k beta}). Define two rational numbers $q,q_+$ such that $0 < q \leq L_\beta \Pi_\beta$ and $q_+ \geq \beta L_\beta \Pi_\beta^+$. We construct Algorithm \ref{alg:algorithm that computes M beta} that computes $x \mapsto \langle [x]_\beta \rangle$.
     \begin{algorithm}[ht]
         \caption{Algorithm for computing $x \mapsto \langle [x]_\beta \rangle$}
         \label{alg:algorithm that computes M beta}
@@ -358,13 +358,13 @@ As this result is tied to algebraic considerations that deviate a lot from the m
     \begin{equation}
         (M_\beta\xf)_{1:n\log_\beta(2)} \in M_\beta(\Sigma_\beta(s,n\log_\beta(2))) \subseteq M_\beta\circ f_{2 \to \beta}(\yf_{1:n}).
     \end{equation}
-    By Corollary \ref{cor:M is computable for algebraic beta}, $M_\beta$ is computable, so $F := M_\beta \circ f_{2 \to \beta}$ is computable relatively to $\beta$. By Theorem \ref{thm:computable multivalued functions and complexity}, this yields
+    By Corollary \ref{cor:M is computable for algebraic beta}, $F := M_\beta \circ f_{2 \to \beta}$ is computable relatively to $\beta$. By Theorem \ref{thm:computable multivalued functions and complexity}, this yields
     \begin{align}
-        K[M_\beta\xf_{1:n\log_\beta(2)}]\leq K[\yf_{1:n}] + \log \# F(\yf_{1:n}) + \log\log \# F(\yf_{1:n}) + \bigOx[1]{n}.
+        K[(M_\beta\xf)_{1:n\log_\beta(2)}|\beta]\leq K[\yf_{1:n}|\beta] + \log \# F(\yf_{1:n}) + \log\log \# F(\yf_{1:n}) + \bigOx[1]{n}.
     \end{align}
     By Lemma \ref{lem:bounding the size of the output set of the multivalued function projected on lexicographically maximal sequences}, 
     \begin{equation}
-        \# (F(\yf_{1:n})) \leq \frac{2}{L_\beta\Pi_\beta}  (n\log_\beta(2))^{k_\beta}\left(L_\beta \Pi_\beta^+ \right)^{n\log_\beta(2)}\cdot
+        \# (F(\yf_{1:n})) \leq \frac{4}{L_\beta\Pi_\beta}  (n\log_\beta(2))^{k_\beta}\left(L_\beta \Pi_\beta^+ \right)^{n\log_\beta(2)}\cdot
     \end{equation}
     Note that then,
     \begin{equation}
@@ -376,6 +376,6 @@ As this result is tied to algebraic considerations that deviate a lot from the m
     \end{equation}
     We conclude that
     \begin{equation}
-        \bar\Delta_\beta(M_\beta\xf) = \limsup_{n\to \infty} \frac{K[M_\beta\xf_{1:n\log_\beta(2)}] - K[\yf_{1:n}]}{n} \leq \log_\beta\left(L_\beta \Pi_\beta^+\right).
+        \bar\Delta_\beta(M_\beta\xf) = \limsup_{n\to \infty} \frac{K[(M_\beta\xf)_{1:n\log_\beta(2)}|\beta] - K[\yf_{1:n}|\beta]}{n} \leq \log_\beta\left(L_\beta \Pi_\beta^+\right).
     \end{equation}
 \end{proof}

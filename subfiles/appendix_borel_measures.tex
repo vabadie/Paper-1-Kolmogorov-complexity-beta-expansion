@@ -18,13 +18,13 @@ In this part, we collect useful statements that help the understanding of weak l
 % \end{equation}
 % Note that if $X$ is compact, $\CC_c(X)$ is simply the set of continuous functions.
 
-Regular Borel measures are a central element of the following Lemmata, that are a key ingredient of the proof of Theorem \ref{thm:asymptotic behavior of card f x when the Bernoulli convolution is absolutely continuous}. Define the set of compactly supported continuous functions from $X$ to $\R$ as \cite[Section 55]{halmos1950MeasureTheory}
+Regular Borel measures are a central element in the following Lemmata, that are key ingredients of the proof of Theorem \ref{thm:asymptotic behavior of card f x when the Bernoulli convolution is absolutely continuous}. Define the set of compactly supported continuous functions from $X$ to $\R$ as \cite[Section 55]{halmos1950MeasureTheory}
 \begin{equation}
     \CC_c(X) := \left\{ f: X \to \R : f \text{ is continuous, and } \overline{\{x : f(x) \neq 0\}}\text{ is compact} \right\}.
 \end{equation}
 Note that if $X$ is compact, $\CC_c(X)$ is simply the set of continuous functions. 
 \begin{lemma}
-    Let $(\mu_n : \BB \to [0,\infty])_{n \in \N}$ be a sequence of regular Borel measures convering weakly, i.e., $\left(\int_X f d\mu_n\right)_{n \in \N}$ is converging in $\R$, for every $f \in \CC_c(X)$. Then, there exists a regular Borel measure $\mu : \BB \to [0,\infty]$ such that
+    Let $(\mu_n : \BB \to [0,\infty])_{n \in \N}$ be a sequence of regular Borel measures converging weakly, i.e., $\left(\int_X f d\mu_n\right)_{n \in \N}$ is converging in $\R$, for every $f \in \CC_c(X)$. Then, there exists a regular Borel measure $\mu : \BB \to [0,\infty]$ such that
     \begin{equation}
         \int_X f d\mu = \lim_{n\to \infty}\int_X f d\mu_n, \ \forall f \in \CC_c(X).
     \end{equation}
@@ -37,8 +37,8 @@ Note that if $X$ is compact, $\CC_c(X)$ is simply the set of continuous function
     $\Lambda$ is well-defined since $(\mu_n)_{n \in \N}$ converges weakly. Moreover, $\Lambda$ is obviously positive and linear, by positivity and linearity of the limit. Further, there is a standard result, known as Riesz representation theorem, that states that for every positive linear functional $\Lambda : \CC_c(X) \to \R$, there exists a unique regular Borel measure $\mu$ such that $\Lambda = \Lambda_\mu$ (see  \cite[Section 56, Theorems D and E]{halmos1950MeasureTheory}). This concludes the proof.
 \end{proof}
 
-\begin{lemma}
-    Suppose that $X$ is compact. Let $(\nu_n)_{n \in \N}$ be a sequence of regular Borel measures converging weakly to a Borel regular measure $\nu$, i.e.,
+\begin{lemma}\label{app:lem:sequence of weakly convergent measures can be upper bounded by the limit on compact sets}
+    Suppose that $X$ is compact. Let $(\mu_n)_{n \in \N}$ be a sequence of regular Borel measures converging weakly to a Borel regular measure $\nu$, i.e.,
     \begin{equation}
         \int_Xfd\mu = \lim_{n \to \infty} \int_X fd\mu_n, \ \forall f \in \CC_c(X).
     \end{equation}
@@ -48,7 +48,7 @@ Note that if $X$ is compact, $\CC_c(X)$ is simply the set of continuous function
     \end{equation}
 \end{lemma}
 \begin{proof} 
-    Let $(\nu_n)_{n \in \N}$ be a sequence of regular Borel measures converging weakly to the Borel regular measure $\nu$ and $C$ be a closed set. Let $U$ be an open set, so that $C \subseteq U$. Since $U$ is open, then $X \backslash U$ is closed and disjoint from $C$. Since $X$ is compact and Hausdorff, then it is normal (see \cite[p111]{lee2011IntroductionTopologicalManifolds} and \cite[Exercise 4.78]{lee2011IntroductionTopologicalManifolds}), so we can apply Urysohn's Lemma \cite[Lemma 4.82]{lee2011IntroductionTopologicalManifolds}: there exists a continuous function $f_U : X \to [0,1]$ such that $f(C) = \{1\}$ and $f(X\backslash U) = \{0\}$. Note that since 
+    Let $(\mu_n)_{n \in \N}$ be a sequence of regular Borel measures converging weakly to the Borel regular measure $\mu$ and $C$ be a closed set. Let $U$ be an open set, so that $C \subseteq U$. Since $U$ is open, then $X \backslash U$ is closed and disjoint from $C$. Since $X$ is compact and Hausdorff, then it is normal (see \cite[p111]{lee2011IntroductionTopologicalManifolds} and \cite[Exercise 4.78]{lee2011IntroductionTopologicalManifolds}), so we can apply Urysohn's Lemma \cite[Lemma 4.82]{lee2011IntroductionTopologicalManifolds}: there exists a continuous function $f_U : X \to [0,1]$ such that $f(C) = \{1\}$ and $f(X\backslash U) = \{0\}$. Note that since 
     \begin{equation}
         \chi_C(x) \leq f_U(x) \leq \chi_U(x), \ \forall x \in X,
     \end{equation}
@@ -62,7 +62,7 @@ Note that if $X$ is compact, $\CC_c(X)$ is simply the set of continuous function
     \end{equation}
     Since the left-hand side of the inequality does not depend on $U$, we get
     \begin{equation}
-        \limsup_{n \to \infty}\mu_n(C) \leq \inf_{\substack{U \text{ open},\\ U \subseteq C}} \mu(U) = \mu(C),
+        \limsup_{n \to \infty}\mu_n(C) \leq \inf_{\substack{U \text{ open},\\ U \supseteq C}} \mu(U) = \mu(C),
     \end{equation}
     where the last equality follows by Borel regularity of $\mu$.
 \end{proof}

@@ -22,58 +22,49 @@ We now state the result on the algorithmic complexity of multivalued functions, 
 \begin{theorem}[Computable multivalued functions and complexity]\label{thm:computable multivalued functions and complexity}
     Let $f: \{0,1\}^\ast \rightrightarrows \{0,1\}^\ast$ be a computable multivalued function and $x \in \{0,1\}^\ast$. For all $y \in f(x)$,
     \begin{equation}\label{eq:main:thm:computable multivalued functions and complexity}
-        K(y) \leq K(x) + \log_2 \#f(x) + 2\log \log \#f(x) + \bigOx[1]{\len x}.
+        K[y] \leq K[x] + \log_2 \#f(x) + 2\log \log \#f(x) + \bigOx[1]{\len x}.
     \end{equation}
 \end{theorem}
 \begin{proof}
     Let $f: \{0,1\}^\ast \rightrightarrows \{0,1\}^\ast$ be a computable multivalued function. Then, by Definition \ref{def:computable_multivalued_function}, there exists $g : \{0,1\}^\ast \to \{0,1\}^\ast$ computable, such that 
     \begin{equation}
-        g(x) = \langle  f(x) \rangle,
+        g(x) = \langle  f(x) \rangle.
     \end{equation}
-    where $\bar y$ denotes the prefix-free encoding that we entroduced in the notation section. For $x \in \{0,1\}^\ast$, we let $y_1(x), y_2(x), \ldots, y_{\#f(x)}$ be the list of all the elements of $f(x)$, such that 
+    For $x \in \{0,1\}^\ast$, we let $y_1(x), y_2(x), \ldots, y_{\#f(x)}$ be the list of all the elements of $f(x)$, such that 
     \begin{equation}
         g(x) = \langle y_1(x), \ldots, y_{\#f(x)}(x) \rangle.
     \end{equation}
     We can then define a computable function $h: \{0,1\}^\ast \to \{0,1\}^\ast$ such that
     \begin{equation}
-        h(\langle x, i \rangle) = y_i(x),
+        h(\langle x, \bin(i) \rangle) = y_i(x),
     \end{equation}
-    through the following effective algorithm. On input $\langle x, i \rangle$, use the function $g$ to generate the sequence 
+    through the following effective algorithm. On input $\langle x, \bin(i) \rangle$, use the function $g$ to generate the sequence 
     \begin{equation}
         y = \langle y_1(x), \ldots, y_{\#f(x)}(x) \rangle.
     \end{equation} 
-    Then, use the sequence $y$ to enumerate the elements of $f(x)$ until reaching the $i$-th element, and output this element, which is $y_i(x)$. Hence, since $h$ is computable, one has
+    Then, use the sequence $y$ to enumerate the elements of $f(x)$ until reaching the $i$-th element, and output this element, which is $y_i(x)$. Hence, $h$ is computable and one has
     \begin{align}
-        K[y_i(x)] = K[h(\langle x, i \rangle)] &\osetlem{\ref{lem:computable functions decrease complexity}}{\leq} K[\langle x, i \rangle] + \bigOx[1]{\len x}\\
-        &\overset{(a)}{\leq} K[x] + K[i] + 2\log K[i] + \bigOx[1]{\len x},\\
-        &\overset{(b)}{\leq} K[x] + \len i + 2 \log \len i + \bigOx[1]{\len x}\\
+        K[y_i(x)] = K[h(\langle x, \bin(i) \rangle)] &\osetlem{\ref{lem:computable functions decrease complexity}}{\leq} K[\langle x, \bin(i) \rangle] + \bigOx[1]{\len x}\\
+        &\overset{(a)}{\leq} K[x] + K[i] + 2\log K[\bin(i)] + \bigOx[1]{\len x},\\
+        &\overset{(b)}{\leq} K[x] + \len \bin(i) + 2 \log \len \bin(i) + \bigOx[1]{\len x}\\
         &\leq K[x] + \log i + 2 \log \log i + \bigOx[1]{\len x},\\
         &\leq K[x] + \log \#f(x) + 2 \log \log \#f(x) + \bigOx[1]{\len x},
     \end{align}
-    for all $x \in \{0,1\}^\ast$ and $1 \leq i \leq \#f(x)$, where (a) and (b) follows from \cite[Example 2.1.5, Theorem 2.1.2]{li2008introduction}, respectively.
+    for all $x \in \{0,1\}^\ast$ and $1 \leq i \leq \#f(x)$, where (a) and (b) follow from \cite[Example 2.1.5]{li2008introduction} and \cite[Theorem 2.1.2]{li2008introduction}, respectively.
 \end{proof}
 
-As mentionned in previous section, we will consider relative algorithmic complexity defined in (\ref{eq:definition of relative algorithmic complexity}). We further establish a result for multivalued functions that are computable relatively to a certain sequence $\xf \in \{0,1\}^\N$.
-\begin{definition}(Relatively computable function)\label{def:relatively computable function}
-    A function $g : \{0,1\}^\ast \to \{0,1\}^\ast$ is said to be computable relatively to $\yf\in \{0,1\}^\N$ if there exists an effective algorithm $h: \{0,1\}^\ast \to \{0,1\}^\ast$, such that for all $x \in \{0,1\}^\ast$, there exists a prefix $y$ of $\yf$ satisfying
-    \begin{equation}\label{eq:main:def:relatively computable function}
-        g(x) = h(\langle x, y\rangle).
-    \end{equation}
-    For $s \in \R$, we say that a multivalued function $f$ is computable relatively to $s$ if it is computable relatively to the greedy binary expansion $\yf$ of $\{s\} := s - \lfloor s \rfloor$.
-\end{definition}
- Based on the definition of relatively computable function, we define relatively computable multivalued functions.
+As mentionned in previous section, we will consider algorithmic complexity relative to $\beta \in (1,2)$, defined in (\ref{eq:algorithmic complexity relatively to beta}). Accordingly, we define functions that are computable relatively to $\beta \in (1,2)$ as being the functions that are computable relatively to $\yf_\beta$, where $\yf_\beta \in \{0,1\}^\N$ is the greedy binary expansion of $\beta - 1$. We further study the notion multivalued functions that are computable relatively to $\beta \in (1,2)$.
 \begin{definition}[Relatively computable multivalued function]\label{def:relatively computable multivalued function}
-    Let $f: \{0,1\}^\ast \rightrightarrows \{0,1\}^\ast$ be a multivalued function. We say that $f$ is computable relatively to $\yf\in \{0,1\}^\N$ if there exists a function $g : \{0,1\}^\ast \to \{0,1\}^\ast$ computable relatively to $\yf$ such that 
+    Let $f: \{0,1\}^\ast \rightrightarrows \{0,1\}^\ast$ be a multivalued function. We say that $f$ is computable relatively to $\yf\in \{0,1\}^\N$ (resp. $\beta \in (1,2)$) if there exists a function $g : \{0,1\}^\ast \to \{0,1\}^\ast$ computable relatively to $\yf$ (resp. $\beta$) such that 
     \begin{equation}
         g(x) = \langle  f(x) \rangle. 
     \end{equation}
-    For $s \in \R$, we say that a multivalued function $f$ is computable relatively to $s$ if it is computable relatively to the greedy binary expansion $\yf$ of $\{s\} := s - \lfloor s \rfloor$.
 \end{definition}
 We can finally derive a relation for relative algorithmic complexity of multivalued functions.
 \begin{theorem}[Relatively computable multivalued functions and complexity]\label{thm:relatively computable multivalued functions and complexity}
     Let $f: \{0,1\}^\ast \rightrightarrows \{0,1\}^\ast$ be a multivalued function computable relatively to $\yf \in \{0,1\}^\N$ and $x \in \{0,1\}^\ast$. Then, 
     \begin{equation}\label{eq:main:thm:relatively functions computable multivalued  and complexity}
-        K(y|\yf) \leq K(x|\yf) + \log_2 \#f(x) + 2\log \log \#f(x) + \bigOx[1]{\len x},
+        K[y|\yf] \leq K[x|\yf] + \log_2 \#f(x) + 2\log \log \#f(x) + \bigOx[1]{\len x},
     \end{equation}
     for all $x \in \{0,1\}^\ast$ and $y \in f(x)$. Moreover, (\ref{eq:main:thm:relatively functions computable multivalued  and complexity}) also holds if we replace $\yf \in \{0,1\}^\N$ by $\beta\in(1,2)$.
 \end{theorem}
