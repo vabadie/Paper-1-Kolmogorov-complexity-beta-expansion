@@ -862,26 +862,26 @@ We are now ready to move on to the proofs on algorithmic complexity. We combine 
 \begin{lemma}
     Let $\beta \in (1,2)$, $s \in [0,1]$, $n \in \N$ and $\xf \in \Sigma_\beta(s)$. Then,
     \begin{equation}
-        \langle \yf_{1:n}, w_\beta(s,\xf_{1:n\log_\beta(2)})\rangle \in f_{\beta \to 2+tosses}(\xf_{1:n\log_\beta(2)}),
+        \langle \yf_{1:n}, w_\beta(s,\xf_{1:\nlogbeta})\rangle \in f_{\beta \to 2+tosses}(\xf_{1:\nlogbeta}),
     \end{equation}
     for all $n \in \N$, where $\yf$ is the greedy binary expansion of $s$.
 \end{lemma}
 \begin{proof}
     Let $\beta \in (1,2)$, $s \in [0,1]$, $n \in \N$, $\xf \in \Sigma_\beta(s)$ and define $\yf$ to be the greedy binary expansion of $s$. Then,
     \begin{equation}
-        \yf_{1:n} \in f_{\beta \to 2}(\xf_{1:n\log_\beta(2)}),
+        \yf_{1:n} \in f_{\beta \to 2}(\xf_{1:\nlogbeta}),
     \end{equation}
     and 
     \begin{equation}
-        \langle \Sigma_\beta(s, n \log_\beta(2)) \rangle \in f_{\beta, 1 \to all}(\xf_{1:n\log_\beta(2)}),
+        \langle \Sigma_\beta(s, \nlogbeta) \rangle \in f_{\beta, 1 \to all}(\xf_{1:\nlogbeta}),
     \end{equation}
     so 
     \begin{equation}
-        w_\beta(s, \xf_{1:n\log_\beta(2)}) = f_{\beta,1+all\to tosses}(\langle x, \langle \Sigma_\beta(s,n \log_\beta(2))\rangle\rangle) \in f_{\beta \to tosses}(\xf_{1:n\log_\beta(2)}).
+        w_\beta(s, \xf_{1:\nlogbeta}) = f_{\beta,1+all\to tosses}(\langle x, \langle \Sigma_\beta(s,\nlogbeta)\rangle\rangle) \in f_{\beta \to tosses}(\xf_{1:\nlogbeta}).
     \end{equation}
     Then,
     \begin{equation}
-        (\yf_{1:n}, w_\beta(s, \xf_{1:n\log_\beta(2)})) \in f_{\beta \to 2}(\xf_{1:n\log_\beta(2)}) \times f_{\beta \to tosses}(\xf_{1:n\log_\beta(2)}),
+        (\yf_{1:n}, w_\beta(s, \xf_{1:\nlogbeta})) \in f_{\beta \to 2}(\xf_{1:\nlogbeta}) \times f_{\beta \to tosses}(\xf_{1:\nlogbeta}),
     \end{equation}
     and the Lemma follows from (\ref{eq:main:def:f beta to 2 + noise}).
 \end{proof}
@@ -917,40 +917,40 @@ In what follows, we focus on $\beta$ being algebraic, and we hence replace $K[\c
 \begin{theorem}\label{thm:lower bound of kolmogorov complexity for beta expansions when beta is algebraic}
     Let $\beta \in (1,2)$ be an algebraic number, $s \in [0,1]$ and $n \in \N$. Denote by $\yf \in \{0,1\}^\N$ the greedy binary expansion of $s$. Then,
     \begin{align}\label{eq:algebraic:thm:lower bound of kolmogorov complexity for beta expansions when beta is algebraic}
-        K[\langle \yf_{1:n}, w_\beta(s,\xf_{1:n\log_\beta(2)})\rangle] &\leq K[\xf_{1:n\log_\beta(2)}] + 2n \log_\beta\left(L_\beta \Pi_\beta^+\right)
+        K[\langle \yf_{1:n}, w_\beta(s,\xf_{1:\nlogbeta})\rangle] &\leq K[\xf_{1:\nlogbeta}] + 2n \log_\beta\left(L_\beta \Pi_\beta^+\right)
         + \bigOx[\log n]{n},
     \end{align}
 for all $\xf \in \Sigma_\beta(s)$. Moreover, if $\beta$ is a Pisot number,
 \begin{equation}\label{eq:pisot:thm:lower bound of kolmogorov complexity for beta expansions when beta is algebraic}
-    K[\langle \yf_{1:n}, w_\beta(s,\xf_{1:n\log_\beta(2)})\rangle] \leq K[\xf_{1:n\log_\beta(2)}] + \bigOx[1]{n},
+    K[\langle \yf_{1:n}, w_\beta(s,\xf_{1:\nlogbeta})\rangle] \leq K[\xf_{1:\nlogbeta}] + \bigOx[1]{n},
 \end{equation}
 for all $\xf \in \Sigma_\beta(s)$. 
 \end{theorem}
 \begin{proof}
     Let $\beta \in (1,2)$ be an algebraic number, $s \in [0,1]$, $n \in \N$ and $\xf \in \Sigma_\beta(s)$. Then, by combination of 
     \begin{equation}
-        \langle \yf_{1:n}, w_\beta(s,\xf_{1:n\log_\beta(2)})\rangle \in f_{\beta \to 2+tosses}(\xf_{1:n\log_\beta(2)}).
+        \langle \yf_{1:n}, w_\beta(s,\xf_{1:\nlogbeta})\rangle \in f_{\beta \to 2+tosses}(\xf_{1:\nlogbeta}).
     \end{equation}
     Moreover, $f_{\beta \to 2+tosses}$ is computable. Hence, by Theorem \ref{thm:relatively computable multivalued functions and complexity},
     \begin{align}
-        K[\langle \yf_{1:n}, w_\beta(s,\xf_{1:n\log_\beta(2)})\rangle] &\leq K[\xf_{1:n\log_\beta(2)}] + \log \#f_{\beta \to 2+tosses}(\xf_{1:n\log_\beta(2)})\\
-        & + \log \log \#f_{\beta \to 2+tosses}(\xf_{1:n\log_\beta(2)}) + \bigOx[1]{n}.
+        K[\langle \yf_{1:n}, w_\beta(s,\xf_{1:\nlogbeta})\rangle] &\leq K[\xf_{1:\nlogbeta}] + \log \#f_{\beta \to 2+tosses}(\xf_{1:\nlogbeta})\\
+        & + \log \log \#f_{\beta \to 2+tosses}(\xf_{1:\nlogbeta}) + \bigOx[1]{n}.
     \end{align}
     Note that by Lemma \ref{lem:size of the multifunction converting a beta expansion into its noise and the binary expansion}, 
     \begin{equation}
-        \log \#f_{\beta \to 2+tosses}(\xf_{1:n\log_\beta(2)}) \leq 2n \log_\beta \left(L_\beta \Pi^+_\beta \right) + 2k_\beta \log_\beta n + \bigOx[1]{n}
+        \log \#f_{\beta \to 2+tosses}(\xf_{1:\nlogbeta}) \leq 2n \log_\beta \left(L_\beta \Pi^+_\beta \right) + 2k_\beta \log_\beta n + \bigOx[1]{n}
     \end{equation}
     and 
     \begin{equation}
-        \log \log \#f_{\beta \to 2+tosses}(\xf_{1:n\log_\beta(2)}) \leq \log n + \log \log_\beta n + \bigOx[1]{n},
+        \log \log \#f_{\beta \to 2+tosses}(\xf_{1:\nlogbeta}) \leq \log n + \log \log_\beta n + \bigOx[1]{n},
     \end{equation}
     hence (\ref{eq:algebraic:thm:lower bound of kolmogorov complexity for beta expansions when beta is algebraic}) follows. If specifically, $\beta$ is a Pisot number, then $L_\beta = \Pi^+_\beta = 1$ and $k_\beta = 0$, so 
     \begin{equation}
-        \log \#f_{\beta \to 2+tosses}(\xf_{1:n\log_\beta(2)}) \leq \bigOx[1]{n}
+        \log \#f_{\beta \to 2+tosses}(\xf_{1:\nlogbeta}) \leq \bigOx[1]{n}
     \end{equation}
     and hence
     \begin{equation}
-        \log \log \#f_{\beta \to 2+tosses}(\xf_{1:n\log_\beta(2)})\leq \bigOx[1]{n}.
+        \log \log \#f_{\beta \to 2+tosses}(\xf_{1:\nlogbeta})\leq \bigOx[1]{n}.
     \end{equation}
     (\ref{eq:pisot:thm:lower bound of kolmogorov complexity for beta expansions when beta is algebraic}) follows.
 \end{proof}
@@ -961,7 +961,7 @@ for all $\xf \in \Sigma_\beta(s)$.
 \begin{corollary}\label{cor:lower bound of kolmogorov complexity for beta expansions when beta is algebraic}
     Let $\beta \in (1,2)$ be an algebraic number, $s \in [0,1]$ and $n \in \N$. Denote by $\yf \in \{0,1\}^\N$ the greedy binary expansion of $s$. Then,
     \begin{align}
-        K[\xf_{1:n\log_\beta(2)}] &\geq K[\yf_{1:n}] + K[w_\beta(s,\xf_{1:n\log_\beta(2)})|\yf_{1:n}] - 2n \log_\beta\left(L_\beta \Pi_\beta^+\right) \nonumber\\ 
+        K[\xf_{1:\nlogbeta}] &\geq K[\yf_{1:n}] + K[w_\beta(s,\xf_{1:\nlogbeta})|\yf_{1:n}] - 2n \log_\beta\left(L_\beta \Pi_\beta^+\right) \nonumber\\ 
         &+ \bigOx[\log n]{n},\label{eq:main:cor:lower bound of kolmogorov complexity for beta expansions when beta is algebraic}
     \end{align}
     for all $\xf \in \Sigma_\beta(s)$.
@@ -976,11 +976,11 @@ for all $\xf \in \Sigma_\beta(s)$.
     \begin{equation}\label{eq:0:proof:cor:lower bound of kolmogorov complexity for beta expansions when beta is algebraic}
         K[\langle y,x\rangle] \geq K[y] + K[x|y] + \bigOx[\log n]{n},
     \end{equation}
-    for all $x \in \{0,1\}^n$ and $y \in \{0,1\}^{\leq n \log_\beta(2)}$. (\ref{eq:main:cor:lower bound of kolmogorov complexity for beta expansions when beta is algebraic}) follows immediately by combining (\ref{eq:0:proof:cor:lower bound of kolmogorov complexity for beta expansions when beta is algebraic}) and Theorem \ref{thm:lower bound of kolmogorov complexity for beta expansions when beta is algebraic}.
+    for all $x \in \{0,1\}^n$ and $y \in \{0,1\}^{\leq \nlogbeta}$. (\ref{eq:main:cor:lower bound of kolmogorov complexity for beta expansions when beta is algebraic}) follows immediately by combining (\ref{eq:0:proof:cor:lower bound of kolmogorov complexity for beta expansions when beta is algebraic}) and Theorem \ref{thm:lower bound of kolmogorov complexity for beta expansions when beta is algebraic}.
 \end{proof}
 \noindent We define a distribution of the Kolmogorov complexity of $\beta$-expansions. Let 
 \begin{equation}
-    \KK_\beta[s,n,k] := \left\{ x \in \Sigma_\beta(s,n\log_\beta(2)) : K[x] \leq K[\yf_{1:n}] + k - 2n \log_\beta\left(L_\beta \Pi_\beta^+\right)\right\}.
+    \KK_\beta[s,n,k] := \left\{ x \in \Sigma_\beta(s,\nlogbeta) : K[x] \leq K[\yf_{1:n}] + k - 2n \log_\beta\left(L_\beta \Pi_\beta^+\right)\right\}.
 \end{equation}
 
 \begin{corollary}
@@ -992,12 +992,12 @@ for all $\xf \in \Sigma_\beta(s)$.
 \begin{proof}
     Let $\beta \in (1,2)$ be an algebraic number, $s \in [0,1]$ and $n,k \in \N$. By Corollary \ref{cor:lower bound of kolmogorov complexity for beta expansions when beta is algebraic}, there exists $M \in \N$ such that 
     \begin{align}
-        K[\xf_{1:n\log_\beta(2)}] &\geq K[\yf_{1:n}] + K[w_\beta(s,\xf_{1:n\log_\beta(2)})|\yf_{1:n}] - 2n \log_\beta\left(L_\beta \Pi_\beta^+\right)\\ 
+        K[\xf_{1:\nlogbeta}] &\geq K[\yf_{1:n}] + K[w_\beta(s,\xf_{1:\nlogbeta})|\yf_{1:n}] - 2n \log_\beta\left(L_\beta \Pi_\beta^+\right)\\ 
         &- M\log n,
     \end{align}
     for all $\xf \in \Sigma_\beta(s)$. Define the set 
     \begin{equation}
-        \WW_\beta[s,n,k] := \left\{ x \in \Sigma_\beta(s,n\log_\beta(2)) : K[w_\beta(s,x)|\yf_{1:n}] \leq  k - M\log n\right\}.
+        \WW_\beta[s,n,k] := \left\{ x \in \Sigma_\beta(s,\nlogbeta) : K[w_\beta(s,x)|\yf_{1:n}] \leq  k - M\log n\right\}.
     \end{equation}
     Then, by Corollary \ref{cor:lower bound of kolmogorov complexity for beta expansions when beta is algebraic}, we have 
     \begin{equation}
@@ -1005,8 +1005,8 @@ for all $\xf \in \Sigma_\beta(s)$.
     \end{equation}
     For $z \in \{0,1\}^\ast$, let $z^\ast$ be the canonical sequence for $z$ with respect to $\yf_{1:n}$, i.e., the lexicographically maximal sequence satisfying $|z^\ast| = K[z|\yf_{1:n}]$. Note that $z \mapsto z^\ast$ injective. Note that, by injectivity of $x\mapsto w_\beta(s,x)$, we have
     \begin{align}
-        \#\WW_\beta[s,n,k] &= \#\left\{ x \in \Sigma_\beta(s,n\log_\beta(2)) : K[w_\beta(s,x)|\yf_{1:n}] \leq  k + M\log n\right\}\\
-        &\overset{(a)}{=} \#\left\{ w_\beta(s,x) : x \in \Sigma_\beta(s,n\log_\beta(2)),\right.\\
+        \#\WW_\beta[s,n,k] &= \#\left\{ x \in \Sigma_\beta(s,\nlogbeta) : K[w_\beta(s,x)|\yf_{1:n}] \leq  k + M\log n\right\}\\
+        &\overset{(a)}{=} \#\left\{ w_\beta(s,x) : x \in \Sigma_\beta(s,\nlogbeta),\right.\\
         & \hspace{0.45in} \left. |K[w_\beta(s,x)|\yf_{1:n}] \leq  k + M\log n\right\}\\
         &\leq \#\left\{ z \in \{0,1\}^\ast : K[z|\yf_{1:n}] \leq k + M \log n\right\}\\
         &\overset{(b)}{\leq} \{ z^\ast \in  : z \in \{0,1\}^\ast,  |z^\ast| \leq k + M \log n\}\\

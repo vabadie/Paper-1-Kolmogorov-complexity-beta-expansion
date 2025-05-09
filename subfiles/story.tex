@@ -248,7 +248,7 @@ To the best of our knowledge, there is no literature at all relating the algorit
 			\sum_{i=1}^\infty \xf_i \beta^{-i} \leq 1.
 		\end{equation}
 		We denote by $\Omega_\beta$ the set of such sequences.
-		\item $\beta$-expansions do not approximate real numbers with the same rate as binary expansions. This has a consequence on how to interprete their relative algorithmic complexities. Indeed, for typical $s \in [0,1]$, the first $n$ bits of the binary expansion approximate $s$ with a rate of $\sim 2^{-n}$, while the first $n$ bits of $\beta$-expansions approximate $s$ with a rate of $\propto \beta^{-n}$. We need to compare the algorithmic complexities of binary expansions and $\beta$-expansions which approximate $s$ with the same order of magnitude. Therefore, if $\xf$ is a $\beta$-expansion of $s$ and $\yf$ is a binary expansion of $s$ we need to compare $K[\yf_{1:n}]$ to $K[\xf_{1:n\log_\beta(2)}]$. 
+		\item $\beta$-expansions do not approximate real numbers with the same rate as binary expansions. This has a consequence on how to interprete their relative algorithmic complexities. Indeed, for typical $s \in [0,1]$, the first $n$ bits of the binary expansion approximate $s$ with a rate of $\sim 2^{-n}$, while the first $n$ bits of $\beta$-expansions approximate $s$ with a rate of $\propto \beta^{-n} = 2^{-n\log_\beta(2)}$. We need to compare the algorithmic complexities of binary expansions and $\beta$-expansions which approximate $s$ with the same order of magnitude. Therefore, if $\xf$ is a $\beta$-expansion of $s$ and $\yf$ is a binary expansion of $s$ we need to compare $K[\yf_{1:n}]$ to $K[\xf_{1:\nlogbeta}]$, where $n(\beta) := \lceil n \log_\beta(2) \rceil$, for $n \in \N$ and $\beta \in (1,2]$.
 		\item By (\ref{eq:comparison between the kolmogorov complexity of the greedy and lazy expansions}), the greedy and lazy binary expansions have similar algorithmic complexity. Therefore, without loss of generality, we will focus on comparing the algorithmic complexity of the $\beta$-expansions of $s$ to the algorithmic complexity of the greedy binary expansion of $s$.
 		\item The base $\beta \in (1,2)$ itself might contain a lot of information, which might be reflected in terms of algorithmic complexity. To avoid artifacts due to the information content of $\beta$, we evaluate the algorithmic complexity relative to $\beta$, that is defined based on the algorithmic complexity relative to infinite sequences. For $\beta \in (1,2)$, let $\yf_\beta$ be the greedy binary expansion of $\beta -1$. Then, we define 
 		\begin{equation}\label{eq:algorithmic complexity relatively to beta}
@@ -258,15 +258,15 @@ To the best of our knowledge, there is no literature at all relating the algorit
 	% \begin{definition}(Relative Kolmogorov complexity)\label{def:relative kolmogorov complexity} A REVOIR
 	% 	We define the Kolmogorov complexity of $x \in \{0,1\}^\N$ relative to $\yf \in \{0,1\}^\N$ as the length of the shortest binary sequence $x^\ast$ such that there exists a prefix $y$ of $\yf$ satisfying $\Uref(\langle x^\ast, y \rangle) = x$. It is denoted $K[x|\yf]$. Moreover, we define $K[x|\beta] := K[x|\yf_\beta]$, where $\yf_\beta$ is the greedy binary expansion of $\beta-1$.
 	% \end{definition}
-	In what follows, we will hence consider $\xf$ a $\beta$-expansion of $s$, and the greedy binary expansion $\yf$ of $s$, and compare $K[\yf_{1:n}|\beta]$ to $K[\xf_{1:n\log_\beta(2)}|\beta]$. This comparison is made formal through the evaluation of the following quantity.
+	In what follows, we will hence consider $\xf$ a $\beta$-expansion of $s$, and the greedy binary expansion $\yf$ of $s$, and compare $K[\yf_{1:n}|\beta]$ to $K[\xf_{1:\nlogbeta}|\beta]$. This comparison is made formal through the evaluation of the following quantity.
 	\begin{definition}
 		For $\xf \in \Omega_\beta$, we define
 		\begin{equation}
-			\underline\Delta_\beta(\xf) = \liminf_{n \to \infty}\frac{K[\xf_{1:n\log_\beta(2)}|\beta] - K[\yf_{1:n}|\beta]}{n},
+			\underline\Delta_\beta(\xf) = \liminf_{n \to \infty}\frac{K[\xf_{1:\nlogbeta}|\beta] - K[\yf_{1:n}|\beta]}{n},
 		\end{equation}
 		and
 		\begin{equation}
-			\bar\Delta_\beta(\xf) = \limsup_{n \to \infty}\frac{K[\xf_{1:n\log_\beta(2)}|\beta] - K[\yf_{1:n}|\beta]}{n},
+			\bar\Delta_\beta(\xf) = \limsup_{n \to \infty}\frac{K[\xf_{1:\nlogbeta}|\beta] - K[\yf_{1:n}|\beta]}{n},
 		\end{equation}
 		where $\yf$ is the greedy binary expansion of $s = \sum_{i=1}^\infty \xf_i \beta^{-i}$.
 	\end{definition}
@@ -283,7 +283,7 @@ To the best of our knowledge, there is no literature at all relating the algorit
 	\end{theorem}
 	Our second result is a trivial upper bound, which is mere consequence of the definition of algorithmic complexity: the identity function $\operatorname{id} : \{0,1\}^\ast \to \{0,1\}^\ast$ is computable, so by Definition of $\Uref$, there exists a word $p \in \{0,1\}^\ast$ so that $\Uref(\langle x, p \rangle, \yf_\beta) = \operatorname{id}(x) = x$ for every $x \in \{0,1\}^\ast$ (recall that $\yf_\beta$ is the greedy binary expansion of $\beta - 1$). Further, the Definition of relative algorithmic complexity implies that $K[x|\beta] \leq |\langle x,p\rangle| = |x| + 2|p|$ for all $x \in \{0,1\}^\ast$. As a consequence, we get that
 	\begin{equation}
-		\underline\Delta_\beta(\xf) \leq \bar\Delta_\beta(\xf) \leq  \limsup_{n \to \infty} \frac{K[\xf_{1:n\log_\beta(2)}|\beta]}{n} \leq \limsup_{n \to \infty} \frac{|\xf_{1:n\log_\beta(2)}| + 2|p|}{n} = \log_\beta(2).
+		\underline\Delta_\beta(\xf) \leq \bar\Delta_\beta(\xf) \leq  \limsup_{n \to \infty} \frac{K[\xf_{1:\nlogbeta}|\beta]}{n} \leq \limsup_{n \to \infty} \frac{|\xf_{1:\nlogbeta}| + 2|p|}{n} = \log_\beta(2).
 	\end{equation}
 	This results in the following Lemma.
 	\begin{lemma}\label{lem:trivial upper bound on the relative compressibility of beta expansions}
@@ -296,7 +296,7 @@ To the best of our knowledge, there is no literature at all relating the algorit
 	% \begin{theorem}
 	% 	Let $\beta \in (1,2)$ be a computable number. There exists a constant $c > 0$ depending only on $\beta$, such that for all $s \in [0,1]$, every binary expansion $\xf$ of $s$ and every $\beta$-expansion $\xf'$ of $s$ satisfy
 	% 	\begin{equation}
-	% 		K[\xf_{1:n}] \leq K[\xf'_{1:n\log_\beta(2)}] + c,
+	% 		K[\xf_{1:n}] \leq K[\xf'_{1:\nlogbeta}] + c,
 	% 	\end{equation}
 	% 	for all $n \in \N$.
 	% \end{theorem}
@@ -390,14 +390,14 @@ To the best of our knowledge, there is no literature at all relating the algorit
 	\end{equation}
 	The proof of this statement actually yields an even stronger result, namely 
 	\begin{equation}
-		K[\yf_{1:n}|\beta] \leq K[\xf_{1:n\log_\beta(2)}|\beta] + \bigOx[1]{n},
+		K[\yf_{1:n}|\beta] \leq K[\xf_{1:\nlogbeta}|\beta] + \bigOx[1]{n},
 	\end{equation}
-	for all $n \in \N$, and all $\xf \in \Omega_\beta$, where $\yf$ is the greedy binary expansion of $s := \sum_{i=1}^\infty \xf_i \beta^{-i}$. The question is now to estimate the distribution of $K[\xf_{1:n\log_\beta(2)}|\beta] - K[\yf_{1:n}|\beta]$, in order to understand if for typical $\xf \in \Omega_\beta$, $K[\xf_{1:n\log_\beta(2)}|\beta]$ tends to be close or far from $K[\yf_{1:n}|\beta]$. This results in the study of the following set
+	for all $n \in \N$, and all $\xf \in \Omega_\beta$, where $\yf$ is the greedy binary expansion of $s := \sum_{i=1}^\infty \xf_i \beta^{-i}$. The question is now to estimate the distribution of $K[\xf_{1:\nlogbeta}|\beta] - K[\yf_{1:n}|\beta]$, in order to understand if for typical $\xf \in \Omega_\beta$, $K[\xf_{1:\nlogbeta}|\beta]$ tends to be close or far from $K[\yf_{1:n}|\beta]$. This results in the study of the following set
 	\begin{align}
-		\KK_\beta[s,n,k] := & \left\{ \xf_{1:n\log_\beta(2)}: \xf \ \text{is a} \ \beta\text{-expansion of} \ s,\right. \nonumber\\
-		& \hspace{0.86in}\left. K[\xf_{1:n\log_\beta(2)}|\beta] \leq K[\yf_{1:n}|\beta] + k\right\},
+		\KK_\beta[s,n,k] := & \left\{ \xf_{1:\nlogbeta}: \xf \ \text{is a} \ \beta\text{-expansion of} \ s,\right. \nonumber\\
+		& \hspace{0.86in}\left. K[\xf_{1:\nlogbeta}|\beta] \leq K[\yf_{1:n}|\beta] + k\right\},
 	\end{align}
-	for $s \in [0,1]$, $n,k \in \N$. For $s \in [0,1]$, $n,k \in \N$, the set $\KK_\beta[s,n,k]$ contains the prefixes of length $n\log_\beta(2)$ of those $\beta$-expansions of $s$ that display an algorithmic complexity that is higher than the algorithmic complexity of the corresponding greedy binary expansion by at most $k$ bits. We establish the following result.
+	for $s \in [0,1]$, $n,k \in \N$. For $s \in [0,1]$, $n,k \in \N$, the set $\KK_\beta[s,n,k]$ contains the prefixes of length $\nlogbeta$ of those $\beta$-expansions of $s$ that display an algorithmic complexity that is higher than the algorithmic complexity of the corresponding greedy binary expansion by at most $k$ bits. We establish the following result.
 	\begin{theorem}\label{thm:distribution of algorithmic complexity of beta expansions when beta is pisot}
 		Let $\beta \in (1,2)$ be a Pisot number, $s \in [0,1]$ and $n,k \in \N$. Then, there exists $M \in \N$ such that
 		\begin{equation}
@@ -406,7 +406,7 @@ To the best of our knowledge, there is no literature at all relating the algorit
 	\end{theorem}
 	It was established in \cite[Theorem 1]{feng2010GrowthRatebetaexpansions} that if $\beta$ is a Pisot number, then for almost all $s \in [0,1]$, there exists a constant $\gamma > 0$ such that the set 
 	\begin{equation}
-		\Sigma_\beta[s,n] = \left\{ \xf_{1:n\log_\beta(2)}: \xf \ \text{is a} \ \beta\text{-expansion of}\ s\right\}
+		\Sigma_\beta[s,n] = \left\{ \xf_{1:\nlogbeta}: \xf \ \text{is a} \ \beta\text{-expansion of}\ s\right\}
 	\end{equation}
 	satisfies 
 	\begin{equation}

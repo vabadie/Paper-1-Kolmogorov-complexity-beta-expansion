@@ -10,16 +10,16 @@ The base of the incoming proofs is the construction of a multivalued function $f
 \begin{definition}\label{def:multivalued function converting from base 2 to base beta}
     Let $f_{2 \to\beta} : \{0,1\}^\ast \rightrightarrows \{0,1\}^\ast$ be the multivalued function defined as 
 \begin{equation}\label{eq:main:def:multivalued function converting from base 2 to base beta}
-    f_{2 \to \beta}(x) := \left\{ y \in \{0,1\}^{\len x \log_\beta(2)} :  \sum_{i=1}^{\len y} y_i \beta^{-i} \in_{|x|} J(x)\right\},
+    f_{2 \to \beta}(x) := \left\{ y \in \{0,1\}^{\nlogbeta} :  \sum_{i=1}^{\nlogbeta} y_i \beta^{-i} \in_n J(x)\right\},
 \end{equation}
-for all $x \in \{0,1\}^\ast$, where 
+for all $x \in \{0,1\}^\ast$, where $n := |x|$ and
 \begin{equation}\label{eq:J x:def:multivalued function converting from base 2 to base beta}
-    J(x) := \left[\sum_{i=1}^{\len x} x_i 2^{-i} - 2^{-\len x},  \sum_{i=1}^{\len x} x_i 2^{-i}+ 2^{-\len x} \right].
+    J(x) := \left[\sum_{i=1}^{n} x_i 2^{-i} - 2^{-n},  \sum_{i=1}^{n} x_i 2^{-i}+ 2^{-n} \right].
 \end{equation}
 \end{definition}
 \noindent By the same arguments that led to the definition of $f_{\beta \to 2}$, one can establish that
 \begin{equation}\label{eq:multivalued function converting from base 2 to base beta is a supset of the beta prefixes}
-    \Sigma_\beta(s,n\log_\beta(2)) \subseteq f_{2 \to \beta}(\xf_{1:n}),
+    \Sigma_\beta(s,\nlogbeta) \subseteq f_{2 \to \beta}(\xf_{1:n}),
 \end{equation}
 for all $s \in [0,1]$ and $\xf \in \Sigma_2(s)$. The main difference with previous section, is that $\#f_{2 \to \beta}(x)$ is not necessarily bounded by a constant for all $x \in \{0,1\}^\ast$. For example, it follows from \cite[Theorem 1.5]{feng2010GrowthRatebetaexpansions} that there exists $\alpha > 0$ such that 
 \begin{equation}
@@ -45,16 +45,16 @@ In this part, we consider $\R$ as equipped with the Borel $\sigma$-algebra $\BB$
         0 \text{ if } t \notin A,
     \end{cases}
 \end{equation}
-for all $A \in \BB$. Hence, for all $y \in \{0,1\}^{n\log_\beta(2)}$, we have
+for all $A \in \BB$. Hence, for all $y \in \{0,1\}^{\nlogbeta}$, we have
 \begin{equation}\label{eq:1:introduction to the formalism of Bernoulli convolution}
     \delta_{\sum_{i=1}^{\len y} y_i \beta^{-i}}(J(x)^{(n)}) = \begin{cases}
         1 \text{ if } \sum_{i=1}^{\len y} y_i \beta^{-i} \in J(x)^{(n)},\\
         0 \text{ if } \sum_{i=1}^{\len y} y_i \beta^{-i} \notin J(x)^{(n)},
     \end{cases}
 \end{equation}
-By summing over all $y \in \{0,1\}^{n\log_\beta(2)}$, and by definition of $f_{\beta \to 2}(x)$ in (\ref{eq:main:def:multivalued function converting from base 2 to base beta}), we get
+By summing over all $y \in \{0,1\}^{\nlogbeta}$, and by definition of $f_{\beta \to 2}(x)$ in (\ref{eq:main:def:multivalued function converting from base 2 to base beta}), we get
 \begin{equation}\label{eq:2:introduction to the formalism of Bernoulli convolution}
-    \sum_{y \in \{0,1\}^{n\log_\beta(2)}}\delta_{\sum_{i=1}^{\len y} y_i \beta^{-i}}(J(x)^{(n)}) \geq \#f(x).
+    \sum_{y \in \{0,1\}^{\nlogbeta}}\delta_{\sum_{i=1}^{\len y} y_i \beta^{-i}}(J(x)^{(n)}) \geq \#f(x).
 \end{equation}
 This framework matches exactly that of the Bernoulli convolution, introduced in \cite[Section 6]{jessenDistributionFunctionsRiemann}. Define $C(I_\beta)$ to be the set of continuous functions $f : I_\beta \to \R$, and $\MM$ to be the set of regular Borel measures on $I_\beta$ (see Appendix \ref{sec:app:weak star limits}). Consider the sequence of regular Borel measures $(\nu_{\beta,m})_{m \in \N}$ defined by 
 \begin{equation}\label{eq:3:introduction to the formalism of Bernoulli convolution}
@@ -62,7 +62,7 @@ This framework matches exactly that of the Bernoulli convolution, introduced in 
 \end{equation}
 Note that (\ref{eq:2:introduction to the formalism of Bernoulli convolution}) can be reformulated as
 \begin{equation}\label{eq:4:introduction to the formalism of Bernoulli convolution}
-    2^{n\log_\beta(2)} \nu_{\beta,n\log_\beta(2)}(J(x)) \geq \#f_{\beta \to 2}(x).
+    2^{\nlogbeta} \nu_{\beta,\nlogbeta}(J(x)) \geq \#f_{\beta \to 2}(x).
 \end{equation}
 The Bernoulli convolution $\nu_\beta$ is defined as being the weak limit in $\MM$ of the sequence $(\nu_{\beta,m})_{m \in \N}$, i.e., the unique regular Borel measure satisfies
 \begin{equation}\label{eq:5:introduction to the formalism of Bernoulli convolution}
@@ -83,26 +83,26 @@ for all $a, b \in I_\beta$, $a < b$. We can exploit this to study the asymptotic
 \begin{proof}
     The proof follows that of \cite[Lemma 3.4]{kempton2013counting}. Let $\beta \in (1,2)$ such that $\nu_\beta$ is absolutely continuous with respect to $\lambda$, let $h_\beta : I_\beta \to \R$ be the Radon-Nikodym derivative of $\nu_\beta$, and fix $\yf \in \{0,1\}^\N$. For $n \in \N$, define $a_n$ and $b_n$ so that $J(\yf_{1:n}) = [a_n,b_n]$, according to (\ref{eq:J x:def:multivalued function converting from base 2 to base beta}). By definition,
     \begin{align}
-        f_{2 \to \beta}(\yf_{1:n}) &=  \left\{ y \in \{0,1\}^{n \log_\beta(2)} :  \sum_{i=1}^{n \log_\beta(2)} y_i \beta^{-i} \in_{n} J(\yf_{1:n})\right\}\\
-        &\subseteq \left\{ y \in \{0,1\}^{n \log_\beta(2)} :  \sum_{i=1}^{n \log_\beta(2)} y_i \beta^{-i} \in J(\yf_{1:n})^{(n)}\right\} =: A(\yf_{1:n}).
+        f_{2 \to \beta}(\yf_{1:n}) &=  \left\{ y \in \{0,1\}^{\nlogbeta} :  \sum_{i=1}^{\nlogbeta} y_i \beta^{-i} \in_{n} J(\yf_{1:n})\right\}\\
+        &\subseteq \left\{ y \in \{0,1\}^{\nlogbeta} :  \sum_{i=1}^{\nlogbeta} y_i \beta^{-i} \in J(\yf_{1:n})^{(n)}\right\} =: A(\yf_{1:n}).
     \end{align}
-    We study the cardinality of $A(\yf_{1:n})$, which turns out to be an upper bound to the cardinality of $f_{2 \to \beta}(\yf_{1:n})$. Fix $n \in \N$, and define, for all $m \geq n\log_\beta(2)$, then set 
+    We study the cardinality of $A(\yf_{1:n})$, which turns out to be an upper bound to the cardinality of $f_{2 \to \beta}(\yf_{1:n})$. Fix $n \in \N$, and define, for all $m \geq \nlogbeta$, then set 
     \begin{equation}
-        A_{m,n} := \{ z \in \{0,1\}^{m} : z_{1:n\log_\beta(2)} \in A(\yf_{1:n}) \}.
+        A_{m,n} := \{ z \in \{0,1\}^{m} : z_{1:\nlogbeta} \in A(\yf_{1:n}) \}.
     \end{equation}
     We make the following two remarks:
     \begin{enumerate}[label=(\alph*)]
-        \item For all $y \in A(\yf_{1:n})$, there are $2^{m-n\log_\beta(2)}$ elements in $A_{m,n}$ that are suffixes of $y$. This implies that
+        \item For all $y \in A(\yf_{1:n})$, there are $2^{m-\nlogbeta}$ elements in $A_{m,n}$ that are suffixes of $y$. This implies that
         \begin{equation}
-            \# A_{m,n} \geq 2^{m - n\log_\beta(2)} \# A(\yf_{1:n}).
+            \# A_{m,n} \geq 2^{m - \nlogbeta} \# A(\yf_{1:n}).
         \end{equation}
-        \item For every $z \in A_{m,n}$, since $z_{1:n\log_\beta(2)} \in A(\yf_{1:n})$, we have that
+        \item For every $z \in A_{m,n}$, since $z_{1:\nlogbeta} \in A(\yf_{1:n})$, we have that
         \begin{align}
-            a_n - 2^{-n} &\overset{(a)}{\leq} \sum_{i=1}^{n\log_\beta(2)} z_i \beta^{-i} \leq \sum_{i=1}^{m} z_i \beta^{-i} \leq \sum_{i=1}^{\infty} z_i \beta^{-i}\\
-            & = \sum_{i=1}^{n\log_\beta(2)} z_i \beta^{-i} + \sum_{i=n\log_\beta(2)+1}^{\infty} z_i \beta^{-i}\\
-            & \leq \sum_{i=1}^{n\log_\beta(2)} z_i \beta^{-i} + \sum_{i=n\log_\beta(2)+1}^{\infty} \beta^{-i}\\
-            & = \sum_{i=1}^{n\log_\beta(2)} z_i \beta^{-i} + \frac{\beta^{-n\log_\beta(2)}}{\beta-1}\\
-            & \overset{(b)}{\leq} b_n + 2^{-n} + \frac{\beta^{-n\log_\beta(2)}}{\beta-1}\\
+            a_n - 2^{-n} &\overset{(a)}{\leq} \sum_{i=1}^{\nlogbeta} z_i \beta^{-i} \leq \sum_{i=1}^{m} z_i \beta^{-i} \leq \sum_{i=1}^{\infty} z_i \beta^{-i}\\
+            & = \sum_{i=1}^{\nlogbeta} z_i \beta^{-i} + \sum_{i=\nlogbeta+1}^{\infty} z_i \beta^{-i}\\
+            & \leq \sum_{i=1}^{\nlogbeta} z_i \beta^{-i} + \sum_{i=\nlogbeta+1}^{\infty} \beta^{-i}\\
+            & = \sum_{i=1}^{\nlogbeta} z_i \beta^{-i} + \frac{\beta^{-\nlogbeta}}{\beta-1}\\
+            & \overset{(b)}{\leq} b_n + 2^{-n} + \frac{\beta^{-\nlogbeta}}{\beta-1}\\
             & \leq b_n + 2^{-n} + \frac{2^{-n}}{\beta-1},
         \end{align}
         where (a) and (b) follow from the definition of $A(\yf_{1:n})$ and (\ref{eq:definition of superset of size 2 -n more}). Hence, for every $z \in A_{m,n}$,
@@ -116,16 +116,16 @@ for all $a, b \in I_\beta$, $a < b$. We can exploit this to study the asymptotic
     \end{enumerate}
     Combining these two remarks, we get that 
     \begin{equation}
-        2^{-n\log_\beta(2)} \# A(\yf_{1:n}) \leq \nu_{\beta,m}\left(\left[a_n - 2^{-n}, b_n + 2^{-n} + \frac{2^{-n}}{\beta-1}\right]\right),
+        2^{-\nlogbeta} \# A(\yf_{1:n}) \leq \nu_{\beta,m}\left(\left[a_n - 2^{-n}, b_n + 2^{-n} + \frac{2^{-n}}{\beta-1}\right]\right),
     \end{equation}
     which then translates to 
     \begin{equation}
-        2^{-n\log_\beta(2)} \# f_{2 \to \beta}(\yf_{1:n}) \leq \nu_{\beta,m}\left(\left[a_n - 2^{-n}, b_n + 2^{-n} + \frac{2^{-n}}{\beta-1}\right]\right),
+        2^{-\nlogbeta} \# f_{2 \to \beta}(\yf_{1:n}) \leq \nu_{\beta,m}\left(\left[a_n - 2^{-n}, b_n + 2^{-n} + \frac{2^{-n}}{\beta-1}\right]\right),
     \end{equation}
     since $f_{2 \to \beta}(\yf_{1:n}) \subseteq A(\yf_{1:n})$.
     By taking the limit superior when $m \to \infty$, Lemma \ref{app:lem:sequence of weakly convergent measures can be upper bounded by the limit on compact sets} delivers
     \begin{equation}\label{eq:0:proof:thm:asymptotic behavior of card f x when the Bernoulli convolution is absolutely continuous}
-        2^{-n\log_\beta(2)} \# f_{2 \to \beta}(\yf_{1:n}) \leq \nu_{\beta}\left(\left[a_n - 2^{-n}, b_n + 2^{-n} + \frac{2^{-n}}{\beta-1}\right]\right).
+        2^{-\nlogbeta} \# f_{2 \to \beta}(\yf_{1:n}) \leq \nu_{\beta}\left(\left[a_n - 2^{-n}, b_n + 2^{-n} + \frac{2^{-n}}{\beta-1}\right]\right).
     \end{equation}
     We assumed that $\nu_\beta$ is absolutely continuous and of Radon-Nikodym derivative $h_\beta$. Hence, by the Radon-Nikodym theorem, we have
     \begin{equation}\label{eq:1:proof:thm:asymptotic behavior of card f x when the Bernoulli convolution is absolutely continuous}
@@ -171,13 +171,13 @@ for all $a, b \in I_\beta$, $a < b$. We can exploit this to study the asymptotic
         &\limsup_{n \to \infty} \frac{\log\#(f_{2 \to \beta}(\yf_{1:n}))}{n} \leq \log_\beta(2/\beta)\label{eq:log f:cor:upper bound on the relative compressibility of beta expansions for almost all beta in 1 2}\\
         &\limsup_{n \to \infty} \frac{\log\log\#(f_{2 \to \beta}(\yf_{1:n}))}{n} = 0.\label{eq:log log f:cor:upper bound on the relative compressibility of beta expansions for almost all beta in 1 2}
     \end{align}
-    Finally, note that by definition of $f_{2 \to \beta}$, $\xf_{1:n\log_\beta(2)} \in f_{2 \to \beta}(\yf_{1:n})$ for all $n \in \N$. Hence, by Theorem \ref{thm:computable multivalued functions and complexity}, one has
+    Finally, note that by definition of $f_{2 \to \beta}$, $\xf_{1:\nlogbeta} \in f_{2 \to \beta}(\yf_{1:n})$ for all $n \in \N$. Hence, by Theorem \ref{thm:computable multivalued functions and complexity}, one has
     \begin{align}
-        K[\xf_{1:n\log_\beta(2)}] &\leq K[\yf_{1:n}] + \log\#(f_{2 \to \beta}(\yf_{1:n})) + \log\log\#(f_{2 \to \beta}(\yf_{1:n})) + \bigOx[1]{n}.
+        K[\xf_{1:\nlogbeta}] &\leq K[\yf_{1:n}] + \log\#(f_{2 \to \beta}(\yf_{1:n})) + \log\log\#(f_{2 \to \beta}(\yf_{1:n})) + \bigOx[1]{n}.
     \end{align}
     By incorporation of (\ref{eq:log f:cor:upper bound on the relative compressibility of beta expansions for almost all beta in 1 2}) and (\ref{eq:log log f:cor:upper bound on the relative compressibility of beta expansions for almost all beta in 1 2}), we get
     \begin{equation}
-        \bar\Delta_\beta(\xf) = \limsup_{n\to\infty} \frac{K[\xf_{1:n\log_\beta(2)}]-K[\yf_{1:n}]}{n} \leq \log_\beta(2/\beta).
+        \bar\Delta_\beta(\xf) = \limsup_{n\to\infty} \frac{K[\xf_{1:\nlogbeta}]-K[\yf_{1:n}]}{n} \leq \log_\beta(2/\beta).
     \end{equation}
 \end{proof}
 
@@ -234,7 +234,7 @@ As this result is tied to algebraic considerations that deviate a lot from the m
 \begin{lemma}\label{lem:bounding the size of the output set of the multivalued function projected on lexicographically maximal sequences}
     Let $\beta \in (1,2)$ be an algebraic number and $n \in \N$. Then,
     \begin{equation}\label{eq:main:lem:bounding the size of the output set of the multivalued function projected on lexicographically maximal sequences}
-        \# (M_\beta \circ f_{2 \to \beta}(\yf_{1:n})) \leq \frac{4}{L_\beta\Pi_\beta}(n\log_\beta(2))^{k_\beta}\left(L_\beta \Pi_\beta^+ \right)^{n\log_\beta(2)}\cdot
+        \# (M_\beta \circ f_{2 \to \beta}(\yf_{1:n})) \leq \frac{4}{L_\beta\Pi_\beta}(\nlogbeta)^{k_\beta}\left(L_\beta \Pi_\beta^+ \right)^{\nlogbeta}\cdot
     \end{equation}
 \end{lemma}
 \begin{proof}
@@ -242,27 +242,27 @@ As this result is tied to algebraic considerations that deviate a lot from the m
     \begin{enumerate}[label=(\alph*)]
         \item Similary as in the proof of Theorem \ref{thm:asymptotic behavior of card f x when the Bernoulli convolution is absolutely continuous}, we define a set $A(\yf_{1:n}) \supseteq f_{2 \to \beta}(\yf_{1:n})$ by the observation that
         \begin{align}
-            f_{2 \to \beta}(\yf_{1:n}) &=  \left\{ y \in \{0,1\}^{n \log_\beta(2)} :  \sum_{i=1}^{n \log_\beta(2)} y_i \beta^{-i} \in_{n} J(\yf_{1:n})\right\}\\
-            &\subseteq \left\{ y \in \{0,1\}^{n \log_\beta(2)} :  \sum_{i=1}^{n \log_\beta(2)} y_i \beta^{-i} \in J(\yf_{1:n})^{(n)}\right\} =: A(\yf_{1:n}).
+            f_{2 \to \beta}(\yf_{1:n}) &=  \left\{ y \in \{0,1\}^{\nlogbeta} :  \sum_{i=1}^{\nlogbeta} y_i \beta^{-i} \in_{n} J(\yf_{1:n})\right\}\\
+            &\subseteq \left\{ y \in \{0,1\}^{\nlogbeta} :  \sum_{i=1}^{\nlogbeta} y_i \beta^{-i} \in J(\yf_{1:n})^{(n)}\right\} =: A(\yf_{1:n}).
         \end{align}
         We define $\hat F(\yf_{1:n}) := M_\beta(A(\yf_{1:n}))$. Note that $F(\yf_{1:n}) \subseteq \hat F(\yf_{1:n})$. We hence study the cardinality of $\hat F(\yf_{1:n})$, which will deliver an upper bound on the cardinality of $F(\yf_{1:n})$.
         \item First note that $\hat F(\yf_{1:n}) \subseteq A(\yf_{1:n})$. Indeed, let $x \in \hat F(\yf_{1:n})$. Then, there exists $u \in A(\yf_{1:n})$ such that $M_\beta(u) = x$. Since $M_\beta^{-1}(\{x\}) = [x]_\beta$, then we deduce that $u \sim_\beta x$, i.e.,
         \begin{equation}\label{eq:0:proof:cor:upper bound on the relative compressibility of beta expansions for algebraic beta}
-            \sum_{i=1}^{n\log_\beta(2)} x_i \beta^{-i} = \sum_{i=1}^{n\log_\beta(2)} u_i \beta^{-i} \overset{(a)}{\in} J(\yf_{1:n})^{(n)},
+            \sum_{i=1}^{\nlogbeta} x_i \beta^{-i} = \sum_{i=1}^{\nlogbeta} u_i \beta^{-i} \overset{(a)}{\in} J(\yf_{1:n})^{(n)},
         \end{equation}
         where (a) follows from the definition of $A(\yf_{1:n})$. We conclude that, indeed, $x \in A(\yf_{1:n})$, so $\hat F(\yf_{1:n}) \subseteq A(\yf_{1:n})$.
-        \item As a direct consequence, remark that by denoting $m_n$ to be the smallest distance between two different numbers of the form $\sum_{i=1}^{n\log_\beta(2)} x_i \beta^{-i}$, $x \in \hat F(\yf_{1:n})$, we have that 
+        \item As a direct consequence, remark that by denoting $m_n$ to be the smallest distance between two different numbers of the form $\sum_{i=1}^{\nlogbeta} x_i \beta^{-i}$, $x \in \hat F(\yf_{1:n})$, we have that 
         \begin{equation}\label{eq:1:proof:cor:upper bound on the relative compressibility of beta expansions for algebraic beta}
            m_n \#\hat  F(\yf_{1:n}) \leq |J(\yf_{1:n})|^{(n)} \overset{(\ref{eq:definition of superset of size 2 -n more})}{=} |J(\yf_{1:n})| + 2\cdot 2^{-n} \overset{(\ref{eq:J x:def:multivalued function converting from base 2 to base beta})}{=} 4 \cdot 2^{-n}.
         \end{equation}
-        \item Finally, since $A(\yf_{1:n}) \subseteq \{0,1\}^{n \log_\beta(2)}$, then $\hat F(\yf_{1:n}) \subseteq M_\beta(\{0,1\}^{n\log_\beta(2)})$. By Corollary \ref{cor: separation lemma for lexicographically maximal sequences}, this shows that 
+        \item Finally, since $A(\yf_{1:n}) \subseteq \{0,1\}^{\nlogbeta}$, then $\hat F(\yf_{1:n}) \subseteq M_\beta(\{0,1\}^{\nlogbeta})$. By Corollary \ref{cor: separation lemma for lexicographically maximal sequences}, this shows that 
         \begin{equation}\label{eq:2:proof:cor:upper bound on the relative compressibility of beta expansions for algebraic beta}
-            m_n \geq \frac{L_\beta\Pi_\beta}{\displaystyle  (n\log_\beta(2))^{k_\beta}\left(\beta L_\beta \Pi_\beta^+\right)^{n\log_\beta(2)}} = \frac{2^{-n}L_\beta\Pi_\beta}{\displaystyle (n\log_\beta(2))^{k_\beta}\left(L_\beta \Pi_\beta^+\right)^{n\log_\beta(2)}}\cdot
+            m_n \geq \frac{L_\beta\Pi_\beta}{\displaystyle  (\nlogbeta)^{k_\beta}\left(\beta L_\beta \Pi_\beta^+\right)^{\nlogbeta}} = \frac{2^{-n}L_\beta\Pi_\beta}{\displaystyle (\nlogbeta)^{k_\beta}\left(L_\beta \Pi_\beta^+\right)^{\nlogbeta}}\cdot
         \end{equation}
     \end{enumerate}
     Combining (\ref{eq:1:proof:cor:upper bound on the relative compressibility of beta expansions for algebraic beta}) and (\ref{eq:2:proof:cor:upper bound on the relative compressibility of beta expansions for algebraic beta}), we get 
     \begin{equation}
-       \#F(\yf_{1:n}) \leq \# \hat F(\yf_{1:n}) \leq \frac{\displaystyle  4(n\log_\beta(2))^{k_\beta}\left(L_\beta \Pi_\beta^+ \right)^{n\log_\beta(2)}}{L_\beta \Pi_\beta}\cdot
+       \#F(\yf_{1:n}) \leq \# \hat F(\yf_{1:n}) \leq \frac{\displaystyle  4(\nlogbeta)^{k_\beta}\left(L_\beta \Pi_\beta^+ \right)^{\nlogbeta}}{L_\beta \Pi_\beta}\cdot
     \end{equation}
 \end{proof}
 \noindent We further show that $M_\beta \circ f_{\beta \to 2}$ is computable relatively to $\beta$.
@@ -348,23 +348,23 @@ As this result is tied to algebraic considerations that deviate a lot from the m
 \begin{proof}
     Let $\beta \in (1,2)$ be an algebraic number and $\xf \in \Omega_\beta$. Define $s := \sum_{i=1}^\infty \xf_i \beta^{-i}$, and $\yf \in \{0,1\}^\N$ to be the greedy binary expansion of $s$. Recall that by (\ref{eq:multivalued function converting from base 2 to base beta is a supset of the beta prefixes}),
     \begin{equation}
-        \Sigma_\beta(s,n\log_\beta(2)) \subseteq f_{2 \to \beta}(\yf_{1:n}),
+        \Sigma_\beta(s,\nlogbeta) \subseteq f_{2 \to \beta}(\yf_{1:n}),
     \end{equation}
     which implies that 
     \begin{equation}
-        M_\beta(\Sigma_\beta(s,n\log_\beta(2))) \subseteq M_\beta\circ f_{2 \to \beta}(\yf_{1:n}).
+        M_\beta(\Sigma_\beta(s,\nlogbeta)) \subseteq M_\beta\circ f_{2 \to \beta}(\yf_{1:n}).
     \end{equation}
-    Since $\xf_{1:n\log_\beta(2)} \in \Sigma_\beta(s,n\log_\beta(2))$, then 
+    Since $\xf_{1:\nlogbeta} \in \Sigma_\beta(s,\nlogbeta)$, then 
     \begin{equation}
-        (M_\beta\xf)_{1:n\log_\beta(2)} \in M_\beta(\Sigma_\beta(s,n\log_\beta(2))) \subseteq M_\beta\circ f_{2 \to \beta}(\yf_{1:n}).
+        (M_\beta\xf)_{1:\nlogbeta} \in M_\beta(\Sigma_\beta(s,\nlogbeta)) \subseteq M_\beta\circ f_{2 \to \beta}(\yf_{1:n}).
     \end{equation}
     By Corollary \ref{cor:M is computable for algebraic beta}, $F := M_\beta \circ f_{2 \to \beta}$ is computable relatively to $\beta$. By Theorem \ref{thm:computable multivalued functions and complexity}, this yields
     \begin{align}
-        K[(M_\beta\xf)_{1:n\log_\beta(2)}|\beta]\leq K[\yf_{1:n}|\beta] + \log \# F(\yf_{1:n}) + \log\log \# F(\yf_{1:n}) + \bigOx[1]{n}.
+        K[(M_\beta\xf)_{1:\nlogbeta}|\beta]\leq K[\yf_{1:n}|\beta] + \log \# F(\yf_{1:n}) + \log\log \# F(\yf_{1:n}) + \bigOx[1]{n}.
     \end{align}
     By Lemma \ref{lem:bounding the size of the output set of the multivalued function projected on lexicographically maximal sequences}, 
     \begin{equation}
-        \# (F(\yf_{1:n})) \leq \frac{4}{L_\beta\Pi_\beta}  (n\log_\beta(2))^{k_\beta}\left(L_\beta \Pi_\beta^+ \right)^{n\log_\beta(2)}\cdot
+        \# (F(\yf_{1:n})) \leq \frac{4}{L_\beta\Pi_\beta}  (\nlogbeta)^{k_\beta}\left(L_\beta \Pi_\beta^+ \right)^{\nlogbeta}\cdot
     \end{equation}
     Note that then,
     \begin{equation}
@@ -376,6 +376,6 @@ As this result is tied to algebraic considerations that deviate a lot from the m
     \end{equation}
     We conclude that
     \begin{equation}
-        \bar\Delta_\beta(M_\beta\xf) = \limsup_{n\to \infty} \frac{K[(M_\beta\xf)_{1:n\log_\beta(2)}|\beta] - K[\yf_{1:n}|\beta]}{n} \leq \log_\beta\left(L_\beta \Pi_\beta^+\right).
+        \bar\Delta_\beta(M_\beta\xf) = \limsup_{n\to \infty} \frac{K[(M_\beta\xf)_{1:\nlogbeta}|\beta] - K[\yf_{1:n}|\beta]}{n} \leq \log_\beta\left(L_\beta \Pi_\beta^+\right).
     \end{equation}
 \end{proof}
